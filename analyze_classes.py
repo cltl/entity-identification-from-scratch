@@ -6,11 +6,9 @@ def inspect(data):
     identities=set()
     print(len(data), 'news documents')
     for news_item_obj in data:
-        for m in news_item_obj.entity_mentions:
-            print(m.identity)
-            sys.exit()
+        for m in news_item_obj.sys_entity_mentions:
             identities.add(m.identity)
-        num_mentions+=len(news_item_obj.entity_mentions)
+        num_mentions+=len(news_item_obj.sys_entity_mentions)
     print('Num mentions', num_mentions)
     print('Num identities', len(identities))
 

@@ -1,4 +1,4 @@
-from lxml import etree
+rom lxml import etree
 import json
 
 tree = etree.parse("input_data/nlwikinews-latest-pages-articles.xml")

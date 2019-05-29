@@ -20,10 +20,13 @@ class NewsItem:
     """
     def __init__(self, identifier, content="", 
                 collection=None, title='',
-                dct=None):
+                dct=None,
+                sys_entity_mentions=[],
+                gold_entity_mentions=[]):
         self.identifier = identifier  # string, the original document name in the dataset
         self.collection = collection  # which collection does it come from (one of ECB+, SignalMedia, or some WSD dataset)
         self.dct = dct                # e.g. "2005-05-14T02:00:00.000+02:00" -> document creation time
         self.content = content	      # the text of the news article
         self.title=title
-        self.entity_mentions = []  # set of instances of EntityMention class
+        self.sys_entity_mentions = []  # set of instances of EntityMention class
+        self.gold_entity_mentions = [] # set of instances of EntityMention class
