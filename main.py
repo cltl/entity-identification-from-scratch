@@ -2,6 +2,7 @@ import pickle
 import os.path
 import copy
 from gensim.models import Word2Vec
+import networkx as nx
 
 import load_utils
 import entity_utils as utils
@@ -10,7 +11,8 @@ import config
 
 def generate_identity(objs, 
                       prefix='http://cltl.nl/entity#', 
-                      factors=[]):
+                      factors=[],
+                      filename=''):
     """
     Decide which entities are identical, based on a set of recognized entity mentions and flexible set of factors.
     """
@@ -22,8 +24,6 @@ def generate_identity(objs,
                 mention.identity+=news_item.identifier.split('_')[-1]
             if 'type' in factors:
                 mention.identity+=mention.the_type
-
-    filename='bin/el/mention_%s_graph.pkl' % '_'.join(factors)
 
     with open(filename, 'wb') as w:
         pickle.dump(data, w)
@@ -39,7 +39,7 @@ def generate_embeddings(news_items_with_entities, save_loc=''):
         return model
     all_sentences=utils.load_sentences(news_items_with_entities)
     model = Word2Vec(all_sentences,
-                     min_count=2,   # Ignore words that appear less than this
+                     min_count=1,   # Ignore words that appear less than this
                      size=200,      # Dimensionality of word embeddings
                      workers=2,     # Number of processors (parallelisation)
                      window=5,      # Context window for words during training
@@ -47,6 +47,14 @@ def generate_embeddings(news_items_with_entities, save_loc=''):
     if save_loc:
         model.save(save_loc)
     return model
+    
+def inspect_data(data, graph_file):
+    """Analyze basic properties of the data."""
+    with_types='type' in graph_file
+    g=None
+    if with_types:
+        g=nx.read_gpickle(graph_file)
+    utils.inspect(data, with_types, g)
     
 if __name__ == "__main__":
 
@@ -66,14 +74,31 @@ if __name__ == "__main__":
     # Generate baseline graphs
     all_factors=config.factors
     for factor_combo in utils.get_variable_len_combinations(all_factors):
+        if len(factor_combo)<2: continue
         print('Assuming identity factors:', factor_combo)
+        
+        # GENERATE IDENTITIES
         print('Generating identities and graphs...')
+        el_file='bin/el/mention_%s_graph.pkl' % '_'.join(factor_combo)
         data=generate_identity(news_items_with_entities, 
-                          factors=factor_combo)
+                          factors=factor_combo, filename=el_file)
+
+        # ANALYZE
+        graph_file='bin/graphs/mention_%s_graph.graph' % '_'.join(factor_combo)
+        inspect_data(data, graph_file)
+        
+        # GENERATE (OR LOAD) EMBEDDINGS
         emb_file='bin/emb/emb_%s.model' % '_'.join(factor_combo)
         print('done.')
         print('Generating initial embeddings...')
         embeddings=generate_embeddings(data, 
                                        save_loc=emb_file)
+        
+        print(embeddings.wv.vocab)
         print('DONE!')
+
+        e1='Coulibaly590PER'
+        e2='Van_der_Laan2161PER'
+        print(utils.compute_similarity(e1, e2, embeddings))
+        
         break
