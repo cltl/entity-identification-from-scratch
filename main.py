@@ -94,11 +94,37 @@ if __name__ == "__main__":
         embeddings=generate_embeddings(data, 
                                        save_loc=emb_file)
         
-        print(embeddings.wv.vocab)
+        old_len_vocab=embeddings.wv.vocab
         print('DONE!')
-
-        e1='Coulibaly590PER'
-        e2='Van_der_Laan2161PER'
-        print(utils.compute_similarity(e1, e2, embeddings))
         
+        while True:
+            iter=2
+            print()
+            print('ITERATION:', iter)
+            print()
+            refined_news_items=copy.deepcopy(data)
+            m2id=utils.construct_m2id(refined_news_items)
+            new_ids=utils.cluster_identities(m2id, embeddings.wv)
+
+            refined_news_items=utils.replace_identities(refined_news_items, 
+                                                        new_ids)
+            
+            # ANALYZE
+            inspect_data(refined_news_items)
+            
+            # GENERATE EMBEDDINGS
+            print('done.')
+            print('Generating initial embeddings...')
+            embeddings=generate_embeddings(refined_news_items)
+            
+            print(len(wv.vocab))
+            if old_len_vocab==len(embeddings.wv.vocab):
+                print('No change in this iteration. Done refining...')
+                break
+            
+            old_len_vocab=len(embeddings.wv.vocab)
+            
+            iter+=1
+        
+            data=refined_news_items
         break

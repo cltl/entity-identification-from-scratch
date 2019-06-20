@@ -7,11 +7,58 @@ import spacy
 import sys
 import itertools
 import numpy as np
+from sklearn.cluster import DBSCAN
 from collections import Counter, defaultdict
 from sklearn.metrics.pairwise import cosine_similarity
 
 import nl_core_news_sm
 nl_nlp=nl_core_news_sm.load()
+
+def replace_identities(news_items_with_entities, new_ids):
+    for item in news_items_with_entities:
+        for e in item.sys_entity_mentions:
+            identity=e.identity.lstrip('http://cltl.nl/entity#').replace(' ', '_')
+            new_identity=new_ids[identity]
+            e.identity=new_identity
+    return news_items_with_entities
+
+def construct_m2id(news_items_with_entities):
+    """Construct an index of mentions to identities."""
+    m2id=defaultdict(set)
+    for item in news_items_with_entities:
+        for e in item.sys_entity_mentions:
+            identity=e.identity.lstrip('http://cltl.nl/entity#').replace(' ', '_')
+            if identity.endswith('MISC'): continue
+            m2id[e.mention].add(identity)
+    return m2id
+
+def cluster_matrix(distances, eps=0.1, min_samples=1):
+    labels=DBSCAN(min_samples=min_samples, eps=eps, metric='precomputed').fit_predict(distances)
+    n_clusters = len(set(labels)) - (1 if -1 in labels else 0)
+    n_noise = list(labels).count(-1)
+        
+    return list(labels), n_clusters, n_noise
+
+def cluster_identities(m2id, wv):
+    """Cluster identities for all mentions based on vector similarity."""
+    new_identities={}
+    for m, ids in m2id.items():
+        num_cands=len(ids)
+        if num_cands<2: continue
+        dist_matrix = np.zeros(shape=(num_cands, num_cands)) # Distances matrix
+        ids=list(ids)
+        for i, ent_i in enumerate(ids):
+            for j, ent_j in enumerate(ids):
+                if i>j:
+                    dist=1-compute_similarity(ent_i, ent_j, wv)
+                    dist_matrix[i,j]=dist
+                    dist_matrix[j,i]=dist
+        clusters, n_clusters, n_noise = cluster_matrix(dist_matrix, eps=0.4)
+        for index, cluster_id in enumerate(clusters):
+            new_id='%s_%d' % (m, cluster_id)
+            old_id=ids[index]
+            new_identities[old_id]=new_id
+    return new_identities
 
 def inspect(data, with_types=False, graph=None):
     num_mentions=0
@@ -54,8 +101,16 @@ def inspect(data, with_types=False, graph=None):
 
 def compute_similarity(w1, w2, vectors):
     """Compute similarity of 2 vectors."""
+    #try:
     v1=np.array(vectors[w1]).reshape(1, -1)
+    #except:
+    #    print(w1, 'not in vocab')
+    #    return 0
+    #try:
     v2=np.array(vectors[w2]).reshape(1, -1)
+    #except:
+    #    print(w2, 'not in vocab')
+    #    return 0
     return cosine_similarity(v1, v2)
 
 def load_sentences(data):
@@ -87,8 +142,6 @@ def replace_entities(text, mentions):
                 new_text.append(to_replace[idx])
         else:
             new_text.append(token)
-    if 'Couliba' in to_replace.values() or 'Coulibaly' in to_replace.values():
-        print(new_text)
     return ' '.join(new_text)
 
 def generate_graph(data, filename):
