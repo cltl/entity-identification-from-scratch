@@ -3,7 +3,7 @@ import os.path
 import copy
 from gensim.models import Word2Vec
 import networkx as nx
-
+from collections import defaultdict
 import load_utils
 import entity_utils as utils
 import config
@@ -19,7 +19,8 @@ def generate_identity(objs,
     data=copy.deepcopy(objs)
     for news_item in data:
         for mention in news_item.sys_entity_mentions:
-            mention.identity='%s%s' % (prefix, mention.mention)
+            mention.identity=utils.strip_identity(mention.mention)
+            #'%s%s' % (prefix, mention.mention)
             if 'docid' in factors:
                 mention.identity+=news_item.identifier.split('_')[-1]
             if 'type' in factors:
@@ -55,7 +56,23 @@ def inspect_data(data, graph_file):
     if with_types:
         g=nx.read_gpickle(graph_file)
     utils.inspect(data, with_types, g)
-    
+
+def embeddings_in_a_doc(embeddings, d):
+    for e in embeddings:
+        if d in e:
+            print(e)
+
+def identity_vs_embeddings_stats(data, embeddings):
+    stats=defaultdict(int)
+    for news_item in data:
+        for entity_mention in news_item.sys_entity_mentions:
+            identity=utils.strip_identity(entity_mention.identity)
+            #print(entity_mention.mention, entity_mention.identity, identity, identity in embeddings)
+            stats[identity in embeddings]+=1
+            if not identity in embeddings:
+                print(identity)
+    print(stats)
+
 if __name__ == "__main__":
 
     input_dir='documents'
@@ -66,7 +83,8 @@ if __name__ == "__main__":
             news_items_with_entities=pickle.load(f)
     else:
         print('Pickle file does not exist. Let us load the news items and run NER...')
-        news_items=load_utils.load_news_items(input_dir)
+        news_items=load_utils.load_news_items('data/%s' % input_dir)
+        print('Loaded %d news items' % len(news_items))
         news_items_with_entities=utils.recognize_entities(news_items)
         with open('bin/%s.pkl' % input_dir, 'wb') as w:
             pickle.dump(news_items_with_entities, w)
@@ -93,8 +111,10 @@ if __name__ == "__main__":
         print('Generating initial embeddings...')
         embeddings=generate_embeddings(data, 
                                        save_loc=emb_file)
-        
-        old_len_vocab=embeddings.wv.vocab
+    
+        #embeddings_in_a_doc(embeddings.wv.vocab, '3382')
+        identity_vs_embeddings_stats(data, embeddings.wv.vocab)
+        old_len_vocab=len(embeddings.wv.vocab)
         print('DONE!')
         
         while True:

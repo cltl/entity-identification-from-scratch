@@ -17,17 +17,21 @@ nl_nlp=nl_core_news_sm.load()
 def replace_identities(news_items_with_entities, new_ids):
     for item in news_items_with_entities:
         for e in item.sys_entity_mentions:
-            identity=e.identity.lstrip('http://cltl.nl/entity#').replace(' ', '_')
+            identity=strip_identity(e.identity)
             new_identity=new_ids[identity]
             e.identity=new_identity
     return news_items_with_entities
+
+def strip_identity(i):
+    identity=i.replace('http://cltl.nl/entity#', '')
+    return identity.replace(' ', '_')
 
 def construct_m2id(news_items_with_entities):
     """Construct an index of mentions to identities."""
     m2id=defaultdict(set)
     for item in news_items_with_entities:
         for e in item.sys_entity_mentions:
-            identity=e.identity.lstrip('http://cltl.nl/entity#').replace(' ', '_')
+            identity=strip_identity(e.identity)
             if identity.endswith('MISC'): continue
             m2id[e.mention].add(identity)
     return m2id
@@ -118,9 +122,9 @@ def load_sentences(data):
 
     all_sentences=[]
     for news_item in data:
-        new_content=replace_entities(str(news_item.content), news_item.sys_entity_mentions)
-        text=f"{news_item.title}\n{new_content}"
-        nl_doc=nl_nlp(text)
+        text=f"{news_item.title}\n{news_item.content}"
+        new_content=replace_entities(text, news_item.sys_entity_mentions)
+        nl_doc=nl_nlp(new_content)
         for sent in nl_doc.sents:
             sent_tokens = [t.text for t in sent]
             all_sentences.append(sent_tokens)
@@ -129,8 +133,10 @@ def load_sentences(data):
 def replace_entities(text, mentions):
     to_replace={}
     for e in mentions:
-        to_replace[e.begin_index]=e.identity.lstrip('http://cltl.nl/entity#').replace(' ', '_')
-        for i in range(e.begin_index+1, e.end_index):
+        start_index=e.begin_index
+        end_index=e.end_index
+        to_replace[start_index]=strip_identity(e.identity)
+        for i in range(start_index+1, end_index):
             to_replace[i]=''
     doc=nl_nlp(text)
     new_text=[]
