@@ -14,6 +14,10 @@ The current solution is entirely unsupervised, and works as follows:
 \*Repeat step 6 and 7 until convergence
 \*Repeat steps 4-7 for different assumptions in step 3
 
+### Authors
+
+* Filip Ilievski (f.ilievski@vu.nl)
+
 ### Code structure
 
 * The script `extract_corpus.py` creates a first corpus we will work with, in JSON format and as Python classes. It expects the file `data/input_data/nlwikinews-latest-pages-articles.xml` as input, which is a collection of Wikinews documents in Dutch in XML format. This script uses some functions from `load_utils.py`.

@@ -134,7 +134,7 @@ if __name__ == "__main__":
     # Generate baseline graphs
     all_factors=config.factors
     for factor_combo in utils.get_variable_len_combinations(all_factors):
-        if len(factor_combo)<2: continue
+        #if len(factor_combo)<2: continue
         print('Assuming identity factors:', factor_combo)
         
         # GENERATE IDENTITIES
@@ -147,6 +147,8 @@ if __name__ == "__main__":
         graph_file='bin/graphs/mention_%s_graph.graph' % '_'.join(factor_combo)
         inspect_data(data, graph_file)
         
+        if True:
+            continue
         # GENERATE (OR LOAD) EMBEDDINGS
         emb_file='bin/emb/emb_%s.model' % '_'.join(factor_combo)
         print('done.')
@@ -159,9 +161,9 @@ if __name__ == "__main__":
         old_len_vocab=len(embeddings.wv.vocab)
         print('DONE!')
         
-        sys.exit()
+#        sys.exit()
         
-        while True:
+        while False:
             iter=2
             print()
             print('ITERATION:', iter)
@@ -191,4 +193,4 @@ if __name__ == "__main__":
             iter+=1
         
             data=refined_news_items
-        break
+        #break
