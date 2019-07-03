@@ -16,7 +16,7 @@ The current solution is entirely unsupervised, and works as follows:
 
 ### Code structure
 
-* The script `extract_corpus.py` creates a first corpus we will work with. It expects the file `data/input_data/nlwikinews-latest-pages-articles.xml` as input, which is a collection of Wikinews documents in Dutch in XML format. This script uses some functions from `load_utils.py`.
+* The script `extract_corpus.py` creates a first corpus we will work with, in JSON format and as Python classes. It expects the file `data/input_data/nlwikinews-latest-pages-articles.xml` as input, which is a collection of Wikinews documents in Dutch in XML format. This script uses some functions from `load_utils.py`.
 
 * The script `main.py` executes the procedure described above. It relies on the utility file `entity_utils.py`, on the classes file `classes.py`, and on the configuration file `config.py`.
 
@@ -24,10 +24,16 @@ The current solution is entirely unsupervised, and works as follows:
 
 ### Next steps
 
-* Debugging:
-    * words not in vocabulary
-    * fix identity links in the data loading procedure
-    * improve the data loading, i.e., pay attention to templates
-* Inspect MISC entities
-* Evaluation by using the gold links extracted
-* Employ Doc2Vec
+* [must] Create NAF at the initial document processing, add layers during the refinements
+    * Refactoring: run SpaCy only once - connect NAF and classes
+* [must] Ensure the circular approach works (for iteration >=2) until convergence
+    * ensure iteration>=2 works
+* [analysis] Evaluate the accuracy of the approach by using the [incomplete] links we have
+    * For each of the 4 baseline assumptions
+    * At various iterations of refinement
+* [enhancement] initialize word2vec with pre-trained word embeddings (and zeros for the rest)
+* [enhancement] Incorporate doc2vec
+* [enhancement] implement other identity assumptions 
+    * based on events/incidents 
+    * based on document similarity
+* [general] Try a different dataset

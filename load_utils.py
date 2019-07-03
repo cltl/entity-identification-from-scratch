@@ -1,6 +1,8 @@
 import wikitextparser as wtp
 import glob
 import json
+import re
+import pickle
 
 import classes
 
@@ -54,23 +56,35 @@ def create_gold_mentions(links, text):
         mentions.append(obj)
     return mentions
 
-def load_news_items(loc):
-    """
-    Load news items into objects defined in the classes file.
-    """
-    
-    news_items=set()
-    for file in glob.glob('%s/*.json' % loc):
-        with open(file, 'r') as f:
-            data=json.load(f)
-        text, links=get_text_and_links(data['body'])
-        news_item_obj=classes.NewsItem(
-            content=text,
-            title=data['title'],
-            identifier=file.split('.')[0],
-            collection=loc,
-            gold_entity_mentions=create_gold_mentions(links, text)
-        )
+def clean_wiki(wikitext):
+    """Removes wiki flags"""
+    text = str(wikitext)
+    # date tags {{Datum|foo}}
+    text = re.sub(r'\{\{Datum\|(.*)\}\}', r'\1.', text)
+    # wiki entities {{W|foo}}
+    text = re.sub(r'\{\{W\|([\|]*)\}\}', r'\1', text)
+    # wiki entities {{w|id|foo}}
+    text = re.sub(r'\{\{w\|[^\|]*\|([^\|]*)\}\}', r'\1', text)
+    # wiki non Dutch entities {{w|id|foo|lang}}
+    text = re.sub(r'\{\{w\|[^\|]*\|([^\|]*)\|[^\|]*\}\}', r'\1', text)
+    # base markup {{foo}}
+    text = re.sub(r'\{\{([^\|]*)\}\}', r'\1', text)
+    # anything else {{bla}} is deleted
+    text = re.sub(r'\{\{([^\}]*)\}\}', '', text)
+    #text = re.split('\s+', text)
+    return text
 
-        news_items.add(news_item_obj)
-    return news_items
+
+# ------ Processing news items -------------------
+
+
+def load_news_items(bindir, docid):
+    """Loads news items with entities."""
+    with open(bindir + '/%s.pkl' % docid, 'rb') as f:
+        news_items_with_entities = pickle.load(f)
+    return news_items_with_entities
+
+def save_news_items(bindir, docid, data):
+    """Save news items with entities."""
+    with open('%s/%s.pkl' % (bindir, docid), 'wb') as w:
+        pickle.dump(data, w)

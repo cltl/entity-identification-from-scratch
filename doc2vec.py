@@ -1,39 +1,11 @@
 import os
 import pickle
-import re
 from gensim.models import Doc2Vec
 from gensim.models.doc2vec import TaggedDocument
 import statistics
 
 
 # ------ Processing news items -------------------
-
-
-def load_news_items(bindir, docid):
-    """Loads news items"""
-    with open(bindir + '/%s.pkl' % docid, 'rb') as f:
-        news_items_with_entities = pickle.load(f)
-    return news_items_with_entities
-
-
-def clean_wiki(wikitext):
-    """Removes wiki flags"""
-    text = str(wikitext)
-    # date tags {{Datum|foo}}
-    text = re.sub(r'\{\{Datum\|(.*)\}\}', r'\1.', text)
-    # wiki entities {{W|foo}}
-    text = re.sub(r'\{\{W\|([\|]*)\}\}', r'\1', text)
-    # wiki entities {{w|id|foo}}
-    text = re.sub(r'\{\{w\|[^\|]*\|([^\|]*)\}\}', r'\1', text)
-    # wiki non Dutch entities {{w|id|foo|lang}}
-    text = re.sub(r'\{\{w\|[^\|]*\|([^\|]*)\|[^\|]*\}\}', r'\1', text)
-    # base markup {{foo}}
-    text = re.sub(r'\{\{([^\|]*)\}\}', r'\1', text)
-    # anything else {{bla}} is deleted
-    text = re.sub(r'\{\{([^\}]*)\}\}', '', text)
-    text = re.split('\s+', text)
-    return text
-
 
 def load_docs_for_evaluation(bindir, docid, ids=None):
     """Loads news items, cleans them and associates them to their identifier index"""

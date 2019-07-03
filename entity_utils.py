@@ -1,5 +1,3 @@
-import classes
-
 import networkx as nx
 from pprint import pprint
 import pickle
@@ -10,9 +8,12 @@ import numpy as np
 from sklearn.cluster import DBSCAN
 from collections import Counter, defaultdict
 from sklearn.metrics.pairwise import cosine_similarity
+import datetime
 
-import nl_core_news_sm
-nl_nlp=nl_core_news_sm.load()
+import spacy_to_naf
+
+import classes
+
 
 def replace_identities(news_items_with_entities, new_ids):
     for item in news_items_with_entities:
@@ -117,20 +118,20 @@ def compute_similarity(w1, w2, vectors):
     #    return 0
     return cosine_similarity(v1, v2)
 
-def load_sentences(data):
+def load_sentences(nlp, data):
     """Given a set of classes with entities and links, generate embeddings."""
 
     all_sentences=[]
     for news_item in data:
         text=f"{news_item.title}\n{news_item.content}"
-        new_content=replace_entities(text, news_item.sys_entity_mentions)
-        nl_doc=nl_nlp(new_content)
+        new_content=replace_entities(nlp, text, news_item.sys_entity_mentions)
+        nl_doc=nlp(new_content)
         for sent in nl_doc.sents:
             sent_tokens = [t.text for t in sent]
             all_sentences.append(sent_tokens)
     return all_sentences
 
-def replace_entities(text, mentions):
+def replace_entities(nlp, text, mentions):
     to_replace={}
     for e in mentions:
         start_index=e.begin_index
@@ -138,7 +139,7 @@ def replace_entities(text, mentions):
         to_replace[start_index]=strip_identity(e.identity)
         for i in range(start_index+1, end_index):
             to_replace[i]=''
-    doc=nl_nlp(text)
+    doc=nlp(text)
     new_text=[]
     for t in doc:
         idx=t.i
@@ -176,15 +177,13 @@ def get_variable_len_combinations(arr):
             res.append(x)
     return res
 
-def recognize_entities(news_items):
+def recognize_entities(nlp, news_items):
     """
     Run NER on all documents.
     """
-    import nl_core_news_sm
-    nl_nlp=nl_core_news_sm.load()
     for i, news_item in enumerate(news_items):
         text=f"{news_item.title}\n{news_item.content}"
-        nl_doc=nl_nlp(text)
+        nl_doc=nlp(text)
         for e in nl_doc.ents:
             ent_mention_obj=classes.EntityMention(
                 mention=e.text,
@@ -195,3 +194,55 @@ def recognize_entities(news_items):
             news_item.sys_entity_mentions.append(ent_mention_obj)
         print(i)
     return news_items
+
+# ------ NAF processing utils --------------------
+
+def create_naf_for_documents(news_items, layers, nlp, naf_path, language='nl'):
+    """Create NAF files for a collection of documents."""
+   
+    # TODO: save to NAF
+    for i, news_item in enumerate(news_items):
+        text=f"{news_item.title}\n{news_item.content}"
+        docid=news_item.identifier
+        print(docid)
+        naf_output_path = naf_folder / f'{docid}.naf'
+        
+        
+#        nl_doc=nl_nlp(text)
+        process_spacy_and_convert_to_naf(nlp,
+                                               text,
+                                               language,
+                                               uri=f'http://wikinews.nl/{docid}',
+                                               title=news_item.title,
+                                               dct=datetime.datetime.now(),
+                                               layers=layers,
+                                               output_path=naf_path)
+        
+
+def process_spacy_and_convert_to_naf(nlp, 
+                                     text, 
+                                     language, 
+                                     uri, 
+                                     title, 
+                                     dct, 
+                                     layers, 
+                                     output_path=None):
+        """
+        process with spacy and convert to NAF
+        :param nlp: spacy language model
+        :param datetime.datetime dct: document creation time
+        :param set layers: layers to convert to NAF, e.g., {'raw', 'text', 'terms'}
+        :param output_path: if provided, NAF is saved to that file
+        :return: the root of the NAF XML object
+        """
+        root = spacy_to_naf.text_to_NAF(text=text,
+                                        nlp=nlp,
+                                        dct=dct,
+                                        layers=layers,
+                                        title=title,
+                                        uri=uri,
+                                        language=language)
+
+        if output_path is not None:
+            with open(output_path, 'w') as outfile:
+                outfile.write(spacy_to_naf.NAF_to_string(NAF=root))

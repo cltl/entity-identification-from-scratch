@@ -4,10 +4,17 @@ import copy
 from gensim.models import Word2Vec
 import networkx as nx
 from collections import defaultdict
+import nl_core_news_sm
+import sys
+from path import Path
+import shutil
+import glob
+
 import load_utils
 import entity_utils as utils
 import config
 
+nl_nlp=nl_core_news_sm.load()
 
 def generate_identity(objs, 
                       prefix='http://cltl.nl/entity#', 
@@ -38,7 +45,7 @@ def generate_embeddings(news_items_with_entities, save_loc=''):
     if save_loc and os.path.isfile(save_loc):
         model = Word2Vec.load(save_loc)
         return model
-    all_sentences=utils.load_sentences(news_items_with_entities)
+    all_sentences=utils.load_sentences(nl_nlp, news_items_with_entities)
     model = Word2Vec(all_sentences,
                      min_count=1,   # Ignore words that appear less than this
                      size=200,      # Dimensionality of word embeddings
@@ -73,22 +80,57 @@ def identity_vs_embeddings_stats(data, embeddings):
                 print(identity)
     print(stats)
 
-if __name__ == "__main__":
-
-    input_dir='documents'
-    pickle_file='bin/%s.pkl' % input_dir
-    if os.path.isfile(pickle_file):
+def get_docs_with_entities(bindir, input_dir):
+    """Obtain news items processed with NER."""
+    pkl_docs='%s/%s.pkl' % (bindir, input_dir)
+    ent_addon='_with_ent'
+    pkl_docs_with_entities='%s/%s%s.pkl' % (bindir, input_dir, ent_addon)
+    
+    if os.path.isfile(pkl_docs_with_entities):
         print('pickle file with recognized entities exists. Loading it now...')
-        with open(pickle_file, 'rb') as f:
-            news_items_with_entities=pickle.load(f)
+        news_items_with_entities=load_utils.load_news_items(bindir, input_dir)
     else:
         print('Pickle file does not exist. Let us load the news items and run NER...')
-        news_items=load_utils.load_news_items('data/%s' % input_dir)
+        news_items=load_utils.load_news_items(bindir, input_dir)
         print('Loaded %d news items' % len(news_items))
-        news_items_with_entities=utils.recognize_entities(news_items)
-        with open('bin/%s.pkl' % input_dir, 'wb') as w:
-            pickle.dump(news_items_with_entities, w)
+        news_items_with_entities=utils.recognize_entities(nl_nlp, news_items)
+        load_utils.save_news_items(bindir, input_dir + ent_addon, news_items_with_entities)
+    return news_items_with_entities
 
+def create_nafs(naf_folder, 
+                news_items, 
+                layers={'raw', 'text', 'terms', 'entities'}):
+    """Create NAFs if not there already."""
+    
+    if naf_folder.exists():
+        file_count =  len(glob.glob('%s/*.naf' % naf_folder))
+        assert file_count == len(news_items), 'NAF directory exists, but a wrong amount of files. Did you edit the source documents?'
+        print('NAF files were already there, and at the right number.')
+        #shutil.rmtree(str(naf_folder))
+    else:
+        print('No NAF files found. Let\'s create them.')
+        naf_folder.mkdir()
+        layers={'raw', 'text', 'terms', 'entities'}
+        utils.create_naf_for_documents(news_items, 
+                                       layers, 
+                                       nl_nlp, 
+                                       str(naf_output_path))
+
+if __name__ == "__main__":
+
+    bindir=Path('bin')
+    input_dir=Path('documents')
+    naf_folder = bindir / 'naf'
+    
+    #TODO: COMBINE NAFs with classes processing to run spacy only once!
+#    news_items=load_utils.load_news_items(str(bindir), str(input_dir))
+    news_items_with_entities=get_docs_with_entities(str(bindir), 
+                                                    str(input_dir))
+    create_nafs(naf_folder, news_items_with_entities)
+ 
+    
+
+        
     # Generate baseline graphs
     all_factors=config.factors
     for factor_combo in utils.get_variable_len_combinations(all_factors):
@@ -116,6 +158,8 @@ if __name__ == "__main__":
         identity_vs_embeddings_stats(data, embeddings.wv.vocab)
         old_len_vocab=len(embeddings.wv.vocab)
         print('DONE!')
+        
+        sys.exit()
         
         while True:
             iter=2
