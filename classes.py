@@ -3,16 +3,23 @@ class EntityMention:
     class containing information about an entity mention
     """
 
-    def __init__(self, mention, 
+    def __init__(self, 
+                 mention, 
                  begin_index, end_index,
+                 eid='-1',
                  gold_link=None,
-                 the_type=None, sentence=None, identity=None):
+                 the_type=None, 
+                 sentence=None, 
+                 identity=None,
+                 tokens=[]):
+        self.eid=eid
         self.sentence = sentence         # e.g. 4 -> which sentence is the entity mentioned in
         self.mention = mention           # e.g. "John Smith" -> the mention of an entity as found in text
         self.the_type = the_type         # e.g. "Person" | "http://dbpedia.org/ontology/Person"
         self.begin_index = begin_index   # e.g. 15 -> begin offset
         self.end_index = end_index       # e.g. 25 -> end offset
         self.identity = identity	 # gold link if existing
+        self.tokens = tokens         # list of token ids
 
 class NewsItem:
     """

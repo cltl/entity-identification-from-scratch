@@ -88,13 +88,16 @@ def get_docs_with_entities(bindir, input_dir):
     
     if os.path.isfile(pkl_docs_with_entities):
         print('pickle file with recognized entities exists. Loading it now...')
-        news_items_with_entities=load_utils.load_news_items(bindir, input_dir)
+        news_items_with_entities=load_utils.load_news_items(bindir, 
+                                                            input_dir + ent_addon)
     else:
         print('Pickle file does not exist. Let us load the news items and run NER...')
         news_items=load_utils.load_news_items(bindir, input_dir)
         print('Loaded %d news items' % len(news_items))
         news_items_with_entities=utils.recognize_entities(nl_nlp, news_items)
-        load_utils.save_news_items(bindir, input_dir + ent_addon, news_items_with_entities)
+        load_utils.save_news_items(bindir, 
+                                   input_dir + ent_addon, 
+                                   news_items_with_entities)
     return news_items_with_entities
 
 def create_nafs(naf_folder, 
@@ -114,60 +117,84 @@ def create_nafs(naf_folder,
         utils.create_naf_for_documents(news_items, 
                                        layers, 
                                        nl_nlp, 
-                                       str(naf_output_path))
+                                       naf_folder)
 
+def patch_classes_with_tokens(news_items, naf_dir, entity_layer):
+    for item in news_items:
+        docid=item.identifier
+        naf_output_path = naf_dir / f'{docid}.naf'
+        eid_to_tids=utils.obtain_entity_data(naf_output_path, entity_layer)
+        for e in item.sys_entity_mentions:
+            eid=e.eid
+            e.tokens=eid_to_tids[eid]
+    return news_items
+        
 if __name__ == "__main__":
 
     bindir=Path('bin')
     input_dir=Path('documents')
     naf_folder = bindir / 'naf'
+    naf0=naf_folder / '0'
+    # ------ Generate NAFs and fill classes with entity mentions (Steps 1 and 2) --------------------
     
     #TODO: COMBINE NAFs with classes processing to run spacy only once!
-#    news_items=load_utils.load_news_items(str(bindir), str(input_dir))
     news_items_with_entities=get_docs_with_entities(str(bindir), 
                                                     str(input_dir))
-    create_nafs(naf_folder, news_items_with_entities)
- 
-    
+    create_nafs(naf0, news_items_with_entities)
 
+    entity_layer='entities'
+    #news_items_with_entities=patch_classes_with_tokens(news_items_with_entities,
+    #                                                   naf0, 
+    #                                                   entity_layer)
         
     # Generate baseline graphs
     all_factors=config.factors
     for factor_combo in utils.get_variable_len_combinations(all_factors):
-        #if len(factor_combo)<2: continue
+        iteration=1
+        # ------ Pick identity assumption (Step 3) --------------------
+        
+        if len(factor_combo)<2: continue
         print('Assuming identity factors:', factor_combo)
         
-        # GENERATE IDENTITIES
+        # ------ Run iteration 1 --------------------
+
+        # GENERATE IDENTITIES (Step 4)
         print('Generating identities and graphs...')
+        
         el_file='bin/el/mention_%s_graph.pkl' % '_'.join(factor_combo)
         data=generate_identity(news_items_with_entities, 
-                          factors=factor_combo, filename=el_file)
-
-        # ANALYZE
+                               factors=factor_combo, 
+                               filename=el_file)
+        
+        utils.add_ext_references(data, 
+                           f'iteration{iteration}', 
+                           naf0, 
+                           naf_folder / str(iteration))
+        sys.exit()
+        # ANALYZE IDENTITIES
         graph_file='bin/graphs/mention_%s_graph.graph' % '_'.join(factor_combo)
         inspect_data(data, graph_file)
-        
-        if True:
-            continue
-        # GENERATE (OR LOAD) EMBEDDINGS
+
+        # GENERATE (OR LOAD) EMBEDDINGS (Step 5)
         emb_file='bin/emb/emb_%s.model' % '_'.join(factor_combo)
         print('done.')
         print('Generating initial embeddings...')
         embeddings=generate_embeddings(data, 
                                        save_loc=emb_file)
     
+        # ANALYZE EMBEDDINGS
         #embeddings_in_a_doc(embeddings.wv.vocab, '3382')
         identity_vs_embeddings_stats(data, embeddings.wv.vocab)
         old_len_vocab=len(embeddings.wv.vocab)
-        print('DONE!')
-        
-#        sys.exit()
-        
-        while False:
-            iter=2
+        print('Iteration 1 finished! Now refining...')
+                
+        sys.exit()
+        while True:
+            iteration=2
             print()
-            print('ITERATION:', iter)
+            print('Starting ITERATION:', iteration)
             print()
+            # TODO: FIX THIS PART!
             refined_news_items=copy.deepcopy(data)
             m2id=utils.construct_m2id(refined_news_items)
             new_ids=utils.cluster_identities(m2id, embeddings.wv)
@@ -190,7 +217,8 @@ if __name__ == "__main__":
             
             old_len_vocab=len(embeddings.wv.vocab)
             
-            iter+=1
+            iteration+=1
         
             data=refined_news_items
-        #break
+        
+            break

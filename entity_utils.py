@@ -9,17 +9,20 @@ from sklearn.cluster import DBSCAN
 from collections import Counter, defaultdict
 from sklearn.metrics.pairwise import cosine_similarity
 import datetime
+from lxml import etree
+import shutil
 
 import spacy_to_naf
 
 import classes
 
-
 def replace_identities(news_items_with_entities, new_ids):
+    print(new_ids)
     for item in news_items_with_entities:
         for e in item.sys_entity_mentions:
             identity=strip_identity(e.identity)
             new_identity=new_ids[identity]
+#            print('new identity', identity, new_identity)
             e.identity=new_identity
     return news_items_with_entities
 
@@ -106,16 +109,16 @@ def inspect(data, with_types=False, graph=None):
 
 def compute_similarity(w1, w2, vectors):
     """Compute similarity of 2 vectors."""
-    #try:
-    v1=np.array(vectors[w1]).reshape(1, -1)
-    #except:
-    #    print(w1, 'not in vocab')
-    #    return 0
-    #try:
-    v2=np.array(vectors[w2]).reshape(1, -1)
-    #except:
-    #    print(w2, 'not in vocab')
-    #    return 0
+    try:
+        v1=np.array(vectors[w1]).reshape(1, -1)
+    except KeyError:
+        print(w1, 'not in vocab')
+        return 0
+    try:
+        v2=np.array(vectors[w2]).reshape(1, -1)
+    except KeyError:
+        print(w2, 'not in vocab')
+        return 0
     return cosine_similarity(v1, v2)
 
 def load_sentences(nlp, data):
@@ -177,6 +180,24 @@ def get_variable_len_combinations(arr):
             res.append(x)
     return res
 
+def obtain_entity_data(naf_file, entities_layer_id):
+    parser = etree.XMLParser(remove_blank_text=True)
+    doc=etree.parse(naf_file, parser)
+
+    root=doc.getroot()
+
+    entities_layer=root.find(entities_layer_id)
+    eid_to_tids={}
+    for entity in entities_layer.findall('entity'):
+        eid=entity.get('id')
+        refs=entity.find('references')
+        span=refs.find('span')
+        tids=[]
+        for target in span.findall('target'):
+            tids.append(target.get('id'))
+        eid_to_tids[eid]=tids
+    return eid_to_tids
+        
 def recognize_entities(nlp, news_items):
     """
     Run NER on all documents.
@@ -184,31 +205,31 @@ def recognize_entities(nlp, news_items):
     for i, news_item in enumerate(news_items):
         text=f"{news_item.title}\n{news_item.content}"
         nl_doc=nlp(text)
+        ent_id=0
         for e in nl_doc.ents:
             ent_mention_obj=classes.EntityMention(
+                eid=f"e{ent_id}",
                 mention=e.text,
                 begin_index=e.start,
                 end_index=e.end,
                 the_type=e.label_
             )
+            ent_id+=1
             news_item.sys_entity_mentions.append(ent_mention_obj)
-        print(i)
+        print(i, len(news_item.sys_entity_mentions))
     return news_items
 
 # ------ NAF processing utils --------------------
 
-def create_naf_for_documents(news_items, layers, nlp, naf_path, language='nl'):
+def create_naf_for_documents(news_items, layers, nlp, naf_folder, language='nl'):
     """Create NAF files for a collection of documents."""
    
-    # TODO: save to NAF
     for i, news_item in enumerate(news_items):
         text=f"{news_item.title}\n{news_item.content}"
         docid=news_item.identifier
         print(docid)
         naf_output_path = naf_folder / f'{docid}.naf'
-        
-        
-#        nl_doc=nl_nlp(text)
+                
         process_spacy_and_convert_to_naf(nlp,
                                                text,
                                                language,
@@ -216,7 +237,7 @@ def create_naf_for_documents(news_items, layers, nlp, naf_path, language='nl'):
                                                title=news_item.title,
                                                dct=datetime.datetime.now(),
                                                layers=layers,
-                                               output_path=naf_path)
+                                               output_path=naf_output_path)
         
 
 def process_spacy_and_convert_to_naf(nlp, 
@@ -246,3 +267,39 @@ def process_spacy_and_convert_to_naf(nlp,
         if output_path is not None:
             with open(output_path, 'w') as outfile:
                 outfile.write(spacy_to_naf.NAF_to_string(NAF=root))
+
+def add_ext_references(all_docs, iter_id, in_naf_dir, out_naf_dir=None):
+
+    if out_naf_dir is not None:
+        if out_naf_dir.exists():
+            shutil.rmtree(str(out_naf_dir))
+        out_naf_dir.mkdir()
+    
+    for news_item in all_docs:
+        docid=news_item.identifier
+        infile = in_naf_dir / f'{docid}.naf'
+        parser = etree.XMLParser(remove_blank_text=True)
+        naf_file=etree.parse(infile, parser)
+        
+        root=naf_file.getroot()
+        entities_layer=root.find('entities')
+        
+        entities=news_item.sys_entity_mentions
+        eid2identity={}
+        for e in entities:
+            
+            eid2identity[e.eid]=e.identity
+        for naf_entity in entities_layer.findall('entity'):
+            eid=naf_entity.get('id')
+            identity=eid2identity[eid]
+            ext_refs=naf_entity.find('externalReferences')
+            ext_ref=etree.SubElement(ext_refs, 'externalReference')
+            ext_ref.set('target', identity)
+            ext_ref.set('source', iter_id)
+
+        if out_naf_dir is not None:
+            outfile_path = out_naf_dir / f'{docid}.naf'
+            with open(outfile_path, 'w') as outfile:
+                    outfile.write(spacy_to_naf.NAF_to_string(NAF=root))
+
+        
