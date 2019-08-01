@@ -1,6 +1,6 @@
 # entity-detection-for-historical-dutch
 
-Entity recognition and linking for historical documents in Dutch, developed within the Clariah+ project
+Entity recognition and linking for historical documents in Dutch, developed within the Clariah+ project at VU Amsterdam
 
 The current solution is entirely unsupervised, and works as follows:
 1. Obtain documents

@@ -11,16 +11,17 @@ from sklearn.metrics.pairwise import cosine_similarity
 import datetime
 from lxml import etree
 import shutil
+from scipy.cluster.hierarchy import dendrogram, fcluster, linkage
 
 import spacy_to_naf
 
 import classes
 
 def replace_identities(news_items_with_entities, new_ids):
-    print(new_ids)
+    print(len(new_ids))
     for item in news_items_with_entities:
         for e in item.sys_entity_mentions:
-            identity=strip_identity(e.identity)
+            identity=e.identity
             new_identity=new_ids[identity]
 #            print('new identity', identity, new_identity)
             e.identity=new_identity
@@ -33,11 +34,15 @@ def strip_identity(i):
 def construct_m2id(news_items_with_entities):
     """Construct an index of mentions to identities."""
     m2id=defaultdict(set)
+    id_num=0
     for item in news_items_with_entities:
         for e in item.sys_entity_mentions:
-            identity=strip_identity(e.identity)
-            if identity.endswith('MISC'): continue
+            identity=e.identity
+#            if identity.endswith('MISC'): continue
             m2id[e.mention].add(identity)
+    for m, ids in m2id.items():
+        id_num+=len(ids)
+    print('Identities in m2id', id_num)
     return m2id
 
 def cluster_matrix(distances, eps=0.1, min_samples=1):
@@ -47,12 +52,15 @@ def cluster_matrix(distances, eps=0.1, min_samples=1):
         
     return list(labels), n_clusters, n_noise
 
-def cluster_identities(m2id, wv):
-    """Cluster identities for all mentions based on vector similarity."""
+def cluster_identities_dbscan(m2id, wv):
+    """Cluster identities for all mentions based on vector similarity and the DBScan algorithm."""
     new_identities={}
     for m, ids in m2id.items():
         num_cands=len(ids)
-        if num_cands<2: continue
+        if num_cands<2: 
+            for i in ids:
+                new_identities[i]=i
+            continue
         dist_matrix = np.zeros(shape=(num_cands, num_cands)) # Distances matrix
         ids=list(ids)
         for i, ent_i in enumerate(ids):
@@ -65,6 +73,27 @@ def cluster_identities(m2id, wv):
         for index, cluster_id in enumerate(clusters):
             new_id='%s_%d' % (m, cluster_id)
             old_id=ids[index]
+            new_identities[old_id]=new_id
+    return new_identities
+
+def cluster_identities(m2id, wv, max_d=15):
+    """Cluster identities for all mentions based on vector similarity and a hierarchical clustering algorithm."""
+    new_identities={}
+    for m, ids in m2id.items():
+        num_cands=len(ids)
+        if num_cands<2:
+            for i in ids:
+                new_identities[i]=i
+            continue
+        all_vectors=[]
+        ids=list(ids)
+        for i, ent_i in enumerate(ids):
+            vector=wv[ent_i]
+            all_vectors.append(vector)
+        l = linkage(all_vectors, method='complete', metric='seuclidean')
+        clusters=fcluster(l, max_d, criterion='distance')
+        for old_id, c_id in zip(ids, clusters):
+            new_id='%s_%d' % (m, c_id)
             new_identities[old_id]=new_id
     return new_identities
 
@@ -106,6 +135,8 @@ def inspect(data, with_types=False, graph=None):
         for k,v in degrees_per_type.items():
             print(k, round(np.mean(v),1), '/', round(np.std(v),1))
         print('Max degree node', max_degree_node, max_degree)
+        
+    return identities
 
 def compute_similarity(w1, w2, vectors):
     """Compute similarity of 2 vectors."""
@@ -121,18 +152,18 @@ def compute_similarity(w1, w2, vectors):
         return 0
     return cosine_similarity(v1, v2)
 
-def load_sentences(nlp, data):
-    """Given a set of classes with entities and links, generate embeddings."""
+# def load_sentences(nlp, data):
+#     """Load all sentences in our corpus."""
 
-    all_sentences=[]
-    for news_item in data:
-        text=f"{news_item.title}\n{news_item.content}"
-        new_content=replace_entities(nlp, text, news_item.sys_entity_mentions)
-        nl_doc=nlp(new_content)
-        for sent in nl_doc.sents:
-            sent_tokens = [t.text for t in sent]
-            all_sentences.append(sent_tokens)
-    return all_sentences
+#     all_sentences=[]
+#     for news_item in data:
+#         text=f"{news_item.title}\n{news_item.content}"
+#         new_content=replace_entities(nlp, text, news_item.sys_entity_mentions)
+#         nl_doc=nlp(new_content)
+#         for sent in nl_doc.sents:
+#             sent_tokens = [t.text for t in sent]
+#             all_sentences.append(sent_tokens)
+#     return all_sentences
 
 def replace_entities(nlp, text, mentions):
     to_replace={}
@@ -227,7 +258,6 @@ def create_naf_for_documents(news_items, layers, nlp, naf_folder, language='nl')
     for i, news_item in enumerate(news_items):
         text=f"{news_item.title}\n{news_item.content}"
         docid=news_item.identifier
-        print(docid)
         naf_output_path = naf_folder / f'{docid}.naf'
                 
         process_spacy_and_convert_to_naf(nlp,
@@ -268,7 +298,7 @@ def process_spacy_and_convert_to_naf(nlp,
             with open(output_path, 'w') as outfile:
                 outfile.write(spacy_to_naf.NAF_to_string(NAF=root))
 
-def add_ext_references(all_docs, iter_id, in_naf_dir, out_naf_dir=None):
+def add_ext_references_to_naf(all_docs, iter_id, in_naf_dir, out_naf_dir=None):
 
     if out_naf_dir is not None:
         if out_naf_dir.exists():
@@ -302,4 +332,42 @@ def add_ext_references(all_docs, iter_id, in_naf_dir, out_naf_dir=None):
             with open(outfile_path, 'w') as outfile:
                     outfile.write(spacy_to_naf.NAF_to_string(NAF=root))
 
-        
+def load_sentences_from_naf(iteration, root):
+    to_replace={}
+    
+    ent_layer=root.find('entities')
+    for e in ent_layer.findall('entity'):
+        # get identity
+        ext_refs=e.find('externalReferences')
+        the_id=''
+        for er in ext_refs.findall('externalReference'):
+            if er.get('source')=='iteration%d' % iteration:
+                the_id=er.get('target')
+                
+        # get spans
+        refs=e.find('references')
+        span=refs.find('span')
+        for target in span.findall('target'):
+            t=target.get('id')
+            to_replace[t]=''
+        to_replace[t]=the_id
+    
+    token_layer=root.find('text')
+    old_sent='1'
+    sentences=[]
+    current_sentence=[]
+    for w in token_layer.findall('wf'):
+        idx=w.get('id').replace('w', 't')
+        sent=w.get('sent')
+        txt=w.text
+        if old_sent!=sent:
+            sentences.append(current_sentence)
+            current_sentence=[]
+        if idx in to_replace:
+            if to_replace[idx]:
+                current_sentence.append(to_replace[idx])
+        else:
+            current_sentence.append(txt)
+        old_sent=sent
+    sentences.append(current_sentence)
+    return sentences
