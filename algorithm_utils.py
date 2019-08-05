@@ -108,7 +108,13 @@ def cluster_identities(m2id, wv, max_d=15):
         for i, ent_i in enumerate(ids):
             vector=wv[ent_i]
             all_vectors.append(vector)
-        l = linkage(all_vectors, method='complete', metric='seuclidean')
+        print('mention', m)
+        print('num vectors', len(all_vectors))
+        try:
+            l = linkage(all_vectors, method='complete', metric='euclidian')
+        except ValueError:
+            print(all_vectors)
+            sys.exit()
         clusters=fcluster(l, max_d, criterion='distance')
         for old_id, c_id in zip(ids, clusters):
             new_id='%s_%d' % (m, c_id)

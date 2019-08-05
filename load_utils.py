@@ -4,9 +4,11 @@ import json
 import re
 import pickle
 import os.path
+from rdflib import Graph, URIRef
 
 import algorithm_utils as algorithm
 import classes
+import config
 
 def shift_all(links_json, x):
     new_json={}
@@ -80,6 +82,57 @@ def clean_wiki(wikitext):
 def strip_identity(i):
     identity=i.replace('http://cltl.nl/entity#', '')
     return identity.replace(' ', '_')
+
+
+# ------ NIF datasets loader ---------------------
+
+def load_article_from_nif_file(nif_file, limit=1000000, collection='wes2015'):
+    """
+    Load a dataset in NIF format.
+    """
+    g=Graph()
+    g.parse(nif_file, format="n3")
+
+    news_items=set()
+
+    articles = g.query(
+    """ SELECT ?articleid ?date ?string
+    WHERE {
+            ?articleid nif:isString ?string .
+            OPTIONAL { ?articleid <http://purl.org/dc/elements/1.1/date> ?date . }
+    }
+    LIMIT %d""" % limit)
+    for article in articles:
+        doc_id=article['articleid'].replace('http://nl.dbpedia.org/resource/', '').split('/')[0]
+        news_item_obj=classes.NewsItem(
+                content=article['string'],
+                identifier=doc_id, #"http://yovisto.com/resource/dataset/iswc2015/doc/281#char=0,4239",
+                dct=article['date'],
+                collection=config.corpus_name,
+                title=''
+        )
+        query=""" SELECT ?id ?mention ?start ?end ?gold
+        WHERE {
+                ?id nif:anchorOf ?mention ;
+                nif:beginIndex ?start ;
+                nif:endIndex ?end ;
+                nif:referenceContext <%s> .
+                OPTIONAL { ?id itsrdf:taIdentRef ?gold . }
+        } ORDER BY ?start""" % str(article['articleid'])
+        qres_entities = g.query(query)
+        for entity in qres_entities:
+                gold_link=str(entity['gold'])  # utils.getLinkRedirect(utils.normalizeURL(str(entity['gold'])))
+                if gold_link.startswith('http://aksw.org/notInWiki'):
+                        gold_link='--NME--'
+                entity_obj = classes.EntityMention(
+                        begin_index=int(entity['start']),
+                        end_index=int(entity['end']),
+                        mention=str(entity['mention']),
+                        identity=gold_link
+                )
+                news_item_obj.gold_entity_mentions.append(entity_obj)
+        news_items.add(news_item_obj)
+    return news_items
 
 # ------ Processing news items -------------------
 

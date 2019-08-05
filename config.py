@@ -5,9 +5,9 @@ uri_prefix='http://cltl.nl/entity#'
 
 naf_entity_layer='entities'
 
-corpus_name='wikinews'
+corpus_name='wikinews200'
 corpus_uri='http://wikinews.nl'
-max_documents=None # for debugging; otherwise set it to None
+max_documents=200 # for debugging; otherwise set it to None
 
 # Generate directory names
 data_dir='data/%s' % corpus_name

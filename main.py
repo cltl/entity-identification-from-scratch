@@ -162,4 +162,3 @@ if __name__=="__main__":
             old_len_vocab=len(id_embeddings)
 
             iteration+=1
-            break

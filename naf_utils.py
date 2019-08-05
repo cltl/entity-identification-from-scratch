@@ -57,6 +57,7 @@ def create_naf_for_documents(news_items, layers, nlp, naf_folder, language='nl')
     corpus_uri=config.corpus_uri
     for i, news_item in enumerate(news_items):
         text=f"{news_item.title}\n{news_item.content}"
+        text=text.strip()
         docid=news_item.identifier
         naf_output_path = naf_folder / f'{docid}.naf'
                 

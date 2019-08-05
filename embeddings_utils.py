@@ -5,6 +5,7 @@ from lxml import etree
 from gensim.models import Word2Vec
 import os.path
 import numpy as np
+import pickle
 
 import load_utils
 import naf_utils as naf
@@ -67,9 +68,16 @@ def sent_to_id_embeddings(sent_embeddings, data):
     agg_entity_embs={}
     for identity, embs in entity_embs.items():
         emb_arrays=[]
-        for e in embs:
-            emb_arrays.append(np.array(e))
-        agg_entity_embs[identity]=np.mean(np.array(emb_arrays), axis=0)
+        print(len(embs))
+        if len(embs)>1:
+            #for e in embs:
+            #    emb_arrays.append(np.array(e))
+            #agg_entity_embs[identity]=np.mean(np.array(emb_arrays), axis=0)
+            agg_entity_embs[identity]=np.array(embs[0]) #np.mean(np.array(emb_arrays), axis=0)
+        else:
+            agg_entity_embs[identity]=np.array(embs[0])
+    with open('debug/bert_embs.p', 'wb') as wf:
+        pickle.dump(agg_entity_embs, wf)
     return agg_entity_embs
     
 def generate_w2v_embeddings(all_sentences,
