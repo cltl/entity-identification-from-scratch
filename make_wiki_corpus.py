@@ -5,13 +5,19 @@ import glob
 
 import load_utils as utils
 import classes
+import config
 
-tree = etree.parse("data/input_data/nlwikinews-latest-pages-articles.xml")
+input_dir=config.input_dir
+raw_input_dir=config.raw_input_dir
+
+tree = etree.parse("%s/nlwikinews-latest-pages-articles.xml" % raw_input_dir)
 root = tree.getroot()
 
 news_items=set()
 
-for f in glob.glob('data/documents/*'):
+max_docs=config.max_documents
+
+for f in glob.glob('%s/*.json' % input_dir):
     os.remove(f)
 
 counter=1
@@ -34,7 +40,7 @@ for x in root.findall('{http://www.mediawiki.org/xml/export-0.10/}page'):
             content=clean_text,
             title=clean_title,
             identifier=docid,
-            collection='wikinews',
+            collection=config.corpus_name,
             gold_entity_mentions=utils.create_gold_mentions(the_links, 
                                                             clean_text)
     )
@@ -44,9 +50,13 @@ for x in root.findall('{http://www.mediawiki.org/xml/export-0.10/}page'):
     j={'title': clean_title, 
        'body': clean_text}    
 
-    with open('data/documents/%s.json' % docid, 'w') as outfile:
+    with open('%s/%s.json' % (input_dir, docid), 'w') as outfile:
         json.dump(j, outfile)
+        
+    if max_docs and counter>=max_docs:
+        break
+        
     counter+=1
 
 # Save the classes
-utils.save_news_items('bin', 'documents', news_items)
+utils.save_news_items('%s/documents.pkl' % config.data_dir, news_items)

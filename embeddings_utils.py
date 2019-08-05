@@ -4,11 +4,15 @@ import glob
 from lxml import etree
 from gensim.models import Word2Vec
 import os.path
+import numpy as np
 
 import load_utils
 import naf_utils as naf
 
 def get_bert_embeddings(tokens, model, tokenizer):
+    """
+    Obtain BERT embeddings
+    """
     text=' '.join(tokens)
     marked_text = "[CLS] " + text + " [SEP]"
     tokenized_text = tokenizer.tokenize(marked_text)
@@ -53,18 +57,19 @@ def sent_to_id_embeddings(sent_embeddings, data):
     entity_embs=defaultdict(list)
     for news_item in data:
         doc_id = news_item.identifier
-        print('loading')
-        print(doc_id)
+        print('L', doc_id)
         for em in news_item.sys_entity_mentions:
-            sentence=em.sentence
+            sentence=str(em.sentence)
             sent_emb=sent_embeddings[doc_id][sentence]
             identity=em.identity
             entity_embs[identity].append(sent_emb)
             
     agg_entity_embs={}
     for identity, embs in entity_embs.items():
-        emb_array=np.array(embs)
-        agg_entity_embs[identity]=np.mean(emb_array, axis=0)
+        emb_arrays=[]
+        for e in embs:
+            emb_arrays.append(np.array(e))
+        agg_entity_embs[identity]=np.mean(np.array(emb_arrays), axis=0)
     return agg_entity_embs
     
 def generate_w2v_embeddings(all_sentences,

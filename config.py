@@ -7,6 +7,7 @@ naf_entity_layer='entities'
 
 corpus_name='wikinews'
 corpus_uri='http://wikinews.nl'
+max_documents=None # for debugging; otherwise set it to None
 
 # Generate directory names
 data_dir='data/%s' % corpus_name

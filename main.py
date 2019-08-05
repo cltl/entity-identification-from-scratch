@@ -2,6 +2,7 @@ import copy
 import nl_core_news_sm
 import sys
 from path import Path
+import os.path
 from pytorch_pretrained_bert import BertTokenizer, BertModel
 
 import load_utils
@@ -76,6 +77,11 @@ if __name__=="__main__":
     naf_dir=Path(config.naf_dir)
     el_dir=Path(config.el_dir)
     graphs_dir=Path(config.graphs_dir)
+    
+    if not os.path.exists(el_dir):
+        el_dir.mkdir()
+    if not os.path.exists(graphs_dir):
+        graphs_dir.mkdir()
         
     # Load pre-trained model tokenizer (vocabulary)
     tokenizer = BertTokenizer.from_pretrained(bert_model, 
@@ -135,6 +141,7 @@ if __name__=="__main__":
                                                               iteration, 
                                                               model, 
                                                               tokenizer)
+            print(sent_embeddings['wiki_10'].keys())
             id_embeddings=emb_utils.sent_to_id_embeddings(sent_embeddings, 
                                                           data)
 

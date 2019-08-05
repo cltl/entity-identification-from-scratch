@@ -30,7 +30,7 @@ def generate_identity(objs,
                 mention.identity+=news_item.identifier.split('_')[-1]
             if 'type' in factors:
                 mention.identity+=mention.the_type
-
+                
     with open(el_filename, 'wb') as w:
         pickle.dump(data, w)
 

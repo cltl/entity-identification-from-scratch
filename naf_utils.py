@@ -2,6 +2,7 @@ from lxml import etree
 import glob
 import datetime
 import shutil
+import pathlib
 
 import spacy_to_naf
 
@@ -44,7 +45,7 @@ def create_nafs(naf_folder,
         #shutil.rmtree(str(naf_folder))
     else:
         print('No NAF files found. Let\'s create them.')
-        naf_folder.mkdir()
+        pathlib.Path(naf_folder).mkdir(parents=True, exist_ok=True)
         create_naf_for_documents(news_items, 
                                  layers, 
                                  nl_nlp, 
