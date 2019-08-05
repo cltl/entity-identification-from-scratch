@@ -4,5 +4,4 @@ misc.txt
 .ipynb_checkpoints/ 
 __pycache__/
 input_data/
-bin/
-documents/
+data/

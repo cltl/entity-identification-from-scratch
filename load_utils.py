@@ -3,7 +3,9 @@ import glob
 import json
 import re
 import pickle
+import os.path
 
+import algorithm_utils as algorithm
 import classes
 
 def shift_all(links_json, x):
@@ -75,16 +77,41 @@ def clean_wiki(wikitext):
     return text
 
 
+def strip_identity(i):
+    identity=i.replace('http://cltl.nl/entity#', '')
+    return identity.replace(' ', '_')
+
 # ------ Processing news items -------------------
 
 
-def load_news_items(bindir, docid):
+def load_news_items(a_file):
     """Loads news items with entities."""
-    with open(bindir + '/%s.pkl' % docid, 'rb') as f:
+    with open(a_file, 'rb') as f:
         news_items_with_entities = pickle.load(f)
     return news_items_with_entities
 
-def save_news_items(bindir, docid, data):
+def save_news_items(a_file, data):
     """Save news items with entities."""
-    with open('%s/%s.pkl' % (bindir, docid), 'wb') as w:
+    with open(a_file, 'wb') as w:
         pickle.dump(data, w)
+        
+# ------- Loading news items ----------------------
+
+def get_docs_with_entities(outdir, input_dir, nl_nlp):
+    """Obtain news items processed with NER."""
+    pkl_docs='%s.pkl' % input_dir
+    ent_addon='_with_ent'
+    pkl_docs_with_entities='%s%s.pkl' % (input_dir, ent_addon)
+    
+    if os.path.isfile(pkl_docs_with_entities):
+        print('pickle file with recognized entities exists. Loading it now...')
+        news_items_with_entities=load_news_items(pkl_docs_with_entities)
+        
+    else:
+        print('Pickle file does not exist. Let us load the news items and run NER...')
+        news_items=load_news_items(pkl_docs)
+        print('Loaded %d news items' % len(news_items))
+        news_items_with_entities=algorithm.recognize_entities(nl_nlp, news_items)
+        save_news_items(pkl_docs_with_entities, 
+                        news_items_with_entities)
+    return news_items_with_entities
