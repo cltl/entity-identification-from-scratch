@@ -37,7 +37,6 @@ def get_bert_embeddings(tokens, model, tokenizer):
     
 def get_sentence_embeddings(naf_dir, iteration, model, tokenizer):
     sent_emb=defaultdict(dict)
-    print(naf_dir)
     for f in glob.glob('%s/%d/*.naf' % (naf_dir, iteration-1)):
         parser = etree.XMLParser(remove_blank_text=True)
         doc=etree.parse(f, parser)
@@ -50,7 +49,6 @@ def get_sentence_embeddings(naf_dir, iteration, model, tokenizer):
             sent_index=str(index+1)
             doc_id=(f.split('/')[-1]).split('.')[0]
             sent_emb[doc_id][sent_index]=emb
-        print(doc_id)
         
     return sent_emb
     
@@ -58,7 +56,6 @@ def sent_to_id_embeddings(sent_embeddings, data):
     entity_embs=defaultdict(list)
     for news_item in data:
         doc_id = news_item.identifier
-        print('L', doc_id)
         for em in news_item.sys_entity_mentions:
             sentence=str(em.sentence)
             sent_emb=sent_embeddings[doc_id][sentence]
@@ -68,12 +65,11 @@ def sent_to_id_embeddings(sent_embeddings, data):
     agg_entity_embs={}
     for identity, embs in entity_embs.items():
         emb_arrays=[]
-        print(len(embs))
         if len(embs)>1:
-            #for e in embs:
-            #    emb_arrays.append(np.array(e))
-            #agg_entity_embs[identity]=np.mean(np.array(emb_arrays), axis=0)
-            agg_entity_embs[identity]=np.array(embs[0]) #np.mean(np.array(emb_arrays), axis=0)
+            for e in embs:
+                emb_arrays.append(np.array(e))
+            agg_entity_embs[identity]=np.mean(np.array(emb_arrays), axis=0)
+            #agg_entity_embs[identity]=np.array(embs[0]) #np.mean(np.array(emb_arrays), axis=0)
         else:
             agg_entity_embs[identity]=np.array(embs[0])
     with open('debug/bert_embs.p', 'wb') as wf:

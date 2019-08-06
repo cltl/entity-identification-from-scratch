@@ -1,3 +1,4 @@
+.ipynb_checkpoints/
 debug/
 BERT_Word_Embeddings.ipynb
 spacy_to_naf.py

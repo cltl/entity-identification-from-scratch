@@ -40,7 +40,6 @@ def generate_identity(objs,
 
 
 def replace_identities(news_items_with_entities, new_ids):
-    print(len(new_ids))
     for item in news_items_with_entities:
         for e in item.sys_entity_mentions:
             identity=e.identity
@@ -108,12 +107,11 @@ def cluster_identities(m2id, wv, max_d=15):
         for i, ent_i in enumerate(ids):
             vector=wv[ent_i]
             all_vectors.append(vector)
-        print('mention', m)
-        print('num vectors', len(all_vectors))
         try:
-            l = linkage(all_vectors, method='complete', metric='euclidian')
-        except ValueError:
+            l = linkage(all_vectors, method='complete', metric='euclidean')
+        except ValueError as e:
             print(all_vectors)
+            print(e)
             sys.exit()
         clusters=fcluster(l, max_d, criterion='distance')
         for old_id, c_id in zip(ids, clusters):
@@ -154,8 +152,8 @@ def generate_graph(data, filename):
                 other_identity=other_mention.identity
                 if other_identity>identity:
                     G.add_edge(identity, other_identity)
-    print(G.number_of_nodes())
-    print(G.number_of_edges())
+    print('Identities in the graph', G.number_of_nodes())
+    print('Relationsi in the graph', G.number_of_edges())
     
     nx.write_gpickle(G, filename.replace('.pkl', '.graph'))
 

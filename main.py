@@ -14,21 +14,19 @@ import config
     
 ################## Run iteration 1 or 2 or more #########################
 
-def run_iteration_1(factor_combo, news_items_with_entities, naf_folder, el_dir, graphs_dir, prefix):
+def run_iteration_1(factor_combo, news_items_with_entities, naf_folder, el_file, graphs_file, prefix):
     iteration=1
     # GENERATE IDENTITIES (Step 4)
     print('Generating identities and graphs...')
 
-    el_file='%s/mention_%s_graph.pkl' % (el_dir, '_'.join(factor_combo))
-    graph_file='%s/mention_%s_graph.graph' % (graphs_dir, '_'.join(factor_combo))
     data=algorithm.generate_identity(news_items_with_entities,
                            factors=factor_combo,
                            prefix=prefix,
                            el_filename=el_file,
-                           graph_filename=graph_file)
+                           graph_filename=graphs_file)
 
     # ANALYZE IDENTITIES
-    ids=analysis.inspect_data(data, graph_file)
+    ids=analysis.inspect_data(data, graphs_file)
     
     naf.add_ext_references_to_naf(data,
                                    f'iteration{iteration}',
@@ -37,7 +35,7 @@ def run_iteration_1(factor_combo, news_items_with_entities, naf_folder, el_dir, 
 
     return data, ids
 
-def run_iteration_2_or_more(factor_combo, data, id_embeddings, ids, iteration, naf_folder, nl_nlp):
+def run_iteration_2_or_more(factor_combo, data, id_embeddings, ids, iteration, naf_folder, nl_nlp, graph_filename):
     refined_news_items=copy.deepcopy(data)
     m2id=algorithm.construct_m2id(refined_news_items)
     new_ids=algorithm.cluster_identities(m2id, 
@@ -59,10 +57,12 @@ def run_iteration_2_or_more(factor_combo, data, id_embeddings, ids, iteration, n
                                f'iteration{iteration}',
                                naf_folder / str(iteration-1),
                                naf_iter)
-    print('done.')
+
+    algorithm.generate_graph(refined_news_items, graph_filename)
+
+    ids=analysis.inspect_data(refined_news_items, graph_filename)
     
-    return refined_news_items, \
-           set(new_ids.values())
+    return refined_news_items, ids
 
 if __name__=="__main__":
 
@@ -82,7 +82,7 @@ if __name__=="__main__":
         el_dir.mkdir()
     if not os.path.exists(graphs_dir):
         graphs_dir.mkdir()
-        
+     
     # Load pre-trained model tokenizer (vocabulary)
     tokenizer = BertTokenizer.from_pretrained(bert_model, 
                                               do_lower_case=False)
@@ -116,20 +116,23 @@ if __name__=="__main__":
         if len(factor_combo)<2: continue
         print('Assuming identity factors:', factor_combo)
 
+        el_file='%s/mention_%s_graph.pkl' % (el_dir, '_'.join(factor_combo))
+        graphs_file='%s/mention_%s_graph.graph' % (graphs_dir, '_'.join(factor_combo))
+
         # ------ Run iteration 1 --------------------
         print('Now running iteration 1')
         data, ids=run_iteration_1(factor_combo, 
                                   news_items_with_entities, 
                                   naf_dir, 
-                                  el_dir, 
-                                  graphs_dir, 
+                                  el_file, 
+                                  graphs_file, 
                                   prefix)
         print('Iteration 1 finished! Now refining...')
 
         # ------- Run iteration >=2 -----------------
 
         iteration=2
-        old_len_vocab=0
+        old_len_vocab=len(ids)
 
         while True:
             print()
@@ -141,7 +144,6 @@ if __name__=="__main__":
                                                               iteration, 
                                                               model, 
                                                               tokenizer)
-            print(sent_embeddings['wiki_10'].keys())
             id_embeddings=emb_utils.sent_to_id_embeddings(sent_embeddings, 
                                                           data)
 
@@ -151,14 +153,14 @@ if __name__=="__main__":
                                                 ids, 
                                                 iteration, 
                                                 naf_dir,
-                                                nl_nlp)
+                                                nl_nlp,
+                                                graphs_file)
 
             
-            print('Entity embeddings in this iteration:', len(id_embeddings))
-            if old_len_vocab==len(id_embeddings):
+            if old_len_vocab==len(ids):
                 print('No change in this iteration. Done refining...')
                 break
 
-            old_len_vocab=len(id_embeddings)
+            old_len_vocab=len(ids)
 
             iteration+=1
