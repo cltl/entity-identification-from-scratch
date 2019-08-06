@@ -96,17 +96,19 @@ if __name__=="__main__":
 
     # ------ Generate NAFs and fill classes with entity mentions (Steps 1 and 2) --------------------
 
+    ner_system=config.ner
     #TODO: COMBINE NAFs with classes processing to run spacy only once!
     news_items_with_entities=load_utils.get_docs_with_entities(str(data_dir),
                                                                str(input_dir),
+                                                               ner_system,
                                                                nl_nlp)
-    
     naf0=naf_dir / '0' # NAF folder before iteration 1
     naf.create_nafs(naf0, news_items_with_entities, nl_nlp)
 
     #news_items_with_entities=patch_classes_with_tokens(news_items_with_entities,
     #                                                   naf0,
     #                                                   entity_layer)
+
 
     for factor_combo in algorithm.get_variable_len_combinations(all_factors):
         # Generate baseline graphs

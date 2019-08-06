@@ -164,8 +164,17 @@ def get_variable_len_combinations(arr):
         for x in itertools.combinations(arr, l):
             res.append(x)
     return res
-        
-def recognize_entities(nlp, news_items):
+
+def recognize_entities_gold(news_items):
+    """Copy the gold entities to system, without the links"""
+    for news_item in news_items:
+        for e in news_item.gold_entity_mentions:
+            e2=copy.deepcopy(e)
+            e2.identity=None
+            news_item.sys_entity_mentions.append(e2)
+    return news_items
+    
+def recognize_entities_spacy(nlp, news_items):
     """
     Run NER on all documents.
     """

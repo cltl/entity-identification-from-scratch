@@ -150,7 +150,7 @@ def save_news_items(a_file, data):
         
 # ------- Loading news items ----------------------
 
-def get_docs_with_entities(outdir, input_dir, nl_nlp):
+def get_docs_with_entities(outdir, input_dir, nl_nlp, ner_system):
     """Obtain news items processed with NER."""
     pkl_docs='%s.pkl' % input_dir
     ent_addon='_with_ent'
@@ -164,7 +164,10 @@ def get_docs_with_entities(outdir, input_dir, nl_nlp):
         print('Pickle file does not exist. Let us load the news items and run NER...')
         news_items=load_news_items(pkl_docs)
         print('Loaded %d news items' % len(news_items))
-        news_items_with_entities=algorithm.recognize_entities(nl_nlp, news_items)
+        if ner_system=='gold':
+            news_items_with_entities=algorithm.recognize_entities_gold(news_items)
+        else:
+            news_items_with_entities=algorithm.recognize_entities_spacy(nl_nlp, news_items)
         save_news_items(pkl_docs_with_entities, 
                         news_items_with_entities)
     return news_items_with_entities
