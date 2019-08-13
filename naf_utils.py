@@ -35,7 +35,8 @@ def load_sentences(naf_dir, iteration):
 def create_nafs(naf_folder, 
                 news_items, 
                 nl_nlp,
-                layers={'raw', 'text', 'terms', 'entities'}):
+                ner_system='auto',
+                layers={'raw', 'text', 'terms'}):
     """Create NAFs if not there already."""
     
     if naf_folder.exists():
@@ -46,6 +47,8 @@ def create_nafs(naf_folder,
     else:
         print('No NAF files found. Let\'s create them.')
         pathlib.Path(naf_folder).mkdir(parents=True, exist_ok=True)
+        if ner_system=='auto':
+            layers.add('entities')
         create_naf_for_documents(news_items, 
                                  layers, 
                                  nl_nlp, 
@@ -100,7 +103,7 @@ def process_spacy_and_convert_to_naf(nlp,
             with open(output_path, 'w') as outfile:
                 outfile.write(spacy_to_naf.NAF_to_string(NAF=root))
 
-def add_ext_references_to_naf(all_docs, iter_id, in_naf_dir, out_naf_dir=None):
+def add_ext_references_to_naf(all_docs, source_id, in_naf_dir, out_naf_dir=None):
 
     if out_naf_dir is not None:
         if out_naf_dir.exists():
@@ -116,24 +119,35 @@ def add_ext_references_to_naf(all_docs, iter_id, in_naf_dir, out_naf_dir=None):
         
         root=naf_file.getroot()
         entities_layer=root.find(entity_layer_str)
-        
-        entities=news_item.sys_entity_mentions
-        eid2identity={}
-        for e in entities:
-            
-            eid2identity[e.eid]=e.identity
-        for naf_entity in entities_layer.findall('entity'):
-            eid=naf_entity.get('id')
-            identity=eid2identity[eid]
-            ext_refs=naf_entity.find('externalReferences')
-            ext_ref=etree.SubElement(ext_refs, 'externalReference')
-            ext_ref.set('target', identity)
-            ext_ref.set('source', iter_id)
+        if not entities_layer:
+            entities_layer = etree.SubElement(root, entity_layer_str)
+
+        if source_id=='gold':
+            entities=news_item.gold_entity_mentions
+            for e in entities:
+                entity_data=spacy_to_naf.EntityElement(e.eid, 
+                                                       e.the_type or '', 
+                                                       e.tokens, 
+                                                       e.mention, 
+                                                       [{'reference': e.identity, 'source': 'gold'}])
+                spacy_to_naf.add_entity_element(entities_layer, entity_data)
+        else:
+            entities=news_item.sys_entity_mentions
+            eid2identity={}
+            for e in entities: 
+                eid2identity[e.eid]=e.identity
+            for naf_entity in entities_layer.findall('entity'):
+                eid=naf_entity.get('id')
+                identity=eid2identity[eid]
+                ext_refs=naf_entity.find('externalReferences')
+                ext_ref=etree.SubElement(ext_refs, 'externalRef')
+                ext_ref.set('reference', identity)
+                ext_ref.set('source', source_id)
 
         if out_naf_dir is not None:
             outfile_path = out_naf_dir / f'{docid}.naf'
             with open(outfile_path, 'w') as outfile:
-                    outfile.write(spacy_to_naf.NAF_to_string(NAF=root))
+                outfile.write(spacy_to_naf.NAF_to_string(NAF=root))
 
 def load_sentences_from_naf(iteration, root):
     to_replace={}
@@ -144,7 +158,7 @@ def load_sentences_from_naf(iteration, root):
         # get identity
         ext_refs=e.find('externalReferences')
         the_id=''
-        for er in ext_refs.findall('externalReference'):
+        for er in ext_refs.findall('externalRef'):
             if er.get('source')=='iteration%d' % iteration:
                 the_id=er.get('target')
                 

@@ -6,9 +6,9 @@ uri_prefix='http://cltl.nl/entity#'
 
 naf_entity_layer='entities'
 
-max_documents=200 # for debugging; otherwise set it to None
-corpus_name='wikinews'
-#corpus_name='dbpedia_abstracts'
+max_documents=None #200 # for debugging; otherwise set it to None
+#corpus_name='wikinews'
+corpus_name='dbpedia_abstracts'
 
 
 # ------ INFERRED -------

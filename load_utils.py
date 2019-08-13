@@ -86,12 +86,16 @@ def strip_identity(i):
 
 # ------ NIF datasets loader ---------------------
 
-def load_article_from_nif_file(nif_file, limit=1000000, collection='wes2015'):
+def load_article_from_nif_files(nif_dir, limit=1000000, collection='wes2015'):
     """
     Load a dataset in NIF format.
     """
+    print('NOW LOADING THE NIF FILES')
     g=Graph()
-    g.parse(nif_file, format="n3")
+    for nif_file in glob.glob('%s/*.ttl' % nif_dir):
+        g.parse(nif_file, format="n3")
+
+    print('ALL FILES LOADED. NOW QUERYING')
 
     news_items=set()
 
@@ -120,22 +124,22 @@ def load_article_from_nif_file(nif_file, limit=1000000, collection='wes2015'):
                 OPTIONAL { ?id itsrdf:taIdentRef ?gold . }
         } ORDER BY ?start""" % str(article['articleid'])
         qres_entities = g.query(query)
-        for entity in qres_entities:
+        for eid, entity in enumerate(qres_entities):
                 gold_link=str(entity['gold'])  # utils.getLinkRedirect(utils.normalizeURL(str(entity['gold'])))
                 if gold_link.startswith('http://aksw.org/notInWiki'):
                         gold_link='--NME--'
                 entity_obj = classes.EntityMention(
-                        begin_index=int(entity['start']),
-                        end_index=int(entity['end']),
+                        begin_offset=int(entity['start']),
+                        end_offset=int(entity['end']),
                         mention=str(entity['mention']),
-                        identity=gold_link
+                        identity=gold_link,
+                        eid=f'e{eid}'
                 )
                 news_item_obj.gold_entity_mentions.append(entity_obj)
         news_items.add(news_item_obj)
     return news_items
 
 # ------ Processing news items -------------------
-
 
 def load_news_items(a_file):
     """Loads news items with entities."""
@@ -150,6 +154,37 @@ def save_news_items(a_file, data):
         
 # ------- Loading news items ----------------------
 
+def map_offsets_to_tids(nlp, objects):
+    for news_item in objects:
+        text=f"{news_item.title}\n{news_item.content}"
+        text=text.strip()
+        processed=nlp(text)
+        for entity in news_item.gold_entity_mentions:
+            begin=entity.begin_offset
+            end=entity.end_offset
+            min_token_begin=None
+            min_token_end=None
+            min_begin=999
+            min_end=999
+            begin_sent=-1
+            for sent_i, sent in enumerate(processed.sents):
+                for token in sent:
+                    begin_offset=token.idx
+                    end_offset=token.idx+len(token.text)
+                    if abs(begin-begin_offset)<min_begin:
+                        min_begin=abs(begin-begin_offset)
+                        min_token_begin=token.i
+                        begin_sent=sent_index=str(sent_i+1)
+                    if abs(end-end_offset)<min_end:
+                        min_end=abs(end-end_offset)
+                        min_token_end=token.i
+            entity.begin_index=min_token_begin
+            entity.end_index=min_token_end
+            tokens=list(range(min_token_begin, min_token_end+1))
+            entity.tokens=list(map(lambda x: f't{x}', tokens))
+            entity.sentence=begin_sent
+    return objects
+
 def get_docs_with_entities(outdir, input_dir, nl_nlp, ner_system):
     """Obtain news items processed with NER."""
     pkl_docs='%s.pkl' % input_dir
@@ -159,12 +194,12 @@ def get_docs_with_entities(outdir, input_dir, nl_nlp, ner_system):
     if os.path.isfile(pkl_docs_with_entities):
         print('pickle file with recognized entities exists. Loading it now...')
         news_items_with_entities=load_news_items(pkl_docs_with_entities)
-        
     else:
         print('Pickle file does not exist. Let us load the news items and run NER...')
         news_items=load_news_items(pkl_docs)
         print('Loaded %d news items' % len(news_items))
         if ner_system=='gold':
+            news_items = map_offsets_to_tids(nl_nlp, news_items)
             news_items_with_entities=algorithm.recognize_entities_gold(news_items)
         else:
             news_items_with_entities=algorithm.recognize_entities_spacy(nl_nlp, news_items)

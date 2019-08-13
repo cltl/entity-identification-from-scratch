@@ -1,7 +1,6 @@
 import networkx as nx
 from pprint import pprint
 import pickle
-import spacy
 import sys
 import itertools
 import numpy as np
@@ -29,7 +28,7 @@ def generate_identity(objs,
             if 'docid' in factors:
                 mention.identity+=news_item.identifier.split('_')[-1]
             if 'type' in factors:
-                mention.identity+=mention.the_type
+                mention.identity+=(mention.the_type or '')
                 
     with open(el_filename, 'wb') as w:
         pickle.dump(data, w)
@@ -166,7 +165,7 @@ def get_variable_len_combinations(arr):
     return res
 
 def recognize_entities_gold(news_items):
-    """Copy the gold entities to system, without the links"""
+    """Copy the gold entities to system, without the links."""
     for news_item in news_items:
         for e in news_item.gold_entity_mentions:
             e2=copy.deepcopy(e)
