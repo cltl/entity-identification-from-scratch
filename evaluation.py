@@ -21,7 +21,6 @@ def evaluate_naf_collection(naf_dir, iteration):
     gold_links=[]
     sys_links=[]
     for f in glob.glob('%s/*.naf' % naf_dir):
-        print(f)
         parser = etree.XMLParser(remove_blank_text=True)
         doc=etree.parse(f, parser)
 
@@ -33,7 +32,6 @@ def evaluate_naf_collection(naf_dir, iteration):
             for ext_ref in ext_refs.findall('externalRef'):
                 source=ext_ref.get('source')
                 reference=ext_ref.get('reference')
-                print(source, sys_source)
                 if source==sys_source:
                     sys_links.append(reference)
                 elif not source:
@@ -56,7 +54,8 @@ def evaluate_naf_collection(naf_dir, iteration):
 #clusters=convert_str_to_int_list(l)
 #print(clusters)
 
-naf_dir=config.naf_dir
-iteration=2
-evaluation_score=evaluate_naf_collection(f'{naf_dir}/{iteration}', iteration)
-print(evaluation_score)
+iteration=1
+for s in glob.glob('%s/*' % config.sys_dir):
+    naf_dir='%s/naf' % s
+    evaluation_score=evaluate_naf_collection(f'{naf_dir}/{iteration}', iteration)
+    print(evaluation_score)

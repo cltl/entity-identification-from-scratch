@@ -5,12 +5,19 @@ import re
 import pickle
 import os.path
 from rdflib import Graph, URIRef
+from deprecated import deprecated
 
 import algorithm_utils as algorithm
 import classes
 import config
 
+# ------ Media Wiki processing utils. ----- #
+
+@deprecated(reason="This kind of Wiki processing is not sufficiently reliable.")
 def shift_all(links_json, x):
+    """
+    Shift the full text to account for the link markers.
+    """
     new_json={}
     for start, end in links_json.keys():
         new_start=start-x
@@ -19,6 +26,9 @@ def shift_all(links_json, x):
     return new_json
 
 def get_text_and_links(wikitext):
+    """
+    Obtain text and links from a wikipedia text.
+    """
     parsed = wtp.parse(wikitext)
     basic_info=parsed.sections[0]
     saved_links={}
@@ -45,8 +55,11 @@ def get_text_and_links(wikitext):
 
     return basic_info, saved_links
 
-
+@deprecated(reason="This kind of Wiki processing is not sufficiently reliable.")
 def create_gold_mentions(links, text):
+    """
+    Create gold mentions from inline links in wikipedia.
+    """
     mentions=[]
     for offset, meaning in links.items():
         start, end=offset
@@ -61,7 +74,7 @@ def create_gold_mentions(links, text):
     return mentions
 
 def clean_wiki(wikitext):
-    """Removes wiki flags"""
+    """Remove media wiki style and template markers."""
     text = str(wikitext)
     # date tags {{Datum|foo}}
     text = re.sub(r'\{\{Datum\|(.*)\}\}', r'\1.', text)
@@ -80,6 +93,9 @@ def clean_wiki(wikitext):
 
 
 def strip_identity(i):
+    """
+    Normalize identity to only contain the ID.
+    """
     identity=i.replace('http://cltl.nl/entity#', '')
     return identity.replace(' ', '_')
 
@@ -155,6 +171,7 @@ def save_news_items(a_file, data):
 # ------- Loading news items ----------------------
 
 def map_offsets_to_tids(nlp, objects):
+    """Map entity mention offsets to token ids."""
     for news_item in objects:
         text=f"{news_item.title}\n{news_item.content}"
         text=text.strip()
@@ -186,7 +203,7 @@ def map_offsets_to_tids(nlp, objects):
     return objects
 
 def get_docs_with_entities(outdir, input_dir, nl_nlp, ner_system):
-    """Obtain news items processed with NER."""
+    """Obtain news items with recognized entities."""
     pkl_docs='%s.pkl' % input_dir
     ent_addon='_with_ent'
     pkl_docs_with_entities='%s%s.pkl' % (input_dir, ent_addon)

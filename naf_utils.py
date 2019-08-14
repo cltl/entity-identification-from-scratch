@@ -119,7 +119,7 @@ def add_ext_references_to_naf(all_docs, source_id, in_naf_dir, out_naf_dir=None)
         
         root=naf_file.getroot()
         entities_layer=root.find(entity_layer_str)
-        if not entities_layer:
+        if entities_layer is None:
             entities_layer = etree.SubElement(root, entity_layer_str)
 
         if source_id=='gold':
