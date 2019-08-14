@@ -9,6 +9,7 @@ factors=['docid', 'type']
 # ----- Embeddings settings ----- #
 bert_model='bert-base-multilingual-cased'
 sys_name='embeddings'
+modify_entities=False
 
 # ----- Other settings ----- #
 ner='gold' # gold or spacy

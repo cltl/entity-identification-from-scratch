@@ -18,7 +18,7 @@ def patch_classes_with_tokens(news_items, naf_dir, entity_layer):
             e.tokens=eid_to_tids[eid]
     return news_items
 
-def load_sentences(naf_dir, iteration):
+def load_sentences(naf_dir, iteration, modify_entities=False):
     all_sent=[]
     for f in glob.glob('%s/*.naf' % naf_dir):
 
@@ -26,7 +26,7 @@ def load_sentences(naf_dir, iteration):
         doc=etree.parse(f, parser)
 
         root=doc.getroot()
-        s=load_sentences_from_naf(iteration, root)
+        s=load_sentences_from_naf(iteration, root, modify_entities)
         all_sent+=s
     return all_sent
 
@@ -149,9 +149,8 @@ def add_ext_references_to_naf(all_docs, source_id, in_naf_dir, out_naf_dir=None)
             with open(outfile_path, 'w') as outfile:
                 outfile.write(spacy_to_naf.NAF_to_string(NAF=root))
 
-def load_sentences_from_naf(iteration, root):
+def load_sentences_from_naf(iteration, root, modify_entities):
     to_replace={}
-    
     
     ent_layer=root.find(config.naf_entity_layer)
     for e in ent_layer.findall('entity'):
@@ -160,15 +159,18 @@ def load_sentences_from_naf(iteration, root):
         the_id=''
         for er in ext_refs.findall('externalRef'):
             if er.get('source')=='iteration%d' % iteration:
-                the_id=er.get('target')
+                the_id=er.get('reference')
                 
         # get spans
         refs=e.find('references')
         span=refs.find('span')
         for target in span.findall('target'):
             t=target.get('id')
-            to_replace[t]=''
-        to_replace[t]=the_id
+            if modify_entities:
+                if target!=span.findall('target')[-1]:
+                    to_replace[t]=''
+                else:
+                    to_replace[t]=the_id
     
     token_layer=root.find('text')
     old_sent='1'
@@ -181,11 +183,10 @@ def load_sentences_from_naf(iteration, root):
         if old_sent!=sent:
             sentences.append(current_sentence)
             current_sentence=[]
-        if idx in to_replace:
-            if to_replace[idx]:
-                current_sentence.append(to_replace[idx])
-        else:
+        if not modify_entities or idx not in to_replace:
             current_sentence.append(txt)
+        elif idx in to_replace and to_replace[idx]:
+                current_sentence.append(to_replace[idx])
         old_sent=sent
     sentences.append(current_sentence)
     return sentences

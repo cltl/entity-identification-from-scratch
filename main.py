@@ -15,7 +15,10 @@ import config
     
 ################## Run iteration 1 or 2 or more #########################
 
-def run_embeddings_system(factor_combo, data, id_embeddings, ids, iteration, naf_folder, nl_nlp, graph_filename):
+def run_embeddings_system(data, id_embeddings, ids, iteration, naf_folder, nl_nlp, graph_filename):
+    """
+    Run the embeddings system.
+    """
     refined_news_items=copy.deepcopy(data)
     m2id=algorithm.construct_m2id(refined_news_items)
     new_ids=algorithm.cluster_identities(m2id, 
@@ -47,7 +50,6 @@ def run_embeddings_system(factor_combo, data, id_embeddings, ids, iteration, naf
 if __name__=="__main__":
 
     # LOAD CONFIG DATA
-    all_factors=config.factors # all factors that we will use to distinguish identity in our baseline graphs
     bert_model=config.bert_model
     prefix=config.uri_prefix
     entity_layer=config.naf_entity_layer
@@ -62,13 +64,19 @@ if __name__=="__main__":
     if not os.path.exists(data_dir):
         data_dir.mkdir() 
 
-    naf_dir=Path('%s/%s/naf' % (sys_dir, system_name))
-    el_file=Path('%s/%s/el.pkl' % (sys_dir, system_name))
-    graphs_file=Path('%s/%s/graphs.graph' % (sys_dir, system_name))
+    this_sys_dir=Path('%s/%s' % (sys_dir, system_name))
+    if not os.path.exists(this_sys_dir):
+        this_sys_dir.mkdir()
+
+    naf_dir=Path('%s/naf' % this_sys_dir)
+    el_file=Path('%s/el.pkl' % this_sys_dir)
+    graphs_file=Path('%s/graphs.graph' % this_sys_dir)
 
     if os.path.exists(naf_dir):
         shutil.rmtree(str(naf_dir))
     naf_dir.mkdir()
+
+    print('Directories refreshed.')
 
     # LOAD MODELS
     
@@ -105,11 +113,13 @@ if __name__=="__main__":
 
     iteration=1
     # BERT embeddings
-    sent_embeddings=emb_utils.get_sentence_embeddings(naf_dir, 
-                                                      iteration, 
-                                                      model, 
-                                                      tokenizer)
-    print(sent_embeddings['Leipzig'].keys())
+    word_embeddings, sent_embeddings=emb_utils.get_word_and_sentence_embeddings(naf_dir, 
+                                                                              iteration, 
+                                                                              model, 
+                                                                              tokenizer,
+                                                                              news_items_with_entities,
+                                                                              modify_entities=config.modify_entities)
+    print(sent_embeddings['Leipzig'].keys() )
     id_embeddings=emb_utils.sent_to_id_embeddings(sent_embeddings, 
                                                   data)
 
