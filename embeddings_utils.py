@@ -74,11 +74,13 @@ def map_bert_embeddings_to_tokens(berts, entities, word_embeddings, sent_id):
                         if diff<closest_diff:
                             closest_diff=diff
                             closest_tids=get_embedding_tids(raw_tids, mapping_old_new_bert)
-        embs=[]
-        for tid in closest_tids:
-            embs+=list(word_embeddings[tid])
-        suma=np.sum(embs, axis=0)
-        entity_embs[entity.eid]=suma
+        embs=np.zeros(len(word_embeddings[0]))
+        if len(closest_tids)==1:
+            entity_embs[entity.eid]=np.array(word_embeddings[closest_tids[0]])
+        else:
+            for tid in closest_tids:
+                embs+=np.array(word_embeddings[tid])
+            entity_embs[entity.eid]=embs
     return entity_embs
 
 # -------- BERT Mapping functions ready ------ #
@@ -142,7 +144,6 @@ def get_bert_embeddings(tokens, model, tokenizer):
     text=' '.join(tokens)
     marked_text = "[CLS] " + text + " [SEP]"
     tokenized_text = tokenizer.tokenize(marked_text)
-    print('TOKENIZED', tokenized_text)
 
     indexed_tokens = tokenizer.convert_tokens_to_ids(tokenized_text)
     segments_ids = [1] * len(tokenized_text)
@@ -189,7 +190,6 @@ def get_word_and_sentence_embeddings(naf_dir, iteration, model, tokenizer, news_
         for index, sentence in enumerate(s):
             sent_index=str(index+1)
 
-            print('Input sentence', sentence)
             tokenized_text, encoded_layers=get_bert_embeddings(sentence, model, tokenizer)
 
             # Get sentence embeddings
@@ -204,7 +204,6 @@ def get_word_and_sentence_embeddings(naf_dir, iteration, model, tokenizer, news_
             entity_embeddings=map_bert_embeddings_to_tokens(tokenized_text, entities, word_embeddings, sent_index)
             for eids, embs in entity_embeddings.items():
                 ent_emb[doc_id][eids]=embs
-            print(ent_emb)
             sys.exit()
         
     return ent_emb, sent_emb
