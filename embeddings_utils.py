@@ -41,7 +41,7 @@ def get_embedding_tids(tids, mapping):
         mapped+=mapping[t]
     return mapped
 
-def map_bert_embeddings_to_tokens(berts, entities, word_embeddings, sent_id):
+def map_bert_embeddings_to_tokens(berts, entities, word_embeddings, sent_id, offset=0):
     norm_bert, mapping_old_new_bert = get_bert_mappings(berts)
 
     entity_embs={}
@@ -49,7 +49,9 @@ def map_bert_embeddings_to_tokens(berts, entities, word_embeddings, sent_id):
     for entity in entities:
         if entity.sentence!=sent_id: continue
         ev=entity.mention.split()
-        ek=list(range(entity.begin_index, entity.end_index+1))
+        ek_raw=list(range(entity.begin_index, entity.end_index+1))
+        ek=[x-offset for x in ek_raw]
+        print(entity.eid, ek, ev)
         closest_diff=999
         closest_tids=[]
         for bert_i, berts_token in enumerate(norm_bert):
@@ -81,7 +83,7 @@ def map_bert_embeddings_to_tokens(berts, entities, word_embeddings, sent_id):
             for tid in closest_tids:
                 embs+=np.array(word_embeddings[tid])
             entity_embs[entity.eid]=embs
-    return entity_embs
+    return entity_embs, len(norm_bert)
 
 # -------- BERT Mapping functions ready ------ #
 
@@ -161,12 +163,13 @@ def get_bert_embeddings(tokens, model, tokenizer):
     
     return tokenized_text, encoded_layers
        
-def get_word_and_sentence_embeddings(naf_dir, iteration, model, tokenizer, news_items, modify_entities=False):
+def get_entity_and_sentence_embeddings(naf_dir, iteration, model, tokenizer, news_items, modify_entities=False):
     """
-    Obtain word and sentence embeddings using BERT for an entire NAF collection.
+    Obtain entity and sentence embeddings using BERT for an entire NAF collection.
     """
     sent_emb=defaultdict(dict)
     ent_emb=defaultdict(dict)
+    concat_emb=defaultdict(dict)
 
     # load NAF files from the previous iteration
     for f in glob.glob('%s/%d/*.naf' % (naf_dir, iteration-1)):
@@ -187,6 +190,8 @@ def get_word_and_sentence_embeddings(naf_dir, iteration, model, tokenizer, news_
             if doc_id!=item.identifier: continue
             entities=item.sys_entity_mentions
 
+        offset=0
+        # Sentence per sentence: run BERT, extract sentence embeddings, extract entity embeddings, and concatenate
         for index, sentence in enumerate(s):
             sent_index=str(index+1)
 
@@ -201,12 +206,13 @@ def get_word_and_sentence_embeddings(naf_dir, iteration, model, tokenizer, news_
             word_embeddings=get_bert_word_embeddings(tokenized_text, encoded_layers)
             print('Word embeddings shape', len(word_embeddings), len(word_embeddings[0]))
             
-            entity_embeddings=map_bert_embeddings_to_tokens(tokenized_text, entities, word_embeddings, sent_index)
+            entity_embeddings, new_offset=map_bert_embeddings_to_tokens(tokenized_text, entities, word_embeddings, sent_index, offset)
             for eids, embs in entity_embeddings.items():
                 ent_emb[doc_id][eids]=embs
-            sys.exit()
+                concat_emb[doc_id][eids]=np.concatenate((embs, sentence_embeddings), axis=0)
+            offset+=new_offset
         
-    return ent_emb, sent_emb
+    return ent_emb, sent_emb, concat_emb
     
 def sent_to_id_embeddings(sent_embeddings, data):
     entity_embs=defaultdict(list)

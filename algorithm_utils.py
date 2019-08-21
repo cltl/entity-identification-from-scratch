@@ -41,8 +41,10 @@ def generate_identity(objs,
 def replace_identities(news_items_with_entities, new_ids):
     for item in news_items_with_entities:
         for e in item.sys_entity_mentions:
-            identity=e.identity
-            new_identity=new_ids[identity]
+            key='%s#%s' % (item.identifier, e.eid)
+
+#            identity=e.identity
+            new_identity=new_ids[key]
 #            print('new identity', identity, new_identity)
             e.identity=new_identity
     return news_items_with_entities
@@ -53,9 +55,10 @@ def construct_m2id(news_items_with_entities):
     id_num=0
     for item in news_items_with_entities:
         for e in item.sys_entity_mentions:
-            identity=e.identity
+#            identity=e.identity
 #            if identity.endswith('MISC'): continue
-            m2id[e.mention].add(identity)
+            key='%s#%s' % (item.identifier, e.eid)
+            m2id[e.mention].add(key)
     for m, ids in m2id.items():
         id_num+=len(ids)
     print('Identities in m2id', id_num)
@@ -92,7 +95,7 @@ def cluster_identities_dbscan(m2id, wv):
             new_identities[old_id]=new_id
     return new_identities
 
-def cluster_identities(m2id, wv, max_d=15):
+def cluster_identities(m2id, embeddings, max_d=15):
     """Cluster identities for all mentions based on vector similarity and a hierarchical clustering algorithm."""
     new_identities={}
     for m, ids in m2id.items():
@@ -103,8 +106,9 @@ def cluster_identities(m2id, wv, max_d=15):
             continue
         all_vectors=[]
         ids=list(ids)
-        for i, ent_i in enumerate(ids):
-            vector=wv[ent_i]
+        for mid in ids:
+            docid, mention_id = mid.split('#')
+            vector=embeddings[docid][mention_id]
             all_vectors.append(vector)
         try:
             l = linkage(all_vectors, method='complete', metric='euclidean')

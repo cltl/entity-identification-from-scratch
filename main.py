@@ -15,16 +15,18 @@ import config
     
 ################## Run iteration 1 or 2 or more #########################
 
-def run_embeddings_system(data, id_embeddings, ids, iteration, naf_folder, nl_nlp, graph_filename):
+def run_embeddings_system(data, embeddings, iteration, naf_folder, nl_nlp, graph_filename):
     """
     Run the embeddings system.
     """
     refined_news_items=copy.deepcopy(data)
     m2id=algorithm.construct_m2id(refined_news_items)
+    print('M2ID', len(m2id.keys()))
     new_ids=algorithm.cluster_identities(m2id, 
-                                         id_embeddings)
-    assert len(new_ids)==len(ids), 'Mismatch between old and new ids. Old=%d; new=%d' % (len(ids), 
-                                                                                         len(new_ids))
+                                         embeddings,
+                                         max_d=50)
+    #assert len(new_ids)==len(ids), 'Mismatch between old and new ids. Old=%d; new=%d' % (len(ids), 
+    #                                                                                    len(new_ids))
     refined_news_items=algorithm.replace_identities(refined_news_items,
                                                     new_ids)
 
@@ -45,7 +47,7 @@ def run_embeddings_system(data, id_embeddings, ids, iteration, naf_folder, nl_nl
 
     ids=analysis.inspect_data(refined_news_items, graph_filename)
     
-    return refined_news_items, ids
+    return refined_news_items, new_ids
 
 if __name__=="__main__":
 
@@ -113,23 +115,25 @@ if __name__=="__main__":
 
     iteration=1
     # BERT embeddings
-    word_embeddings, sent_embeddings=emb_utils.get_word_and_sentence_embeddings(naf_dir, 
-                                                                              iteration, 
-                                                                              model, 
-                                                                              tokenizer,
-                                                                              news_items_with_entities,
-                                                                              modify_entities=config.modify_entities)
-    print(sent_embeddings['Leipzig'].keys() )
-    id_embeddings=emb_utils.sent_to_id_embeddings(sent_embeddings, 
-                                                  data)
+    entity_embeddings, sent_embeddings, all_emb=emb_utils.get_entity_and_sentence_embeddings(naf_dir, 
+                                                                                  iteration, 
+                                                                                  model, 
+                                                                                  tokenizer,
+                                                                                  news_items_with_entities,
+                                                                                  modify_entities=config.modify_entities)
+    print('Entity and sentence embeddings created')
+    print(sent_embeddings['Leipzig'].keys())
+    print(entity_embeddings['Leipzig'].keys())
+    print(all_emb['Leipzig'].keys())
+    print(sent_embeddings['Leipzig']['1'].shape)
+    print(entity_embeddings['Leipzig']['e1'].shape)
+    print(all_emb['Leipzig']['e1'].shape)
+    #id_embeddings=emb_utils.sent_to_id_embeddings(sent_embeddings, 
+    #                                              data)
 
-    data, ids = run_embeddings_system(factor_combo, 
-                                    data, 
-                                    id_embeddings, 
-                                    ids, 
+    data, ids = run_embeddings_system(news_items_with_entities, 
+                                    all_emb, 
                                     iteration, 
                                     naf_dir,
                                     nl_nlp,
                                     graphs_file)
-
-        
