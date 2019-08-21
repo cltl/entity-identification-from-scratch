@@ -56,6 +56,7 @@ def evaluate_naf_collection(naf_dir, iteration):
 
 iteration=1
 for s in glob.glob('%s/*' % config.sys_dir):
+    print(f'NOW EVALUATING {s}')
     naf_dir='%s/naf' % s
     evaluation_score=evaluate_naf_collection(f'{naf_dir}/{iteration}', iteration)
     print(evaluation_score)

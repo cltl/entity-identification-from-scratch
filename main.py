@@ -1,3 +1,4 @@
+import numpy as np
 import shutil
 import copy
 import nl_core_news_sm
@@ -5,6 +6,8 @@ import sys
 from path import Path
 import os.path
 from pytorch_pretrained_bert import BertTokenizer, BertModel
+import Levenshtein as lev
+from collections import defaultdict
 
 import load_utils
 import analysis_utils as analysis
@@ -12,19 +15,74 @@ import algorithm_utils as algorithm
 import naf_utils as naf
 import embeddings_utils as emb_utils
 import config
-    
+import doc2vec
+
 ################## Run iteration 1 or 2 or more #########################
+
+def similar(a,b, tau=0.8):
+    """
+    Check if two strings are similar enough.
+    """
+    return lev.ratio(a,b)>=tau
+
+def is_abbrev(abbrev, text):
+    abbrev=abbrev.lower()
+    text=text.lower()
+    words=text.split()
+    if not abbrev:
+        return True
+    if abbrev and not text:
+        return False
+    if abbrev[0]!=text[0]:
+        return False
+    else:
+        return (is_abbrev(abbrev[1:],' '.join(words[1:])) or
+                any(is_abbrev(abbrev[1:],text[i+1:])
+                    for i in range(len(words[0]))))
+
+def abbreviation(a,b):
+    return is_abbrev(a,b) or is_abbrev(b,a)
+
+
+def pregroup_clusters(news_items_with_entities):
+    cands=[]
+    for item in news_items_with_entities:
+        for e in item.sys_entity_mentions:
+            mention=e.mention
+            key='%s#%s' % (item.identifier, e.eid)
+            found=False
+            for c in cands:
+                if found: break
+                for other_mention, other_identifier in c:
+                    if similar(other_mention, mention) or abbreviation(other_mention, mention):
+                        c.append(tuple([mention, key]))
+                        found=True
+                        break
+            if not found:
+                new_c=tuple([mention, key])
+                cands.append([new_c])
+    return cands
 
 def run_embeddings_system(data, embeddings, iteration, naf_folder, nl_nlp, graph_filename):
     """
     Run the embeddings system.
     """
     refined_news_items=copy.deepcopy(data)
-    m2id=algorithm.construct_m2id(refined_news_items)
-    print('M2ID', len(m2id.keys()))
-    new_ids=algorithm.cluster_identities(m2id, 
-                                         embeddings,
-                                         max_d=50)
+    print('Now pre-grouping clusters...')
+    candidate_clusters=pregroup_clusters(refined_news_items)
+    print('Clusters pre-grouped. We have %d groups.' % len(candidate_clusters))
+    print(candidate_clusters)
+    if config.sys_name=='string_features':
+        new_ids={}
+        for cid, members in enumerate(candidate_clusters):
+            for mention, eid in members:
+                new_ids[eid]=str(cid)
+    else: # sys_name=='embeddings'
+        #m2id=algorithm.construct_m2id(refined_news_items)
+        #print('M2ID', len(m2id.keys()))
+        new_ids=algorithm.cluster_identities(candidate_clusters, 
+                                             embeddings,
+                                             max_d=58)
     #assert len(new_ids)==len(ids), 'Mismatch between old and new ids. Old=%d; new=%d' % (len(ids), 
     #                                                                                    len(new_ids))
     refined_news_items=algorithm.replace_identities(refined_news_items,
@@ -78,6 +136,10 @@ if __name__=="__main__":
         shutil.rmtree(str(naf_dir))
     naf_dir.mkdir()
 
+    emb_dir=Path('%s/emb' % data_dir)
+    if not os.path.exists(emb_dir):
+        emb_dir.mkdir()
+
     print('Directories refreshed.')
 
     # LOAD MODELS
@@ -92,6 +154,10 @@ if __name__=="__main__":
     print('BERT model loaded')
     
     nl_nlp=nl_core_news_sm.load()
+    
+    doc2vec_model=doc2vec.get_doc2vec_model(str(emb_dir), str(input_dir), force=False)
+    print(doc2vec_model.docvecs[0].shape)
+    print('Doc2Vec model loaded')
 
     # ------ Generate NAFs and fill classes with entity mentions (Steps 1 and 2) --------------------
 
@@ -131,8 +197,16 @@ if __name__=="__main__":
     #id_embeddings=emb_utils.sent_to_id_embeddings(sent_embeddings, 
     #                                              data)
 
+    full_embeddings=defaultdict(dict)
+    for i, item in enumerate(news_items_with_entities):
+        doc_vector=doc2vec_model.docvecs[i]
+        current_emb=all_emb[item.identifier]
+        for eid, embs in current_emb.items():
+            full_embeddings[item.identifier][eid]=np.concatenate((embs, doc_vector), axis=0)
+
+    print('Full embedding shape', full_embeddings['Leipzig']['e2'].shape)
     data, ids = run_embeddings_system(news_items_with_entities, 
-                                    all_emb, 
+                                    full_embeddings, 
                                     iteration, 
                                     naf_dir,
                                     nl_nlp,

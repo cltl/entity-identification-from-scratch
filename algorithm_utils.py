@@ -95,7 +95,34 @@ def cluster_identities_dbscan(m2id, wv):
             new_identities[old_id]=new_id
     return new_identities
 
-def cluster_identities(m2id, embeddings, max_d=15):
+def cluster_identities(groups, embeddings, max_d=15):
+    """Cluster identities for predefined groups based on vector similarity and a hierarchical clustering algorithm."""
+    new_identities={}
+    for gid, g in enumerate(groups):
+        num_cands=len(g)
+        if num_cands<2:
+            for em in g:
+                new_identities[em[1]]=em[1]
+            continue
+        all_vectors=[]
+        for mention, eid in g:
+            docid, mention_id = eid.split('#')
+            vector=embeddings[docid][mention_id]
+            all_vectors.append(vector)
+        try:
+            l = linkage(all_vectors, method='complete', metric='euclidean')
+        except ValueError as e:
+            print(all_vectors)
+            print(e)
+            sys.exit()
+        clusters=fcluster(l, max_d, criterion='distance')
+        for candidate, c_id in zip(g, clusters):
+            old_id=candidate[1]
+            new_id='%d_%d' % (gid, c_id)
+            new_identities[old_id]=new_id
+    return new_identities
+
+def cluster_mention_identities(m2id, embeddings, max_d=15):
     """Cluster identities for all mentions based on vector similarity and a hierarchical clustering algorithm."""
     new_identities={}
     for m, ids in m2id.items():

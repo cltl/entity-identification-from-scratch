@@ -8,6 +8,7 @@ factors=['docid', 'type']
 
 # ----- Embeddings settings ----- #
 bert_model='bert-base-multilingual-cased'
+#sys_name='string_features' # 
 sys_name='embeddings'
 modify_entities=False
 

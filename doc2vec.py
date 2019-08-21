@@ -4,6 +4,7 @@ from gensim.models import Doc2Vec
 from gensim.models.doc2vec import TaggedDocument
 import statistics
 
+import load_utils as load
 
 # ------ Processing news items -------------------
 
@@ -13,33 +14,31 @@ def load_docs_for_evaluation(bindir, docid, ids=None):
         with open(bindir + "/doc2vec.ids", 'rb') as f:
             ids = pickle.load(f)
     docs = []
-    for doc in load_news_items(bindir, docid):
+    for doc in load.load_news_items(bindir, docid):
         docs.append(TaggedDocument(clean_wiki(doc.content), [ids.index(doc.identifier)]))
     return docs
 
-
-def load_docs_for_training(bindir, docid):
+def load_docs_for_training(embdir, datadir):
     """Cleans wiki news items and formats them as TaggedDocument for Doc2Vec"""
 
     ids = []
     docs = []
-    for i, doc in enumerate(load_news_items(bindir, docid)):
+    pkl_docs='%s.pkl' % datadir
+    for i, doc in enumerate(load.load_news_items(pkl_docs)):
         ids.append(doc.identifier)
-        docs.append(TaggedDocument(clean_wiki(doc.content), [i]))
-    with open(bindir + "/doc2vec.ids", 'wb') as w:
+        docs.append(TaggedDocument(doc.content, [i]))
+    with open(embdir + "/doc2vec.ids", 'wb') as w:
         pickle.dump(ids, w)
     return docs
 
-
 # ------- Loading / training doc2vec model ----------
 
-
-def run_doc2vec(docs, model_dir):
+def run_doc2vec(docs, model_dir, size=1000):
     """Trains doc2vec model
 
     code source: https://rare-technologies.com/doc2vec-tutorial/
     """
-    model = Doc2Vec(alpha=0.025, min_alpha=0.025)  # use fixed learning rate
+    model = Doc2Vec(size=size, alpha=0.025, min_alpha=0.025)  # use fixed learning rate
     model.build_vocab(docs)
     for epoch in range(10):
         model.train(docs, total_examples=model.corpus_count, epochs=model.epochs)
@@ -49,7 +48,7 @@ def run_doc2vec(docs, model_dir):
     return model
 
 
-def get_doc2vec_model(model_dir, doc_id, force=False):
+def get_doc2vec_model(model_dir, input_dir, force=False, size=1000):
     """Loads or trains model
 
     Forces retraining if force == True"""
@@ -58,8 +57,8 @@ def get_doc2vec_model(model_dir, doc_id, force=False):
         return Doc2Vec.load(model_dir + "/doc2vec.model")
     else:
         print("training model")
-        docs = load_docs_for_training(model_dir, doc_id)
-        return run_doc2vec(docs, model_dir)
+        docs = load_docs_for_training(model_dir, input_dir)
+        return run_doc2vec(docs, model_dir, size=size)
 
 
 # --------- model evaluation --------------------
