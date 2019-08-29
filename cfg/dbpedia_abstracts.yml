@@ -1,0 +1,17 @@
+# ----- Data settings -----
+max_documents:                    # e.g. 200 for debugging; otherwise leave empty
+corpus_name: dbpedia_abstracts    # wikinews
+raw_input: nlwikinews-latest-pages-articles.xml
+# ----- Baselines settings -----
+factors:
+- docid
+- type
+# ----- Embeddings settings -----
+bert_model: bert-base-multilingual-cased
+sys_name: embeddings              # string_features
+modify_entities: False
+# ----- Other settings -----
+ner: gold                         # gold or spacy
+uri_prefix: http://cltl.nl/entity#
+naf_entity_layer: entities
+

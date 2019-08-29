@@ -20,7 +20,7 @@ The current solution is entirely unsupervised, and works as follows:
 
 ### Code structure
 
-* The script `extract_corpus.py` creates a first corpus we will work with, in JSON format and as Python classes. It expects the file `data/input_data/nlwikinews-latest-pages-articles.xml` as input, which is a collection of Wikinews documents in Dutch in XML format. This script uses some functions from `load_utils.py`.
+* The script `make_wiki_corpus.py` creates a first corpus we will work with, in JSON format and as Python classes. It expects the file `data/input_data/nlwikinews-latest-pages-articles.xml` as input, which is a collection of Wikinews documents in Dutch in XML format. This script uses some functions from `load_utils.py`.
 
 * The script `main.py` executes the procedure described above. It relies on the utility file `entity_utils.py`, on the classes file `classes.py`, and on the configuration file `config.py`.
 
