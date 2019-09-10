@@ -58,7 +58,8 @@ def map_bert_embeddings_to_tokens(berts, entities, word_embeddings, sent_id, off
         ev = entity.mention.split()
         ek_raw = list(range(entity.begin_index, entity.end_index + 1))
         ek = [x - offset for x in ek_raw]
-        print(entity.eid, ek, ev)
+        if verbose:
+            print(entity.eid, ek, ev)
         closest_diff = 999
         closest_tids = []
         for bert_i, berts_token in enumerate(norm_bert):
@@ -233,7 +234,7 @@ def get_entity_and_sentence_embeddings(naf_dir, iteration, model, tokenizer, new
 
             verbose = False
             entity_embeddings, new_offset = map_bert_embeddings_to_tokens(tokenized_text, entities, word_embeddings,
-                                                                          sent_index, offset, verbose)
+                                                                          index + 1, offset, verbose)
             # concat_emb maps documents to entities and
             # associates each entity with its embedding and the embedding of the sentence
             # FIXME Is it right that only the last sentence an entity occurs in is taken into account?

@@ -36,10 +36,10 @@ def is_abbrev(abbrev, text):
         return False
     if abbrev[0] != text[0]:
         return False
+    elif words:
+        return any(is_abbrev(abbrev[1:], text[i + 1:]) for i in range(len(words[0])))
     else:
-        return (is_abbrev(abbrev[1:], ' '.join(words[1:])) or
-                any(is_abbrev(abbrev[1:], text[i + 1:])
-                    for i in range(len(words[0]))))
+        return False
 
 
 def abbreviation(a, b):
@@ -54,12 +54,14 @@ def pregroup_clusters(news_items_with_entities):
             key = '%s#%s' % (item.identifier, e.eid)
             found = False
             for c in cands:
-                if found: break
+                if found:
+                    break
                 for other_mention, other_identifier in c:
                     if similar(other_mention, mention) or abbreviation(other_mention, mention):
                         c.append(tuple([mention, key]))
                         found = True
                         break
+
             if not found:
                 new_c = tuple([mention, key])
                 cands.append([new_c])
@@ -187,6 +189,9 @@ if __name__ == "__main__":
             full_embeddings[item.identifier][eid] = np.concatenate((embs, doc_vector), axis=0)
 
     #print('Full embedding shape', full_embeddings[test_key]['e2'].shape)
+    if not full_embeddings:
+        raise ValueError('Full embeddings are empty. Refusing to continue')
+
     data, ids = run_embeddings_system(news_items_with_entities,
                                       full_embeddings,
                                       iteration,

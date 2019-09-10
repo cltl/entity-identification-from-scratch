@@ -18,9 +18,8 @@ def compute_rand_score(g, s):
     return sklearn.metrics.adjusted_rand_score(g, s)
 
 
-def evaluate_naf_collection(naf_dir, iteration):
+def evaluate_naf_collection(naf_dir, iteration, entity_layer_str):
     sys_source = f'iteration{iteration}'
-    entity_layer_str = config.naf_entity_layer
     gold_links = []
     sys_links = []
     for f in glob.glob('%s/*.naf' % naf_dir):
@@ -58,9 +57,10 @@ def evaluate_naf_collection(naf_dir, iteration):
 # clusters=convert_str_to_int_list(l)
 # print(clusters)
 
+cfg = config.Config('cfg/dbpedia_abstracts100.yml')
 iteration = 1
-for s in glob.glob('%s/*' % config.sys_dir):
+for s in glob.glob('%s/*' % cfg.sys_dir):
     print(f'NOW EVALUATING {s}')
     naf_dir = '%s/naf' % s
-    evaluation_score = evaluate_naf_collection(f'{naf_dir}/{iteration}', iteration)
+    evaluation_score = evaluate_naf_collection(f'{naf_dir}/{iteration}', iteration, cfg.naf_entity_layer)
     print(evaluation_score)
