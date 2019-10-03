@@ -185,6 +185,7 @@ def get_entity_and_sentence_embeddings(naf_dir, iteration, model, tokenizer, new
 
     # load NAF files from the previous iteration
     file_names = glob.glob('%s/%d/*.naf' % (naf_dir, iteration - 1))
+
     nb_files = len(file_names)
     mark = 1
     while mark < nb_files / 10:

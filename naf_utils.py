@@ -51,7 +51,7 @@ def create_nafs(naf_folder,
     else:
         print('No NAF files found. Let\'s create them.')
         pathlib.Path(naf_folder).mkdir(parents=True, exist_ok=True)
-        if ner_system == 'auto':
+        if ner_system != 'gold':
             layers.add('entities')
         create_naf_for_documents(news_items,
                                  layers,
@@ -213,3 +213,9 @@ def obtain_entity_data(naf_file, entities_layer_id):
             tids.append(target.get('id'))
         eid_to_tids[eid] = tids
     return eid_to_tids
+
+
+def copy_nafs(src, tgt):
+    if tgt.exists():
+        shutil.rmtree(str(tgt))
+    shutil.copytree(src, tgt)

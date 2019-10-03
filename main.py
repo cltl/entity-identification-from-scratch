@@ -152,11 +152,12 @@ if __name__ == "__main__":
     naf0 = Path('{}/0'.format(cfg.naf_dir))  # NAF folder before iteration 1
     if cfg.ner == 'gold':
         naf.add_ext_references_to_naf(news_items_with_entities,
-                                      'gold',
-                                      cfg.naf_entity_layer,
-                                      naf_empty,
-                                      naf0)
-
+                                  cfg.ner,
+                                  cfg.naf_entity_layer,
+                                  naf_empty,
+                                  naf0)
+    else:
+        naf.copy_nafs(naf_empty, naf0)
     # ------- Run embeddings system -----------------
 
     iteration = 1
@@ -188,7 +189,7 @@ if __name__ == "__main__":
         for eid, embs in current_emb.items():
             full_embeddings[item.identifier][eid] = np.concatenate((embs, doc_vector), axis=0)
 
-    #print('Full embedding shape', full_embeddings[test_key]['e2'].shape)
+    # print('Full embedding shape', full_embeddings[test_key]['e2'].shape)
     if not full_embeddings:
         raise ValueError('Full embeddings are empty. Refusing to continue')
 
