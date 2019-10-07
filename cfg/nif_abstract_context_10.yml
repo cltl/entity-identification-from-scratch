@@ -1,0 +1,17 @@
+# ----- Data settings -----
+max_documents: 10
+corpus_name: nif-abstract-context-10
+raw_input: nif-abstract-context_nl_10.ttl
+# ----- Baselines settings -----
+factors:
+- docid
+- type
+# ----- Embeddings settings -----
+bert_model: bert-base-multilingual-cased
+sys_name: embeddings
+modify_entities: False
+# ----- Other settings -----
+ner: spacy
+uri_prefix: http://cltl.nl/entity#
+naf_entity_layer: entities
+
