@@ -10,7 +10,7 @@ from config import Config
 
 # Creates json input documents from raw_input file
 # Specify your config file here:
-cfg = Config('cfg/dbpedia_abstracts100.yml')
+cfg = Config('cfg/wikinews100.yml')
 cfg.setup_input()
 
 # ------------------------------------------------------

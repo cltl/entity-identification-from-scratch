@@ -1,6 +1,6 @@
 # ----- Data settings -----
 max_documents: 100
-corpus_name: dbpedia_abstracts
+corpus_name: wikinews
 raw_input: nlwikinews-latest-pages-articles.xml
 # ----- Baselines settings -----
 factors:
