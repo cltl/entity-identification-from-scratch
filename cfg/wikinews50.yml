@@ -1,0 +1,17 @@
+# ----- Data settings -----
+max_documents: 50
+corpus_name: wikinews
+raw_input: nlwikinews-latest-pages-articles.xml
+# ----- Baselines settings -----
+factors:
+- docid
+- type
+# ----- Embeddings settings -----
+bert_model: bert-base-multilingual-cased
+sys_name: embeddings
+modify_entities: False
+# ----- Other settings -----
+ner: spacy
+uri_prefix: http://cltl.nl/entity#
+naf_entity_layer: entities
+

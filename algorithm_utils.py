@@ -183,7 +183,7 @@ def generate_graph(data, filename):
                 if other_identity>identity:
                     G.add_edge(identity, other_identity)
     print('Identities in the graph', G.number_of_nodes())
-    print('Relationsi in the graph', G.number_of_edges())
+    print('Relations in the graph', G.number_of_edges())
     
     nx.write_gpickle(G, filename.replace('.pkl', '.graph'))
 
@@ -224,6 +224,6 @@ def recognize_entities_spacy(nlp, news_items):
                 )
                 ent_id+=1
                 news_item.sys_entity_mentions.append(ent_mention_obj)
-        print(i, len(news_item.sys_entity_mentions))
+        print(news_item.identifier, len(news_item.sys_entity_mentions))
     return news_items
 

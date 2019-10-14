@@ -177,15 +177,19 @@ def save_news_items(a_file, data):
 
 # ------- Loading news items ----------------------
 
-def map_offsets_to_tids(nlp, objects):
+def map_offsets_to_tids(nlp, objects, ner_system):
     """Map entity mention offsets to token ids."""
     for news_item in objects:
         text = f"{news_item.title}\n{news_item.content}"
         text = text.strip()
         processed = nlp(text)
-        for entity in news_item.gold_entity_mentions:
-            begin = entity.begin_offset
-            end = entity.end_offset
+        if ner_system=='gold':
+            entities=news_item.gold_entity_mentions
+        else:
+            entities=news_item.sys_entity_mentions
+        for entity in entities:
+            begin = int(entity.begin_offset)
+            end = int(entity.end_offset)
             min_token_begin = None
             min_token_end = None
             min_begin = 999
@@ -209,7 +213,6 @@ def map_offsets_to_tids(nlp, objects):
             entity.sentence = begin_sent
     return objects
 
-
 def get_docs_with_entities(outdir, input_dir, nl_nlp, ner_system):
     """Obtain news items with recognized entities."""
     pkl_docs = '%s.pkl' % input_dir
@@ -224,8 +227,8 @@ def get_docs_with_entities(outdir, input_dir, nl_nlp, ner_system):
         news_items = load_news_items(pkl_docs)
         print('Loaded %d news items' % len(news_items))
         if ner_system == 'gold':
-            news_items = map_offsets_to_tids(nl_nlp, news_items)
             news_items_with_entities = algorithm.recognize_entities_gold(news_items)
+            news_items_with_entities = map_offsets_to_tids(nl_nlp, news_items_with_entities, ner_system)
         else:
             news_items_with_entities = algorithm.recognize_entities_spacy(nl_nlp, news_items)
         save_news_items(pkl_docs_with_entities,

@@ -211,7 +211,6 @@ def get_entity_and_sentence_embeddings(naf_dir, iteration, model, tokenizer, new
             if doc_id != item.identifier:
                 continue
             entities = item.sys_entity_mentions
-
         offset = 0
         # Sentence per sentence: run BERT, extract sentence embeddings, extract entity embeddings, and concatenate
         for index, sentence in enumerate(s):

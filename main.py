@@ -117,7 +117,7 @@ def run_embeddings_system(data, embeddings, iteration, naf_folder, nl_nlp, graph
 
 if __name__ == "__main__":
 
-    cfg = config.create('cfg/wikinews100.yml')
+    cfg = config.create('cfg/wikinews50.yml')
 
     print('Directories refreshed.')
 
@@ -141,22 +141,20 @@ if __name__ == "__main__":
     # ------ Generate NAFs and fill classes with entity mentions (Steps 1 and 2) --------------------
 
     # TODO: COMBINE NAFs with classes processing to run spacy only once!
-    news_items_with_entities = load_utils.get_docs_with_entities(cfg.data_dir,
-                                                                 cfg.input_dir,
-                                                                 nl_nlp,
-                                                                 cfg.ner)
+    news_items = load_utils.load_news_items('%s.pkl' % cfg.input_dir)
 
-    naf_empty = Path('{}/empty'.format(cfg.naf_dir))
-    naf.create_nafs(naf_empty, news_items_with_entities, nl_nlp, cfg.corpus_uri, cfg.ner)
+    #naf_empty = Path('{}/empty'.format(cfg.naf_dir))
+    #naf.create_nafs(naf_empty, news_items, nl_nlp, cfg.corpus_uri, cfg.ner)
 
     naf0 = Path('{}/0'.format(cfg.naf_dir))  # NAF folder before iteration 1
-    if cfg.ner == 'gold':
-        naf.add_ext_references_to_naf(news_items_with_entities,
-                                      'gold',
-                                      cfg.naf_entity_layer,
-                                      naf_empty,
-                                      naf0)
-
+    naf.create_nafs(naf0, news_items, nl_nlp, cfg.corpus_uri, cfg.ner)
+    #if cfg.ner == 'gold':
+    #naf.add_mentions_to_naf(news_items,
+    #                              cfg.ner,
+    #                              cfg.naf_entity_layer,
+    #                              naf_empty,
+    #                              naf0)
+    news_items_with_entities=naf.patch_classes_with_entities(news_items, naf0, cfg.naf_entity_layer)
     # ------- Run embeddings system -----------------
 
     iteration = 1
