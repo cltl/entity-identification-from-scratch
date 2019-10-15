@@ -63,7 +63,7 @@ def map_bert_embeddings_to_tokens(berts, entities, word_embeddings, sent_id, off
         closest_diff = 999
         closest_tids = []
         for bert_i, berts_token in enumerate(norm_bert):
-            if berts_token == ev[0]:
+            if ev and berts_token == ev[0]:
                 if len(ev) == 1:
                     diff = abs(bert_i - ek[0])
                     if diff < closest_diff:
@@ -74,7 +74,7 @@ def map_bert_embeddings_to_tokens(berts, entities, word_embeddings, sent_id, off
                     fits = True
                     raw_tids = []
                     for i, t in enumerate(ev):
-                        if t != norm_bert[bert_i + i]:
+                        if bert_i+i >= len(norm_bert) or t != norm_bert[bert_i + i]:
                             fits = False
                             break
                         else:
