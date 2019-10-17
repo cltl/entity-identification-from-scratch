@@ -41,7 +41,7 @@ We compare our identity clustering algorithm against 5 baselines:
 
 * The classes we work with are defined in the file `classes.py`.
 
-* Configuration files are found in the folder `cfg`.
+* Configuration files are found in the folder `cfg`. These are loaded through the script `config.py`.
 
 * All data is stored in the folder `data`.
 
