@@ -4,7 +4,7 @@ from gensim.models import Doc2Vec
 from gensim.models.doc2vec import TaggedDocument
 import statistics
 
-import load_utils as load
+import pickle_utils as load
 
 # ------ Processing news items -------------------
 

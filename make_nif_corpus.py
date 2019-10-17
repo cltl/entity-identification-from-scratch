@@ -60,7 +60,7 @@ def load_article_from_nif_file(nif_file, corpus_name, limit=1000000):
     return news_items
 
 # Specify your config file here:
-cfg = Config('cfg/abstracts50.yml')
+cfg = Config('cfg/abstracts_nif35.yml')
 cfg.setup_input()
 
 # Load configuration variables

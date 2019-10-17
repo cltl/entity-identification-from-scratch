@@ -2,8 +2,8 @@
 max_documents: 50
 min_text_length: 100              # minimum length of the text in characters
 
-corpus_name: dbpedia_abstracts_nif0
-raw_input: abstracts_nl0.ttl
+corpus_name: dbpedia_abstracts_nif35
+raw_input: abstracts_nl35.ttl
 # ----- Baselines settings -----
 factors:
 - docid
