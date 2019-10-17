@@ -10,7 +10,7 @@ from scipy.cluster.hierarchy import dendrogram, fcluster, linkage
 import copy
 
 import classes
-import load_utils
+import pickle_utils as pkl
 
 def generate_identity(objs, 
                       factors=[],
@@ -23,7 +23,7 @@ def generate_identity(objs,
     data=copy.deepcopy(objs)
     for news_item in data:
         for mention in news_item.sys_entity_mentions:
-            mention.identity=load_utils.strip_identity(mention.mention)
+            mention.identity=pkl.strip_identity(mention.mention)
             #'%s%s' % (prefix, mention.mention)
             if 'docid' in factors:
                 mention.identity+=news_item.identifier.split('_')[-1]
@@ -154,7 +154,7 @@ def replace_entities(nlp, text, mentions):
     for e in mentions:
         start_index=e.begin_index
         end_index=e.end_index
-        to_replace[start_index]=load_utils.strip_identity(e.identity)
+        to_replace[start_index]=pkl.strip_identity(e.identity)
         for i in range(start_index+1, end_index):
             to_replace[i]=''
     doc=nlp(text)

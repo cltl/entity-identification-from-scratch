@@ -5,7 +5,7 @@ import sys
 from path import Path
 import os.path
 
-import load_utils
+import pickle_utils as pkl
 import analysis_utils as analysis
 import algorithm_utils as algorithm
 import naf_utils as naf
@@ -53,10 +53,10 @@ if __name__=="__main__":
     # ------ Generate NAFs and fill classes with entity mentions (Steps 1 and 2) --------------------
 
     #TODO: COMBINE NAFs with classes processing to run spacy only once!
-    news_data=load_utils.get_docs_with_entities(str(data_dir),
-                                               str(input_dir),
-                                               nl_nlp,
-                                               ner_system)
+    news_data=pkl.get_docs_with_entities(str(data_dir),
+                                       str(input_dir),
+                                       nl_nlp,
+                                       ner_system)
 
     for factor_combo in algorithm.get_variable_len_combinations(all_factors):
         # Generate baseline graphs

@@ -1,6 +1,6 @@
 from rdflib import Graph, URIRef
 
-import load_utils as io
+import pickle_utils as pkl
 from config import Config
 
 # ------ NIF datasets loader ---------------------
@@ -73,4 +73,4 @@ news_items = load_article_from_nif_file(cfg.raw_input,
                                        collection=cfg.corpus_name)
 
 # Save the news articles to pickle
-load_utils.save_news_items('%s/documents.pkl' % cfg.data_dir, news_items)
+pkl.save_news_items('%s/documents.pkl' % cfg.data_dir, news_items)

@@ -4,7 +4,7 @@ import os
 import glob
 
 import wiki_utils as utils
-import load_utils as io
+import pickle_utils as pkl
 import classes
 from config import Config
 
@@ -82,4 +82,4 @@ for x in root.findall(page_marker):
     counter += 1
 
 # Save the classes as pickle
-io.save_news_items('%s/documents.pkl' % cfg.data_dir, news_items)
+pkl.save_news_items('%s/documents.pkl' % cfg.data_dir, news_items)

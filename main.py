@@ -8,7 +8,7 @@ from pytorch_pretrained_bert import BertTokenizer, BertModel
 import Levenshtein as lev
 from collections import defaultdict
 
-import load_utils
+import pickle_utils as pkl
 import analysis_utils as analysis
 import algorithm_utils as algorithm
 import naf_utils as naf
@@ -141,7 +141,7 @@ if __name__ == "__main__":
     # ------ Generate NAFs and fill classes with entity mentions (Steps 1 and 2) --------------------
 
     # TODO: COMBINE NAFs with classes processing to run spacy only once!
-    news_items = load_utils.load_news_items('%s.pkl' % cfg.input_dir)
+    news_items = pkl.load_news_items('%s.pkl' % cfg.input_dir)
 
     #naf_empty = Path('{}/empty'.format(cfg.naf_dir))
     #naf.create_nafs(naf_empty, news_items, nl_nlp, cfg.corpus_uri, cfg.ner)

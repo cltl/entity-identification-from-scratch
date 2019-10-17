@@ -9,7 +9,7 @@ import pickle
 import sys
 from collections import defaultdict
 
-import load_utils
+import pickle_utils as pkl
 import naf_utils as naf
 
 
@@ -319,7 +319,7 @@ def identity_vs_embeddings_stats(data, embeddings):
     stats = defaultdict(int)
     for news_item in data:
         for entity_mention in news_item.sys_entity_mentions:
-            identity = load_utils.strip_identity(entity_mention.identity)
+            identity = pkl.strip_identity(entity_mention.identity)
             # print(entity_mention.mention, entity_mention.identity, identity, identity in embeddings)
             stats[identity in embeddings] += 1
             if not identity in embeddings:
