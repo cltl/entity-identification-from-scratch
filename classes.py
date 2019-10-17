@@ -1,6 +1,6 @@
 class EntityMention:
     """
-    class containing information about an entity mention
+    Class containing information about an entity mention
     """
 
     def __init__(self, 
@@ -28,7 +28,7 @@ class EntityMention:
 
 class NewsItem:
     """
-    class containing information about a news item
+    Class containing information about a news item
     """
     def __init__(self, identifier, content="", 
                 collection=None, title='',

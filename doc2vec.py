@@ -65,30 +65,31 @@ def get_doc2vec_model(model_dir, input_dir, force=False, size=1000):
 
 
 def first_10_words(docs, i):
+    """Get the first 10 words of a document"""
     return ' '.join(docs[i][0][:10])
 
-
 def get_index(docs, id):
-    """finds the index of the first doc with a matching id
+    """Finds the index of the first doc with a matching id
 
     defaults to -1"""
     return next((i for i, d in enumerate(docs) if d[1] == id), -1)
 
 
 def most_similar_vecs(docs, i, model, topn=10):
+    """Obtain the most similar N vectors for a vector"""
     new_vector = model.infer_vector(docs[i][0])
     return model.docvecs.most_similar([new_vector], topn=topn)
 
 
 def compare_to_most_similar_doc(docs, i, model):
-    """prints beginning of document i and of its most similar document"""
+    """Prints beginning of document i and of its most similar document"""
     sims = most_similar_vecs(docs, i, model, topn=1)
     print("doc: {}...".format(first_10_words(docs, i)))
     print("most similar: {}...".format(first_10_words(docs, get_index(docs, sims[0][0]))))
 
 
 def rank(i, docs, model, topn=10):
-    """rank of document i in model's most similar documents"""
+    """Get the rank of document i in model's most similar documents"""
     sims = most_similar_vecs(docs, i, model, topn=topn)
     r = -1
     for s in sims:
@@ -111,8 +112,8 @@ def rank_to_self(docs, model, nb_samples=100, topn=10):
     top1_ratio = len([r for r in ranks if r == 0]) * 1.0 / nb_samples
     return statistics.mean(topn_ranks), statistics.stdev(topn_ranks), within_topn_ratio, top1_ratio, nb_samples
 
-
 def evaluate(model, docs, nb_samples=100, topn=10):
+    """Evaluate the model in terms of similarity of documents."""
     mean, stdev, topn_ratio, top1_ratio, nb_samples = rank_to_self(docs, model, nb_samples=nb_samples, topn=topn)
     print("similarity to self ({} samples)".format(nb_samples))
     print("within top-{} ratio = {}; top1 ratio = {}; mean = {}; stdev = {}".format(topn, topn_ratio, top1_ratio, mean, stdev))
