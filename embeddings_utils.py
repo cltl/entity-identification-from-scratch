@@ -257,7 +257,7 @@ def get_entity_and_sentence_embeddings(naf_dir, iteration, model, tokenizer, new
 
 
 def sent_to_id_embeddings(sent_embeddings, data):
-    """Aggregate entity embeddings
+    """Aggregate entity embeddings."""
     entity_embs = defaultdict(list)
     for news_item in data:
         doc_id = news_item.identifier
