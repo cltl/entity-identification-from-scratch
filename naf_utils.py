@@ -3,6 +3,7 @@ import glob
 import datetime
 import shutil
 import pathlib
+from deprecated import deprecated
 
 import spacy_to_naf
 
@@ -10,7 +11,10 @@ import classes
 import config
 
 
+# ------ Loading certain data from NAF files --------------------
+
 def patch_classes_with_entities(news_items, naf_dir, entity_layer):
+    """Obtain entity data from NAF and enrich the corresponding class objects."""
     for item in news_items:
         docid = item.identifier
         naf_output_path = naf_dir / f'{docid}.naf'
@@ -21,6 +25,7 @@ def patch_classes_with_entities(news_items, naf_dir, entity_layer):
 
 
 def load_sentences(naf_dir, iteration, modify_entities=False):
+    """Load sentences from NAF files into a list of lists."""
     all_sent = []
     for f in glob.glob('%s/*.naf' % naf_dir):
         parser = etree.XMLParser(remove_blank_text=True)
@@ -31,8 +36,100 @@ def load_sentences(naf_dir, iteration, modify_entities=False):
         all_sent += s
     return all_sent
 
+def load_sentences_from_naf(iteration, root, naf_entity_layer, modify_entities):
+    """Load sentences from a single NAF file (already loaded)."""
+    to_replace = {}
 
-# ------ NAF processing utils --------------------
+    ent_layer = root.find(naf_entity_layer)
+    for e in ent_layer.findall('entity'):
+        # get identity
+        ext_refs = e.find('externalReferences')
+        the_id = ''
+        for er in ext_refs.findall('externalRef'):
+            if er.get('source') == 'iteration%d' % iteration:
+                the_id = er.get('reference')
+
+        # get spans
+        refs = e.find('references')
+        span = refs.find('span')
+        for target in span.findall('target'):
+            t = target.get('id')
+            if modify_entities:
+                if target != span.findall('target')[-1]:
+                    to_replace[t] = ''
+                else:
+                    to_replace[t] = the_id
+
+    token_layer = root.find('text')
+    old_sent = '1'
+    sentences = []
+    current_sentence = []
+    for w in token_layer.findall('wf'):
+        idx = w.get('id').replace('w', 't')
+        sent = w.get('sent')
+        txt = w.text
+        if old_sent != sent:
+            sentences.append(current_sentence)
+            current_sentence = []
+        if not modify_entities or idx not in to_replace:
+            current_sentence.append(txt)
+        elif idx in to_replace and to_replace[idx]:
+            current_sentence.append(to_replace[idx])
+        old_sent = sent
+    sentences.append(current_sentence)
+    return sentences
+
+def obtain_entity_data(naf_file, entities_layer_id):
+    """Obtain entity data from a NAF file."""
+    entity_mentions=[]
+
+    parser = etree.XMLParser(remove_blank_text=True)
+    doc = etree.parse(naf_file, parser)
+
+    root = doc.getroot()
+
+    entities_layer = root.find(entities_layer_id)
+
+    token_layer=root.find('text')
+    wf2data={}
+    for wf in token_layer.findall('wf'):
+        wf_id=wf.get('id')
+        wf2data[wf_id]={'sent': wf.get('sent'), 'offset': int(wf.get('offset')), 'length': int(wf.get('length')), 'text': wf.text}
+
+    for entity in entities_layer.findall('entity'):
+        eid = entity.get('id')
+        refs = entity.find('references')
+        span = refs.find('span')
+        tids = []
+        for target in span.findall('target'):
+            tids.append(target.get('id'))
+        
+        wid=tids[0].replace('t', 'w')
+        wdata=wf2data[wid]
+        sent_id=int(wdata['sent'])
+        begin_index=wdata['offset']
+        last_wid=tids[-1].replace('t', 'w')
+        end_index=wf2data[last_wid]['offset'] + wf2data[last_wid]['length']
+        
+        mention_list=[]
+        for tid in tids:
+            wid=tid.replace('t', 'w')
+            mention_list.append(wf2data[wid]['text'])
+        mention=' '.join(mention_list)
+
+        ent_mention_obj=classes.EntityMention(
+            eid=eid,
+            the_type=entity.get('type'),
+            tokens=tids,
+            mention=mention,
+            begin_index=begin_index,
+            end_index=end_index,
+            sentence=sent_id
+        )
+        entity_mentions.append(ent_mention_obj)
+    return entity_mentions
+
+# ------ NAF creation and editing utils --------------------
 
 def create_nafs(naf_folder,
                 news_items,
@@ -40,19 +137,13 @@ def create_nafs(naf_folder,
                 corpus_uri,
                 ner_system='spacy',
                 layers={'raw', 'text', 'terms', 'entities'}, recreate=True):
-    """Create NAFs if not there already."""
+    """Create NAFs if not there already (includes SpaCy processing if no gold NER is given)."""
 
     print('NAF directory: ', naf_folder)
     if naf_folder.exists() and recreate:
-        #file_count = len(glob.glob('%s/*.naf' % naf_folder))
-        #assert file_count == len(
-        #    news_items), 'NAF directory exists, but a wrong amount of files. Did you edit the source documents?'
-        #print('NAF files were already there, and at the right number.')
         print('NAF directory exists. Removing and recreating...')
         shutil.rmtree(str(naf_folder))
     pathlib.Path(naf_folder).mkdir(parents=True, exist_ok=True)
-    #if ner_system != 'gold':
-    #    layers.add('entities')
     create_naf_for_documents(news_items,
                              layers,
                              nl_nlp,
@@ -106,8 +197,9 @@ def process_spacy_and_convert_to_naf(nlp,
         with open(output_path, 'w') as outfile:
             outfile.write(spacy_to_naf.NAF_to_string(NAF=root))
 
-
+@deprecated(reason="The mentions are now first loaded in NAF and then in the python classes. This function is hence unused.")
 def add_mentions_to_naf(all_docs, source_id, entity_layer_str, in_naf_dir, out_naf_dir=None):
+    """Add entity mentions to a NAF file, based on gold mentions or based on spacy output."""
     if out_naf_dir is not None:
         if out_naf_dir.exists():
             shutil.rmtree(str(out_naf_dir))
@@ -149,6 +241,7 @@ def add_mentions_to_naf(all_docs, source_id, entity_layer_str, in_naf_dir, out_n
                 outfile.write(spacy_to_naf.NAF_to_string(NAF=root))
 
 def add_ext_references_to_naf(all_docs, source_id, entity_layer_str, in_naf_dir, out_naf_dir=None):
+    """Add external references (identity info) to NAF based on python objects information."""
     if out_naf_dir is not None:
         if out_naf_dir.exists():
             shutil.rmtree(str(out_naf_dir))
@@ -182,95 +275,4 @@ def add_ext_references_to_naf(all_docs, source_id, entity_layer_str, in_naf_dir,
             with open(outfile_path, 'w') as outfile:
                 outfile.write(spacy_to_naf.NAF_to_string(NAF=root))
 
-def load_sentences_from_naf(iteration, root, naf_entity_layer, modify_entities):
-    to_replace = {}
 
-    ent_layer = root.find(naf_entity_layer)
-    for e in ent_layer.findall('entity'):
-        # get identity
-        ext_refs = e.find('externalReferences')
-        the_id = ''
-        for er in ext_refs.findall('externalRef'):
-            if er.get('source') == 'iteration%d' % iteration:
-                the_id = er.get('reference')
-
-        # get spans
-        refs = e.find('references')
-        span = refs.find('span')
-        for target in span.findall('target'):
-            t = target.get('id')
-            if modify_entities:
-                if target != span.findall('target')[-1]:
-                    to_replace[t] = ''
-                else:
-                    to_replace[t] = the_id
-
-    token_layer = root.find('text')
-    old_sent = '1'
-    sentences = []
-    current_sentence = []
-    for w in token_layer.findall('wf'):
-        idx = w.get('id').replace('w', 't')
-        sent = w.get('sent')
-        txt = w.text
-        if old_sent != sent:
-            sentences.append(current_sentence)
-            current_sentence = []
-        if not modify_entities or idx not in to_replace:
-            current_sentence.append(txt)
-        elif idx in to_replace and to_replace[idx]:
-            current_sentence.append(to_replace[idx])
-        old_sent = sent
-    sentences.append(current_sentence)
-    return sentences
-
-
-def obtain_entity_data(naf_file, entities_layer_id):
-
-    entity_mentions=[]
-
-    parser = etree.XMLParser(remove_blank_text=True)
-    doc = etree.parse(naf_file, parser)
-
-    root = doc.getroot()
-
-    entities_layer = root.find(entities_layer_id)
-
-    token_layer=root.find('text')
-    wf2data={}
-    for wf in token_layer.findall('wf'):
-        wf_id=wf.get('id')
-        wf2data[wf_id]={'sent': wf.get('sent'), 'offset': int(wf.get('offset')), 'length': int(wf.get('length')), 'text': wf.text}
-
-    for entity in entities_layer.findall('entity'):
-        eid = entity.get('id')
-        refs = entity.find('references')
-        span = refs.find('span')
-        tids = []
-        for target in span.findall('target'):
-            tids.append(target.get('id'))
-        
-        wid=tids[0].replace('t', 'w')
-        wdata=wf2data[wid]
-        sent_id=int(wdata['sent'])
-        begin_index=wdata['offset']
-        last_wid=tids[-1].replace('t', 'w')
-        end_index=wf2data[last_wid]['offset'] + wf2data[last_wid]['length']
-        
-        mention_list=[]
-        for tid in tids:
-            wid=tid.replace('t', 'w')
-            mention_list.append(wf2data[wid]['text'])
-        mention=' '.join(mention_list)
-
-        ent_mention_obj=classes.EntityMention(
-            eid=eid,
-            the_type=entity.get('type'),
-            tokens=tids,
-            mention=mention,
-            begin_index=begin_index,
-            end_index=end_index,
-            sentence=sent_id
-        )
-        entity_mentions.append(ent_mention_obj)
-    return entity_mentions

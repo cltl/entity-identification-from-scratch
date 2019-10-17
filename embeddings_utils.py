@@ -14,6 +14,7 @@ import naf_utils as naf
 
 
 def get_bert_mappings(berts, verbose=False):
+    """Map tokens of BERT to tokens in our own NAF."""
     new_i = 0
     new_bert = []
     mapping = defaultdict(list)
@@ -41,6 +42,7 @@ def get_bert_mappings(berts, verbose=False):
 
 
 def get_embedding_tids(tids, mapping):
+    """Obtain token IDs based on our own tokenization, through the mapping to BERT tokens."""
     mapped = []
     for t in tids:
         mapped += mapping[t]
@@ -48,6 +50,7 @@ def get_embedding_tids(tids, mapping):
 
 
 def map_bert_embeddings_to_tokens(berts, entities, word_embeddings, sent_id, offset=0, verbose=False):
+    """Map the BERT embeddings to our tokens for all entities."""
     norm_bert, mapping_old_new_bert = get_bert_mappings(berts, verbose)
 
     entity_embs = {}
@@ -97,6 +100,7 @@ def map_bert_embeddings_to_tokens(berts, entities, word_embeddings, sent_id, off
 # -------- BERT Mapping functions ready ------ #
 
 def get_bert_sentence_embeddings(encoded_layers):
+    """Obtain sentence embeddings by averaging all embeddings in the second last layer for a sentence."""
     sent_emb = torch.mean(encoded_layers[-2], 1)
     return sent_emb[0]
 
@@ -152,7 +156,7 @@ def get_bert_word_embeddings(tokenized_text, encoded_layers):
 
 def get_bert_embeddings(tokens, model, tokenizer):
     """
-    Obtain BERT embeddings
+    Obtain BERT embeddings for a text.
     """
     text = ' '.join(tokens)
     marked_text = "[CLS] " + text + " [SEP]"
@@ -253,6 +257,7 @@ def get_entity_and_sentence_embeddings(naf_dir, iteration, model, tokenizer, new
 
 
 def sent_to_id_embeddings(sent_embeddings, data):
+    """Aggregate entity embeddings
     entity_embs = defaultdict(list)
     for news_item in data:
         doc_id = news_item.identifier
@@ -269,7 +274,6 @@ def sent_to_id_embeddings(sent_embeddings, data):
             for e in embs:
                 emb_arrays.append(np.array(e))
             agg_entity_embs[identity] = np.mean(np.array(emb_arrays), axis=0)
-            # agg_entity_embs[identity]=np.array(embs[0]) #np.mean(np.array(emb_arrays), axis=0)
         else:
             agg_entity_embs[identity] = np.array(embs[0])
     with open('debug/bert_embs.p', 'wb') as wf:
