@@ -67,17 +67,17 @@ def map_bert_embeddings_to_tokens(berts, entities, word_embeddings, sent_id, off
         closest_tids = []
         for bert_i, berts_token in enumerate(norm_bert):
             if ev and berts_token == ev[0]:
-                if len(ev) == 1:
+                if len(ev) == 1: # entity mention with a single token
                     diff = abs(bert_i - ek[0])
                     if diff < closest_diff:
                         closest_diff = diff
                         raw_tids = [bert_i]
                         closest_tids = get_embedding_tids(raw_tids, mapping_old_new_bert)
-                else:
+                else: # entity mention with multiple tokens
                     fits = True
                     raw_tids = []
                     for i, t in enumerate(ev):
-                        if bert_i+i >= len(norm_bert) or t != norm_bert[bert_i + i]:
+                        if bert_i+i >= len(norm_bert) or t != norm_bert[bert_i + i]: # if the token is different, or if you are over the length of the current sentence.
                             fits = False
                             break
                         else:
@@ -87,6 +87,8 @@ def map_bert_embeddings_to_tokens(berts, entities, word_embeddings, sent_id, off
                         if diff < closest_diff:
                             closest_diff = diff
                             closest_tids = get_embedding_tids(raw_tids, mapping_old_new_bert)
+            elif not ev:
+                print("Empty mention:", entity.eid, ek, ev)
         embs = np.zeros(len(word_embeddings[0]))
         if len(closest_tids) == 1:
             entity_embs[entity.eid] = np.array(word_embeddings[closest_tids[0]])
