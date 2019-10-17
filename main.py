@@ -27,6 +27,7 @@ def similar(a, b, tau=0.8):
 
 
 def is_abbrev(abbrev, text):
+    """Check if `abbrev` is a potential abbreviation of `text`."""
     abbrev = abbrev.lower()
     text = text.lower()
     words = text.split()
@@ -43,10 +44,11 @@ def is_abbrev(abbrev, text):
 
 
 def abbreviation(a, b):
+    """Check if either a is an abbreviation of b, or vice versa."""
     return is_abbrev(a, b) or is_abbrev(b, a)
 
-
 def pregroup_clusters(news_items_with_entities):
+    """Pregroup entities into clusters based on string features."""
     cands = []
     for item in news_items_with_entities:
         for e in item.sys_entity_mentions:
@@ -83,13 +85,9 @@ def run_embeddings_system(data, embeddings, iteration, naf_folder, nl_nlp, graph
             for mention, eid in members:
                 new_ids[eid] = str(cid)
     else:  # sys_name=='embeddings'
-        # m2id=algorithm.construct_m2id(refined_news_items)
-        # print('M2ID', len(m2id.keys()))
         new_ids = algorithm.cluster_identities(candidate_clusters,
                                                embeddings,
                                                max_d=58)
-    # assert len(new_ids)==len(ids), 'Mismatch between old and new ids. Old=%d; new=%d' % (len(ids),
-    #                                                                                    len(new_ids))
     refined_news_items = algorithm.replace_identities(refined_news_items,
                                                       new_ids)
 
@@ -143,9 +141,6 @@ if __name__ == "__main__":
     # TODO: COMBINE NAFs with classes processing to run spacy only once!
     news_items = pkl.load_news_items('%s.pkl' % cfg.input_dir)
 
-    #naf_empty = Path('{}/empty'.format(cfg.naf_dir))
-    #naf.create_nafs(naf_empty, news_items, nl_nlp, cfg.corpus_uri, cfg.ner)
-
     naf0 = Path('{}/0'.format(cfg.naf_dir))  # NAF folder before iteration 1
     naf.create_nafs(naf0, news_items, nl_nlp, cfg.corpus_uri, cfg.ner)
     #if cfg.ner == 'gold':
@@ -186,7 +181,6 @@ if __name__ == "__main__":
         for eid, embs in current_emb.items():
             full_embeddings[item.identifier][eid] = np.concatenate((embs, doc_vector), axis=0)
 
-    #print('Full embedding shape', full_embeddings[test_key]['e2'].shape)
     if not full_embeddings:
         raise ValueError('Full embeddings are empty. Refusing to continue')
 
