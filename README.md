@@ -45,6 +45,12 @@ We compare our identity clustering algorithm against 5 baselines:
 
 * All data is stored in the folder `data`.
 
+### Install
+
+To prepare your environment with the right packages, run `bash install.sh`.
+
+TODO: Update this
+
 ### Authors
 
 * Filip Ilievski (f.ilievski@vu.nl)
