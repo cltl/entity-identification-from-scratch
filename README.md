@@ -31,7 +31,7 @@ We compare our identity clustering algorithm against 5 baselines:
 
 ### Code structure
 
-* The scripts `make_wiki_corpus.py` and `make_nif_corpus.py` create a corpus (as Python classes) from the source data we download in mediawiki or NIF format, respectively. The script `make_wiki_corpus.py` expects the file `data/input_data/nlwikinews-latest-pages-articles.xml` as input, which is a collection of Wikinews documents in Dutch in XML format. The script `make_nif_corpus.py` expects the iput file `abstracts_nl{num}.ttl`, where `num` is a number between 0 and 43, inclusive. These extraction scripts use some functions from `load_utils.py` and from `wiki_utils.py`.
+* The scripts `make_wiki_corpus.py` and `make_nif_corpus.py` create a corpus (as Python classes) from the source data we download in mediawiki or NIF format, respectively. The script `make_wiki_corpus.py` expects the file `data/input_data/nlwikinews-latest-pages-articles.xml` as input, which is a collection of Wikinews documents in Dutch in XML format. The script `make_nif_corpus.py` expects the iput file `abstracts_nl{num}.ttl`, where `num` is a number between 0 and 43, inclusive. These extraction scripts use some functions from `pickle_utils.py` and from `wiki_utils.py`.
 
 * The script `main.py` executes the algorithm procedure described above. It relies on functions in several utility files: `algorithm_utils.py`, `embeddings_utils.py`, `analysis_utils.py`, `pickle_utils.py`, `naf_utils.py`.
 
