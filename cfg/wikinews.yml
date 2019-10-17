@@ -1,5 +1,7 @@
 # ----- Data settings -----
 max_documents:                    # e.g. 200 for debugging; otherwise leave empty
+min_text_length: 100              # minimum length of the text in characters
+
 corpus_name: wikinews    # wikinews
 raw_input: nlwikinews-latest-pages-articles.xml
 # ----- Baselines settings -----

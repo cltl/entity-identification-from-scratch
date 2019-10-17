@@ -8,6 +8,7 @@ class Config:
         with open(yml, 'r') as f:
             cfg = yaml.full_load(f)
         self.max_documents = cfg['max_documents']
+        self.min_text_length=cfg['min_text_length']
         self.corpus_name = cfg['corpus_name']
         self.factors = cfg['factors']
         self.bert_model = cfg['bert_model']
