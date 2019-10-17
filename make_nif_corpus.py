@@ -2,10 +2,11 @@ from rdflib import Graph, URIRef
 
 import pickle_utils as pkl
 from config import Config
+import classes
 
 # ------ NIF datasets loader ---------------------
 
-def load_article_from_nif_file(nif_file, limit=1000000, collection='wes2015'):
+def load_article_from_nif_file(nif_file, corpus_name, limit=1000000):
     """
     Load a dataset in NIF format.
     """
@@ -31,7 +32,7 @@ def load_article_from_nif_file(nif_file, limit=1000000, collection='wes2015'):
             content=article['string'],
             identifier=doc_id,  # "http://yovisto.com/resource/dataset/iswc2015/doc/281#char=0,4239",
             dct=article['date'],
-            collection=config.corpus_name,
+            collection=corpus_name,
             title=''
         )
         query = """ SELECT ?id ?mention ?start ?end ?gold
@@ -68,9 +69,9 @@ min_length=cfg.min_text_length
 
 
 # Load a number of news items from a NIF file
-news_items = load_article_from_nif_file(cfg.raw_input, 
-                                       limit=max_docs or 1000000,
-                                       collection=cfg.corpus_name)
+news_items = load_article_from_nif_file(cfg.raw_input,
+                                       cfg.corpus_name,
+                                       limit=max_docs or 1000000)
 
 # Save the news articles to pickle
 pkl.save_news_items('%s/documents.pkl' % cfg.data_dir, news_items)
