@@ -106,16 +106,16 @@ def strip_identity(i):
 
 # ------ NIF datasets loader ---------------------
 
-def load_article_from_nif_files(nif_dir, limit=1000000, collection='wes2015'):
+def load_article_from_nif_file(nif_file, limit=1000000, collection='wes2015'):
     """
     Load a dataset in NIF format.
     """
-    print('NOW LOADING THE NIF FILES')
+    print(f'NOW LOADING THE NIF FILE {nif_file}')
     g = Graph()
-    for nif_file in glob.glob('%s/*.ttl' % nif_dir):
-        g.parse(nif_file, format="n3")
+    #for nif_file in glob.glob('%s/*.ttl' % nif_dir):
+    g.parse(nif_file, format="n3")
 
-    print('ALL FILES LOADED. NOW QUERYING')
+    print(f'THE FILE {nif_file} IS LOADED. NOW QUERYING')
 
     news_items = set()
 

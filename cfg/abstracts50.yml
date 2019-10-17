@@ -1,0 +1,19 @@
+# ----- Data settings -----
+max_documents: 50
+min_text_length: 100              # minimum length of the text in characters
+
+corpus_name: dbpedia_abstracts
+raw_input: abstracts_nl0.ttl
+# ----- Baselines settings -----
+factors:
+- docid
+- type
+# ----- Embeddings settings -----
+bert_model: bert-base-multilingual-cased
+sys_name: embeddings
+modify_entities: False
+# ----- Other settings -----
+ner: gold
+uri_prefix: http://cltl.nl/entity#
+naf_entity_layer: entities
+
