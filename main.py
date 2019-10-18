@@ -159,13 +159,17 @@ if __name__ == "__main__":
 
     iteration = 1
     # BERT embeddings
-    entity_embeddings, sent_embeddings, all_emb = emb_utils.get_entity_and_sentence_embeddings(cfg.naf_dir,
-                                                                                               iteration,
-                                                                                               model,
-                                                                                               tokenizer,
-                                                                                               news_items_with_entities,
-                                                                                               cfg.naf_entity_layer,
-                                                                                               modify_entities=cfg.modify_entities)
+   # entity_embeddings, sent_embeddings, all_emb = emb_utils.get_entity_and_sentence_embeddings(cfg.naf_dir,
+    #                                                                                           iteration,
+    #                                                                                           model,
+    #                                                                                           tokenizer,
+    #                                                                                           news_items_with_entities,
+    #                                                                                           cfg.naf_entity_layer,
+    #                                                                                           modify_entities=cfg.modify_entities)
+    entity_embeddings, sent_embeddings, all_emb = emb_utils.get_entity_and_sentence_embeddings_from_naf("{}/0".format(cfg.naf_dir),
+                                                                                                        model,
+                                                                                                        tokenizer)
+
     print('Entity and sentence embeddings created')
 
     # TODO define method to check created embeddings

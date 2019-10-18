@@ -59,3 +59,19 @@ def create_news_item_naf(naf_file):
         sys_entity_mentions=[create_entity_mention(e, naf) for e in naf.entity_layer],
         gold_entity_mentions=[]
     )
+
+
+def get_sentences(naf_file):
+    naf = KafNafParser(naf_file)
+    i = 1
+    sentences = []
+    s = []
+    for wf in naf.text_layer:
+        if int(wf.get_sent()) == i:
+            s.append(wf.get_text())
+        else:
+            sentences.append(" ".join(s))
+            i += 1
+            s = [wf.get_text()]
+    sentences.append(" ".join(s))
+    return sentences
