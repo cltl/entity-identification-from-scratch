@@ -49,7 +49,7 @@ def get_embedding_tids(tids, mapping):
     return mapped
 
 
-def map_bert_embeddings_to_tokens(berts, entities, word_embeddings, sent_id, offset=0, verbose=False):
+def map_bert_embeddings_to_tokens(berts, entities, word_embeddings, sent_id, doc_id, offset=0, verbose=False):
     """Map the BERT embeddings to our tokens for all entities."""
     norm_bert, mapping_old_new_bert = get_bert_mappings(berts, verbose)
 
@@ -66,20 +66,21 @@ def map_bert_embeddings_to_tokens(berts, entities, word_embeddings, sent_id, off
         closest_diff = 999
         closest_tids = []
         for bert_i, berts_token in enumerate(norm_bert):
-            if ev and berts_token == ev[0]:
-                if len(ev) == 1: # entity mention with a single token
+            if bert_i+len(ev)>len(norm_bert): # if there are more tokens in our mentions than what is left in BERT, it is impossible to map it - break
+                #print(f'Entity id: {entity.eid}, Mention: {ev}, Bert tokens for a sentence: {norm_bert}, sentence: {sent_id}, doc ID: {doc_id}. Bert index: {bert_i}, mention size: {len(ev)}, size of bert tokens: {len(norm_bert)}.')
+                break
+            if ev and berts_token == ev[0]: # if the first entity mention token fits this BERT token, then check further
+                if len(ev) == 1: # entity mention with a single token -> we got a match
                     diff = abs(bert_i - ek[0])
                     if diff < closest_diff:
                         closest_diff = diff
                         raw_tids = [bert_i]
                         closest_tids = get_embedding_tids(raw_tids, mapping_old_new_bert)
-                else: # entity mention with multiple tokens
+                else: # entity mention with multiple tokens -> check the other tokens [1:]
                     fits = True
                     raw_tids = []
                     for i, t in enumerate(ev):
-                        if bert_i+i >= len(norm_bert) or t != norm_bert[bert_i + i]: # if the token is different, or if you are over the length of the current sentence.
-                            if bert_i+i >= len(norm_bert):
-                                print("Last sequence token", norm_bert[bert_i+i-1])
+                        if t != norm_bert[bert_i + i]: # if the token is different, or if you are over the length of the current sentence.
                             fits = False
                             break
                         else:
@@ -92,9 +93,11 @@ def map_bert_embeddings_to_tokens(berts, entities, word_embeddings, sent_id, off
             elif not ev:
                 print("Empty mention:", entity.eid, ek, ev)
         embs = np.zeros(len(word_embeddings[0]))
-        if len(closest_tids) == 1:
+        if len(closest_tids) == 1: #if we mapped the entity mention of a single token
             entity_embs[entity.eid] = np.array(word_embeddings[closest_tids[0]])
-        else:
+        else: # multi-token entity mention
+            if not len(closest_tids): # if we did not manage to map the entity mention
+                print(f'Could not map: entity id {entity.eid}, Mention: {ev}, sentence: {sent_id}, doc ID: {doc_id}')
             for tid in closest_tids:
                 embs += np.array(word_embeddings[tid])
             entity_embs[entity.eid] = embs
@@ -241,7 +244,7 @@ def get_entity_and_sentence_embeddings(naf_dir, iteration, model, tokenizer, new
 
             verbose = False
             entity_embeddings, new_offset = map_bert_embeddings_to_tokens(tokenized_text, entities, word_embeddings,
-                                                                          index + 1, offset, verbose)
+                                                                          index + 1, doc_id, offset, verbose)
             # concat_emb maps documents to entities and
             # associates each entity with its embedding and the embedding of the sentence
             # FIXME Is it right that only the last sentence an entity occurs in is taken into account?
