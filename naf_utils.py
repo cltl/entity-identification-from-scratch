@@ -36,8 +36,8 @@ def load_sentences(naf_dir, iteration, modify_entities=False):
         all_sent += s
     return all_sent
 
-def load_sentences_from_naf(iteration, root, naf_entity_layer, modify_entities):
-    """Load sentences from a single NAF file (already loaded)."""
+def map_mentions_to_identity(root, naf_entity_layer):
+    """Create a mapping between entity IDs and their identity."""
     to_replace = {}
 
     ent_layer = root.find(naf_entity_layer)
@@ -54,12 +54,19 @@ def load_sentences_from_naf(iteration, root, naf_entity_layer, modify_entities):
         span = refs.find('span')
         for target in span.findall('target'):
             t = target.get('id')
-            if modify_entities:
-                if target != span.findall('target')[-1]:
-                    to_replace[t] = ''
-                else:
-                    to_replace[t] = the_id
+            if target != span.findall('target')[-1]:
+                to_replace[t] = ''
+            else:
+                to_replace[t] = the_id
+    return to_replace
 
+def load_sentences_from_naf(iteration, root, naf_entity_layer, modify_entities):
+    """Load sentences from a single NAF file (already loaded). Potentially replace entity mentions with their identity."""
+
+    if modify_entities:
+        to_replace=map_mentions_to_identity(root, naf_entity_layer)
+
+    # Create list of lists of sentences in a file
     token_layer = root.find('text')
     old_sent = '1'
     sentences = []
