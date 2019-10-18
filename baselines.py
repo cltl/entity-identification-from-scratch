@@ -13,6 +13,7 @@ import config
     
 
 def run_baseline(factor_combo, news_items_with_entities, naf_folder, el_file, graphs_file, prefix):
+    """Run an identity baseline."""
     iteration=1
     # GENERATE IDENTITIES (Step 4)
     print('Generating identities and graphs...')

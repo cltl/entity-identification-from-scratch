@@ -8,6 +8,7 @@ from sklearn.cluster import DBSCAN
 from collections import defaultdict
 from scipy.cluster.hierarchy import dendrogram, fcluster, linkage
 import copy
+from deprecated import deprecated
 
 import classes
 import pickle_utils as pkl
@@ -39,13 +40,12 @@ def generate_identity(objs,
 
 
 def replace_identities(news_items_with_entities, new_ids):
+    """Store/Replace identity values in the python objects of the entities."""
     for item in news_items_with_entities:
         for e in item.sys_entity_mentions:
             key='%s#%s' % (item.identifier, e.eid)
 
-#            identity=e.identity
             new_identity=new_ids[key]
-#            print('new identity', identity, new_identity)
             e.identity=new_identity
     return news_items_with_entities
 
@@ -55,8 +55,7 @@ def construct_m2id(news_items_with_entities):
     id_num=0
     for item in news_items_with_entities:
         for e in item.sys_entity_mentions:
-#            identity=e.identity
-#            if identity.endswith('MISC'): continue
+#            if e.identity.endswith('MISC'): continue
             key='%s#%s' % (item.identifier, e.eid)
             m2id[e.mention].add(key)
     for m, ids in m2id.items():
@@ -64,7 +63,9 @@ def construct_m2id(news_items_with_entities):
     print('Identities in m2id', id_num)
     return m2id
 
+@deprecated(reason="Now we are using a different (HAC) clustering algorithm.")
 def cluster_matrix(distances, eps=0.1, min_samples=1):
+    """Cluster identities of entities based on the DBSCAN algorithm."""
     labels=DBSCAN(min_samples=min_samples, eps=eps, metric='precomputed').fit_predict(distances)
     n_clusters = len(set(labels)) - (1 if -1 in labels else 0)
     n_noise = list(labels).count(-1)
@@ -150,6 +151,7 @@ def cluster_mention_identities(m2id, embeddings, max_d=15):
     return new_identities
 
 def replace_entities(nlp, text, mentions):
+    """Replace entity mentions in text with their identity ID."""
     to_replace={}
     for e in mentions:
         start_index=e.begin_index

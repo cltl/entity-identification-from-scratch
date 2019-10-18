@@ -10,10 +10,10 @@ from collections import defaultdict
 
 import pickle_utils as pkl
 import naf_utils as naf
-import corpus_handler.naf_handler as nafh
 
 
 def get_bert_mappings(berts, verbose=False):
+    """Map tokens of BERT to tokens in our own NAF."""
     new_i = 0
     new_bert = []
     mapping = defaultdict(list)
@@ -41,13 +41,15 @@ def get_bert_mappings(berts, verbose=False):
 
 
 def get_embedding_tids(tids, mapping):
+    """Obtain token IDs based on our own tokenization, through the mapping to BERT tokens."""
     mapped = []
     for t in tids:
         mapped += mapping[t]
     return mapped
 
 
-def map_bert_embeddings_to_tokens(berts, entities, word_embeddings, sent_id, offset=0, verbose=False):
+def map_bert_embeddings_to_tokens(berts, entities, word_embeddings, sent_id, doc_id, offset=0, verbose=False):
+    """Map the BERT embeddings to our tokens for all entities."""
     norm_bert, mapping_old_new_bert = get_bert_mappings(berts, verbose)
 
     entity_embs = {}
@@ -63,18 +65,21 @@ def map_bert_embeddings_to_tokens(berts, entities, word_embeddings, sent_id, off
         closest_diff = 999
         closest_tids = []
         for bert_i, berts_token in enumerate(norm_bert):
-            if ev and berts_token == ev[0]:
-                if len(ev) == 1:
+            if bert_i+len(ev)>len(norm_bert): # if there are more tokens in our mentions than what is left in BERT, it is impossible to map it - break
+                #print(f'Entity id: {entity.eid}, Mention: {ev}, Bert tokens for a sentence: {norm_bert}, sentence: {sent_id}, doc ID: {doc_id}. Bert index: {bert_i}, mention size: {len(ev)}, size of bert tokens: {len(norm_bert)}.')
+                break
+            if ev and berts_token == ev[0]: # if the first entity mention token fits this BERT token, then check further
+                if len(ev) == 1: # entity mention with a single token -> we got a match
                     diff = abs(bert_i - ek[0])
                     if diff < closest_diff:
                         closest_diff = diff
                         raw_tids = [bert_i]
                         closest_tids = get_embedding_tids(raw_tids, mapping_old_new_bert)
-                else:
+                else: # entity mention with multiple tokens -> check the other tokens [1:]
                     fits = True
                     raw_tids = []
                     for i, t in enumerate(ev):
-                        if bert_i + i >= len(norm_bert) or t != norm_bert[bert_i + i]:
+                        if t != norm_bert[bert_i + i]: # if the token is different, then this sequence is not right.
                             fits = False
                             break
                         else:
@@ -84,10 +89,14 @@ def map_bert_embeddings_to_tokens(berts, entities, word_embeddings, sent_id, off
                         if diff < closest_diff:
                             closest_diff = diff
                             closest_tids = get_embedding_tids(raw_tids, mapping_old_new_bert)
+            elif not ev:
+                print("Empty mention:", entity.eid, ek, ev)
         embs = np.zeros(len(word_embeddings[0]))
-        if len(closest_tids) == 1:
+        if len(closest_tids) == 1: #if we mapped the entity mention of a single token
             entity_embs[entity.eid] = np.array(word_embeddings[closest_tids[0]])
-        else:
+        else: # multi-token entity mention
+            if not len(closest_tids): # if we did not manage to map the entity mention
+                print(f'Could not map: entity id {entity.eid}, Mention: {ev}, sentence: {sent_id}, doc ID: {doc_id}')
             for tid in closest_tids:
                 embs += np.array(word_embeddings[tid])
             entity_embs[entity.eid] = embs
@@ -97,6 +106,7 @@ def map_bert_embeddings_to_tokens(berts, entities, word_embeddings, sent_id, off
 # -------- BERT Mapping functions ready ------ #
 
 def get_bert_sentence_embeddings(encoded_layers):
+    """Obtain sentence embeddings by averaging all embeddings in the second last layer for a sentence."""
     sent_emb = torch.mean(encoded_layers[-2], 1)
     return sent_emb[0]
 
@@ -152,7 +162,7 @@ def get_bert_word_embeddings(tokenized_text, encoded_layers):
 
 def get_bert_embeddings(tokens, model, tokenizer):
     """
-    Obtain BERT embeddings
+    Obtain BERT embeddings for a text.
     """
     text = ' '.join(tokens)
     marked_text = "[CLS] " + text + " [SEP]"
@@ -173,73 +183,6 @@ def get_bert_embeddings(tokens, model, tokenizer):
         encoded_layers, _ = model(tokens_tensor, segments_tensors)
 
     return tokenized_text, encoded_layers
-
-
-def get_entity_and_sentence_embeddings_from_naf(naf_dir, model, tokenizer):
-    """
-    Obtain entity and sentence embeddings using BERT for an entire NAF collection.
-    """
-    sent_emb = defaultdict(dict)
-    ent_emb = defaultdict(dict)
-    concat_emb = defaultdict(dict)
-
-    # load NAF files from the previous iteration
-    file_names = glob.glob("{}/*.naf".format(naf_dir))
-    nb_files = len(file_names)
-    mark = 1
-    while mark < nb_files / 10:
-        mark *= 10
-    doc_index = 1
-    for f in file_names:
-        if doc_index % mark == 0:
-            print("getting embeddings: {}/{}".format(doc_index, nb_files))
-
-        s = nafh.get_sentences(f)
-        news_item = nafh.create_news_item_naf(f)
-        doc_id = news_item.identifier
-        entities = news_item.sys_entity_mentions
-
-        offset = 0
-        # Sentence per sentence: run BERT, extract sentence embeddings, extract entity embeddings, and concatenate
-        for index, sentence in enumerate(s):
-            sent_index = str(index + 1)
-            verbose = doc_index % mark == 0 and index == 0
-
-            tokenized_text, encoded_layers = get_bert_embeddings(sentence, model, tokenizer)
-
-            # Get sentence embeddings
-            sentence_embeddings = get_bert_sentence_embeddings(encoded_layers)
-            if verbose:
-                print('Sentence embedding shape', sentence_embeddings.shape[0])
-            sent_emb[doc_id][sent_index] = sentence_embeddings
-
-            # Concatenated word embeddings
-            word_embeddings = get_bert_word_embeddings(tokenized_text, encoded_layers)
-            if verbose:
-                print('Word embeddings shape', len(word_embeddings), len(word_embeddings[0]))
-
-            verbose = False
-            entity_embeddings, new_offset = map_bert_embeddings_to_tokens(tokenized_text,
-                                                                          entities,
-                                                                          word_embeddings,
-                                                                          index + 1,
-                                                                          offset,
-                                                                          verbose)
-            # concat_emb maps documents to entities and
-            # associates each entity with its embedding and the embedding of the sentence
-            for eids, embs in entity_embeddings.items():
-                ent_emb[doc_id][eids] = embs
-                concat_emb[doc_id][eids] = np.concatenate((embs, sentence_embeddings), axis=0)
-            offset += new_offset
-
-        doc_index += 1
-    print('finished extracting embeddings.')
-    entity_count = 0
-    for v in concat_emb.values():
-        entity_count += len(v)
-    print('Collected {} entity embeddings over {} documents'.format(entity_count, doc_index - 1))
-
-    return ent_emb, sent_emb, concat_emb
 
 
 def get_entity_and_sentence_embeddings(naf_dir, iteration, model, tokenizer, news_items, naf_entity_layer,
@@ -301,7 +244,7 @@ def get_entity_and_sentence_embeddings(naf_dir, iteration, model, tokenizer, new
 
             verbose = False
             entity_embeddings, new_offset = map_bert_embeddings_to_tokens(tokenized_text, entities, word_embeddings,
-                                                                          index + 1, offset, verbose)
+                                                                          index + 1, doc_id, offset, verbose)
             # concat_emb maps documents to entities and
             # associates each entity with its embedding and the embedding of the sentence
             # FIXME Is it right that only the last sentence an entity occurs in is taken into account?
@@ -321,6 +264,7 @@ def get_entity_and_sentence_embeddings(naf_dir, iteration, model, tokenizer, new
 
 
 def sent_to_id_embeddings(sent_embeddings, data):
+    """Aggregate entity embeddings."""
     entity_embs = defaultdict(list)
     for news_item in data:
         doc_id = news_item.identifier
@@ -337,7 +281,6 @@ def sent_to_id_embeddings(sent_embeddings, data):
             for e in embs:
                 emb_arrays.append(np.array(e))
             agg_entity_embs[identity] = np.mean(np.array(emb_arrays), axis=0)
-            # agg_entity_embs[identity]=np.array(embs[0]) #np.mean(np.array(emb_arrays), axis=0)
         else:
             agg_entity_embs[identity] = np.array(embs[0])
     with open('debug/bert_embs.p', 'wb') as wf:

@@ -9,7 +9,7 @@ import classes
 from config import Config
 
 # Specify your config file here:
-cfg = Config('cfg/wikinews50.yml')
+cfg = Config('cfg/wikinews1000.yml')
 cfg.setup_input()
 
 # ------------------------------------------------------

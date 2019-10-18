@@ -1,0 +1,1906 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<NAF version="3.0" xml:lang="nl">
+  <raw><![CDATA["Crocodile Hunter" Steve Irwin omgekomen in Australië
+4 september 2006.
+
+
+
+
+"Crocodile Hunter", Steve Irwin, die beroemd werd door zijn populaire tv-shows waarin hij het opneemt tegen gevaarlijke dieren zoals krokodillen, is maandagochtend op 44-jarige leeftijd overleden.
+
+Hij kwam om het leven toen hij werd gestoken door een pijlstaartrog. De giftige rog stak hem met zijn staart in zijn hart toen hij onderwateropnames aan het maken was op het Great Barrier Rif voor de kust van Queensland in Australië. Medische hulp kwam te laat. Een traumahelikopter werd tevergeefs ingezet. Hij overleed ter plaatse.
+
+De dood van Irwin werd vastgelegd op video. De beelden zijn overgedragen aan de politie. 
+
+In heel Australië en ver daarbuiten is geschokt gereageerd op zijn overlijden. Steve's vrouw, Terri, en haar kinderen zijn inmiddels op de hoogte van zijn dood. Zij trokken door de bergen van Tasmanië en moesten eerst worden opgespoord. Ook Steve's vader Bob is op de hoogte, hij verloor ook al zijn vrouw Lyn in 2000 bij een auto-ongeluk. Bob Irwin reageerde woensdag 6 september als eerste familielid publiekelijk op het overlijden van zijn zoon. Hij bedankte de vele fans van Steve voor hun vele steunbetuigingen en de bloemenzee bij de ingang van Australia Zoo.
+
+Steve Irwin maakte al meer dan tien jaar natuurprogramma's en werd wereldberoemd. Hij runde ook een dierentuin in het Australische Beerwah.
+
+"Crocodile Hunter" Steve Irwin laat een vrouw en twee kinderen achter.]]></raw>
+  <nafHeader>
+    <public uri="http://www.wikinews2.nl/wiki_1"/>
+    <fileDesc creationtime="2019-10-15T16:46:30UTC" title="&quot;Crocodile Hunter&quot; Steve Irwin omgekomen in Australië"/>
+    <linguisticProcessors layer="raw">
+      <lp name="Entity detection for historical Dutch" version="1.0" timestamp="2019-10-19T01:12:42CEST" beginTimestamp="2019-10-19T01:12:42CEST" endTimestamp="2019-10-19T01:12:42CEST" hostname="MacBook-Pro-3.local"/>
+    </linguisticProcessors>
+    <linguisticProcessors layer="text">
+      <lp name="Entity detection for historical Dutch" version="1.0" timestamp="2019-10-19T01:12:42CEST" beginTimestamp="2019-10-19T01:12:42CEST" endTimestamp="2019-10-19T01:12:42CEST" hostname="MacBook-Pro-3.local"/>
+    </linguisticProcessors>
+    <linguisticProcessors layer="terms">
+      <lp name="Entity detection for historical Dutch" version="1.0" timestamp="2019-10-19T01:12:42CEST" beginTimestamp="2019-10-19T01:12:42CEST" endTimestamp="2019-10-19T01:12:42CEST" hostname="MacBook-Pro-3.local"/>
+    </linguisticProcessors>
+    <linguisticProcessors layer="entities">
+      <lp name="Entity detection for historical Dutch" version="1.0" timestamp="2019-10-19T01:12:42CEST" beginTimestamp="2019-10-19T01:12:42CEST" endTimestamp="2019-10-19T01:12:42CEST" hostname="MacBook-Pro-3.local"/>
+    </linguisticProcessors>
+  </nafHeader>
+  <text>
+    <wf id="w1" length="1" offset="0" sent="1"><![CDATA["]]></wf>
+    <wf id="w2" length="9" offset="1" sent="1"><![CDATA[Crocodile]]></wf>
+    <wf id="w3" length="6" offset="11" sent="1"><![CDATA[Hunter]]></wf>
+    <wf id="w4" length="1" offset="17" sent="1"><![CDATA["]]></wf>
+    <wf id="w5" length="5" offset="19" sent="1"><![CDATA[Steve]]></wf>
+    <wf id="w6" length="5" offset="25" sent="1"><![CDATA[Irwin]]></wf>
+    <wf id="w7" length="9" offset="31" sent="1"><![CDATA[omgekomen]]></wf>
+    <wf id="w8" length="2" offset="41" sent="1"><![CDATA[in]]></wf>
+    <wf id="w9" length="9" offset="44" sent="1"><![CDATA[Australië]]></wf>
+    <wf id="w10" length="1" offset="53" sent="1"><![CDATA[
+]]></wf>
+    <wf id="w11" length="1" offset="54" sent="1"><![CDATA[4]]></wf>
+    <wf id="w12" length="9" offset="56" sent="1"><![CDATA[september]]></wf>
+    <wf id="w13" length="4" offset="66" sent="1"><![CDATA[2006]]></wf>
+    <wf id="w14" length="1" offset="70" sent="1"><![CDATA[.]]></wf>
+    <wf id="w15" length="5" offset="71" sent="1"><![CDATA[
+
+
+
+
+]]></wf>
+    <wf id="w16" length="1" offset="76" sent="1"><![CDATA["]]></wf>
+    <wf id="w17" length="9" offset="77" sent="1"><![CDATA[Crocodile]]></wf>
+    <wf id="w18" length="6" offset="87" sent="1"><![CDATA[Hunter]]></wf>
+    <wf id="w19" length="1" offset="93" sent="1"><![CDATA["]]></wf>
+    <wf id="w20" length="1" offset="94" sent="1"><![CDATA[,]]></wf>
+    <wf id="w21" length="5" offset="96" sent="1"><![CDATA[Steve]]></wf>
+    <wf id="w22" length="5" offset="102" sent="1"><![CDATA[Irwin]]></wf>
+    <wf id="w23" length="1" offset="107" sent="1"><![CDATA[,]]></wf>
+    <wf id="w24" length="3" offset="109" sent="1"><![CDATA[die]]></wf>
+    <wf id="w25" length="7" offset="113" sent="1"><![CDATA[beroemd]]></wf>
+    <wf id="w26" length="4" offset="121" sent="1"><![CDATA[werd]]></wf>
+    <wf id="w27" length="4" offset="126" sent="1"><![CDATA[door]]></wf>
+    <wf id="w28" length="4" offset="131" sent="1"><![CDATA[zijn]]></wf>
+    <wf id="w29" length="9" offset="136" sent="1"><![CDATA[populaire]]></wf>
+    <wf id="w30" length="2" offset="146" sent="1"><![CDATA[tv]]></wf>
+    <wf id="w31" length="1" offset="148" sent="1"><![CDATA[-]]></wf>
+    <wf id="w32" length="5" offset="149" sent="1"><![CDATA[shows]]></wf>
+    <wf id="w33" length="6" offset="155" sent="1"><![CDATA[waarin]]></wf>
+    <wf id="w34" length="3" offset="162" sent="1"><![CDATA[hij]]></wf>
+    <wf id="w35" length="3" offset="166" sent="1"><![CDATA[het]]></wf>
+    <wf id="w36" length="7" offset="170" sent="1"><![CDATA[opneemt]]></wf>
+    <wf id="w37" length="5" offset="178" sent="1"><![CDATA[tegen]]></wf>
+    <wf id="w38" length="11" offset="184" sent="1"><![CDATA[gevaarlijke]]></wf>
+    <wf id="w39" length="6" offset="196" sent="1"><![CDATA[dieren]]></wf>
+    <wf id="w40" length="5" offset="203" sent="1"><![CDATA[zoals]]></wf>
+    <wf id="w41" length="11" offset="209" sent="1"><![CDATA[krokodillen]]></wf>
+    <wf id="w42" length="1" offset="220" sent="1"><![CDATA[,]]></wf>
+    <wf id="w43" length="2" offset="222" sent="1"><![CDATA[is]]></wf>
+    <wf id="w44" length="14" offset="225" sent="1"><![CDATA[maandagochtend]]></wf>
+    <wf id="w45" length="2" offset="240" sent="1"><![CDATA[op]]></wf>
+    <wf id="w46" length="9" offset="243" sent="1"><![CDATA[44-jarige]]></wf>
+    <wf id="w47" length="8" offset="253" sent="1"><![CDATA[leeftijd]]></wf>
+    <wf id="w48" length="9" offset="262" sent="1"><![CDATA[overleden]]></wf>
+    <wf id="w49" length="1" offset="271" sent="1"><![CDATA[.]]></wf>
+    <wf id="w50" length="2" offset="272" sent="1"><![CDATA[
+
+]]></wf>
+    <wf id="w51" length="3" offset="274" sent="2"><![CDATA[Hij]]></wf>
+    <wf id="w52" length="4" offset="278" sent="2"><![CDATA[kwam]]></wf>
+    <wf id="w53" length="2" offset="283" sent="2"><![CDATA[om]]></wf>
+    <wf id="w54" length="3" offset="286" sent="2"><![CDATA[het]]></wf>
+    <wf id="w55" length="5" offset="290" sent="2"><![CDATA[leven]]></wf>
+    <wf id="w56" length="4" offset="296" sent="2"><![CDATA[toen]]></wf>
+    <wf id="w57" length="3" offset="301" sent="2"><![CDATA[hij]]></wf>
+    <wf id="w58" length="4" offset="305" sent="2"><![CDATA[werd]]></wf>
+    <wf id="w59" length="8" offset="310" sent="2"><![CDATA[gestoken]]></wf>
+    <wf id="w60" length="4" offset="319" sent="2"><![CDATA[door]]></wf>
+    <wf id="w61" length="3" offset="324" sent="2"><![CDATA[een]]></wf>
+    <wf id="w62" length="13" offset="328" sent="2"><![CDATA[pijlstaartrog]]></wf>
+    <wf id="w63" length="1" offset="341" sent="2"><![CDATA[.]]></wf>
+    <wf id="w64" length="2" offset="343" sent="3"><![CDATA[De]]></wf>
+    <wf id="w65" length="7" offset="346" sent="3"><![CDATA[giftige]]></wf>
+    <wf id="w66" length="3" offset="354" sent="3"><![CDATA[rog]]></wf>
+    <wf id="w67" length="4" offset="358" sent="3"><![CDATA[stak]]></wf>
+    <wf id="w68" length="3" offset="363" sent="3"><![CDATA[hem]]></wf>
+    <wf id="w69" length="3" offset="367" sent="3"><![CDATA[met]]></wf>
+    <wf id="w70" length="4" offset="371" sent="3"><![CDATA[zijn]]></wf>
+    <wf id="w71" length="6" offset="376" sent="3"><![CDATA[staart]]></wf>
+    <wf id="w72" length="2" offset="383" sent="3"><![CDATA[in]]></wf>
+    <wf id="w73" length="4" offset="386" sent="3"><![CDATA[zijn]]></wf>
+    <wf id="w74" length="4" offset="391" sent="3"><![CDATA[hart]]></wf>
+    <wf id="w75" length="4" offset="396" sent="3"><![CDATA[toen]]></wf>
+    <wf id="w76" length="3" offset="401" sent="3"><![CDATA[hij]]></wf>
+    <wf id="w77" length="17" offset="405" sent="3"><![CDATA[onderwateropnames]]></wf>
+    <wf id="w78" length="3" offset="423" sent="3"><![CDATA[aan]]></wf>
+    <wf id="w79" length="3" offset="427" sent="3"><![CDATA[het]]></wf>
+    <wf id="w80" length="5" offset="431" sent="3"><![CDATA[maken]]></wf>
+    <wf id="w81" length="3" offset="437" sent="3"><![CDATA[was]]></wf>
+    <wf id="w82" length="2" offset="441" sent="3"><![CDATA[op]]></wf>
+    <wf id="w83" length="3" offset="444" sent="3"><![CDATA[het]]></wf>
+    <wf id="w84" length="5" offset="448" sent="3"><![CDATA[Great]]></wf>
+    <wf id="w85" length="7" offset="454" sent="3"><![CDATA[Barrier]]></wf>
+    <wf id="w86" length="3" offset="462" sent="3"><![CDATA[Rif]]></wf>
+    <wf id="w87" length="4" offset="466" sent="3"><![CDATA[voor]]></wf>
+    <wf id="w88" length="2" offset="471" sent="3"><![CDATA[de]]></wf>
+    <wf id="w89" length="4" offset="474" sent="3"><![CDATA[kust]]></wf>
+    <wf id="w90" length="3" offset="479" sent="3"><![CDATA[van]]></wf>
+    <wf id="w91" length="10" offset="483" sent="3"><![CDATA[Queensland]]></wf>
+    <wf id="w92" length="2" offset="494" sent="3"><![CDATA[in]]></wf>
+    <wf id="w93" length="9" offset="497" sent="3"><![CDATA[Australië]]></wf>
+    <wf id="w94" length="1" offset="506" sent="3"><![CDATA[.]]></wf>
+    <wf id="w95" length="8" offset="508" sent="4"><![CDATA[Medische]]></wf>
+    <wf id="w96" length="4" offset="517" sent="4"><![CDATA[hulp]]></wf>
+    <wf id="w97" length="4" offset="522" sent="4"><![CDATA[kwam]]></wf>
+    <wf id="w98" length="2" offset="527" sent="4"><![CDATA[te]]></wf>
+    <wf id="w99" length="4" offset="530" sent="4"><![CDATA[laat]]></wf>
+    <wf id="w100" length="1" offset="534" sent="4"><![CDATA[.]]></wf>
+    <wf id="w101" length="3" offset="536" sent="5"><![CDATA[Een]]></wf>
+    <wf id="w102" length="16" offset="540" sent="5"><![CDATA[traumahelikopter]]></wf>
+    <wf id="w103" length="4" offset="557" sent="5"><![CDATA[werd]]></wf>
+    <wf id="w104" length="10" offset="562" sent="5"><![CDATA[tevergeefs]]></wf>
+    <wf id="w105" length="7" offset="573" sent="5"><![CDATA[ingezet]]></wf>
+    <wf id="w106" length="1" offset="580" sent="5"><![CDATA[.]]></wf>
+    <wf id="w107" length="3" offset="582" sent="6"><![CDATA[Hij]]></wf>
+    <wf id="w108" length="8" offset="586" sent="6"><![CDATA[overleed]]></wf>
+    <wf id="w109" length="3" offset="595" sent="6"><![CDATA[ter]]></wf>
+    <wf id="w110" length="7" offset="599" sent="6"><![CDATA[plaatse]]></wf>
+    <wf id="w111" length="1" offset="606" sent="6"><![CDATA[.]]></wf>
+    <wf id="w112" length="2" offset="607" sent="6"><![CDATA[
+
+]]></wf>
+    <wf id="w113" length="2" offset="609" sent="7"><![CDATA[De]]></wf>
+    <wf id="w114" length="4" offset="612" sent="7"><![CDATA[dood]]></wf>
+    <wf id="w115" length="3" offset="617" sent="7"><![CDATA[van]]></wf>
+    <wf id="w116" length="5" offset="621" sent="7"><![CDATA[Irwin]]></wf>
+    <wf id="w117" length="4" offset="627" sent="7"><![CDATA[werd]]></wf>
+    <wf id="w118" length="10" offset="632" sent="7"><![CDATA[vastgelegd]]></wf>
+    <wf id="w119" length="2" offset="643" sent="7"><![CDATA[op]]></wf>
+    <wf id="w120" length="5" offset="646" sent="7"><![CDATA[video]]></wf>
+    <wf id="w121" length="1" offset="651" sent="7"><![CDATA[.]]></wf>
+    <wf id="w122" length="2" offset="653" sent="8"><![CDATA[De]]></wf>
+    <wf id="w123" length="7" offset="656" sent="8"><![CDATA[beelden]]></wf>
+    <wf id="w124" length="4" offset="664" sent="8"><![CDATA[zijn]]></wf>
+    <wf id="w125" length="12" offset="669" sent="8"><![CDATA[overgedragen]]></wf>
+    <wf id="w126" length="3" offset="682" sent="8"><![CDATA[aan]]></wf>
+    <wf id="w127" length="2" offset="686" sent="8"><![CDATA[de]]></wf>
+    <wf id="w128" length="7" offset="689" sent="8"><![CDATA[politie]]></wf>
+    <wf id="w129" length="1" offset="696" sent="8"><![CDATA[.]]></wf>
+    <wf id="w130" length="2" offset="698" sent="8"><![CDATA[
+
+]]></wf>
+    <wf id="w131" length="2" offset="700" sent="9"><![CDATA[In]]></wf>
+    <wf id="w132" length="4" offset="703" sent="9"><![CDATA[heel]]></wf>
+    <wf id="w133" length="9" offset="708" sent="9"><![CDATA[Australië]]></wf>
+    <wf id="w134" length="2" offset="718" sent="9"><![CDATA[en]]></wf>
+    <wf id="w135" length="3" offset="721" sent="9"><![CDATA[ver]]></wf>
+    <wf id="w136" length="10" offset="725" sent="9"><![CDATA[daarbuiten]]></wf>
+    <wf id="w137" length="2" offset="736" sent="9"><![CDATA[is]]></wf>
+    <wf id="w138" length="8" offset="739" sent="9"><![CDATA[geschokt]]></wf>
+    <wf id="w139" length="10" offset="748" sent="9"><![CDATA[gereageerd]]></wf>
+    <wf id="w140" length="2" offset="759" sent="9"><![CDATA[op]]></wf>
+    <wf id="w141" length="4" offset="762" sent="9"><![CDATA[zijn]]></wf>
+    <wf id="w142" length="10" offset="767" sent="9"><![CDATA[overlijden]]></wf>
+    <wf id="w143" length="1" offset="777" sent="9"><![CDATA[.]]></wf>
+    <wf id="w144" length="5" offset="779" sent="10"><![CDATA[Steve]]></wf>
+    <wf id="w145" length="2" offset="784" sent="10"><![CDATA['s]]></wf>
+    <wf id="w146" length="5" offset="787" sent="10"><![CDATA[vrouw]]></wf>
+    <wf id="w147" length="1" offset="792" sent="10"><![CDATA[,]]></wf>
+    <wf id="w148" length="5" offset="794" sent="10"><![CDATA[Terri]]></wf>
+    <wf id="w149" length="1" offset="799" sent="10"><![CDATA[,]]></wf>
+    <wf id="w150" length="2" offset="801" sent="10"><![CDATA[en]]></wf>
+    <wf id="w151" length="4" offset="804" sent="10"><![CDATA[haar]]></wf>
+    <wf id="w152" length="8" offset="809" sent="10"><![CDATA[kinderen]]></wf>
+    <wf id="w153" length="4" offset="818" sent="10"><![CDATA[zijn]]></wf>
+    <wf id="w154" length="9" offset="823" sent="10"><![CDATA[inmiddels]]></wf>
+    <wf id="w155" length="2" offset="833" sent="10"><![CDATA[op]]></wf>
+    <wf id="w156" length="2" offset="836" sent="10"><![CDATA[de]]></wf>
+    <wf id="w157" length="6" offset="839" sent="10"><![CDATA[hoogte]]></wf>
+    <wf id="w158" length="3" offset="846" sent="10"><![CDATA[van]]></wf>
+    <wf id="w159" length="4" offset="850" sent="10"><![CDATA[zijn]]></wf>
+    <wf id="w160" length="4" offset="855" sent="10"><![CDATA[dood]]></wf>
+    <wf id="w161" length="1" offset="859" sent="10"><![CDATA[.]]></wf>
+    <wf id="w162" length="3" offset="861" sent="11"><![CDATA[Zij]]></wf>
+    <wf id="w163" length="7" offset="865" sent="11"><![CDATA[trokken]]></wf>
+    <wf id="w164" length="4" offset="873" sent="11"><![CDATA[door]]></wf>
+    <wf id="w165" length="2" offset="878" sent="11"><![CDATA[de]]></wf>
+    <wf id="w166" length="6" offset="881" sent="11"><![CDATA[bergen]]></wf>
+    <wf id="w167" length="3" offset="888" sent="11"><![CDATA[van]]></wf>
+    <wf id="w168" length="8" offset="892" sent="11"><![CDATA[Tasmanië]]></wf>
+    <wf id="w169" length="2" offset="901" sent="11"><![CDATA[en]]></wf>
+    <wf id="w170" length="7" offset="904" sent="11"><![CDATA[moesten]]></wf>
+    <wf id="w171" length="5" offset="912" sent="11"><![CDATA[eerst]]></wf>
+    <wf id="w172" length="6" offset="918" sent="11"><![CDATA[worden]]></wf>
+    <wf id="w173" length="10" offset="925" sent="11"><![CDATA[opgespoord]]></wf>
+    <wf id="w174" length="1" offset="935" sent="11"><![CDATA[.]]></wf>
+    <wf id="w175" length="3" offset="937" sent="12"><![CDATA[Ook]]></wf>
+    <wf id="w176" length="5" offset="941" sent="12"><![CDATA[Steve]]></wf>
+    <wf id="w177" length="2" offset="946" sent="12"><![CDATA['s]]></wf>
+    <wf id="w178" length="5" offset="949" sent="12"><![CDATA[vader]]></wf>
+    <wf id="w179" length="3" offset="955" sent="13"><![CDATA[Bob]]></wf>
+    <wf id="w180" length="2" offset="959" sent="13"><![CDATA[is]]></wf>
+    <wf id="w181" length="2" offset="962" sent="13"><![CDATA[op]]></wf>
+    <wf id="w182" length="2" offset="965" sent="13"><![CDATA[de]]></wf>
+    <wf id="w183" length="6" offset="968" sent="13"><![CDATA[hoogte]]></wf>
+    <wf id="w184" length="1" offset="974" sent="13"><![CDATA[,]]></wf>
+    <wf id="w185" length="3" offset="976" sent="13"><![CDATA[hij]]></wf>
+    <wf id="w186" length="7" offset="980" sent="13"><![CDATA[verloor]]></wf>
+    <wf id="w187" length="3" offset="988" sent="13"><![CDATA[ook]]></wf>
+    <wf id="w188" length="2" offset="992" sent="13"><![CDATA[al]]></wf>
+    <wf id="w189" length="4" offset="995" sent="13"><![CDATA[zijn]]></wf>
+    <wf id="w190" length="5" offset="1000" sent="13"><![CDATA[vrouw]]></wf>
+    <wf id="w191" length="3" offset="1006" sent="13"><![CDATA[Lyn]]></wf>
+    <wf id="w192" length="2" offset="1010" sent="13"><![CDATA[in]]></wf>
+    <wf id="w193" length="4" offset="1013" sent="13"><![CDATA[2000]]></wf>
+    <wf id="w194" length="3" offset="1018" sent="13"><![CDATA[bij]]></wf>
+    <wf id="w195" length="3" offset="1022" sent="13"><![CDATA[een]]></wf>
+    <wf id="w196" length="4" offset="1026" sent="13"><![CDATA[auto]]></wf>
+    <wf id="w197" length="1" offset="1030" sent="13"><![CDATA[-]]></wf>
+    <wf id="w198" length="7" offset="1031" sent="13"><![CDATA[ongeluk]]></wf>
+    <wf id="w199" length="1" offset="1038" sent="13"><![CDATA[.]]></wf>
+    <wf id="w200" length="3" offset="1040" sent="14"><![CDATA[Bob]]></wf>
+    <wf id="w201" length="5" offset="1044" sent="14"><![CDATA[Irwin]]></wf>
+    <wf id="w202" length="9" offset="1050" sent="14"><![CDATA[reageerde]]></wf>
+    <wf id="w203" length="8" offset="1060" sent="14"><![CDATA[woensdag]]></wf>
+    <wf id="w204" length="1" offset="1069" sent="14"><![CDATA[6]]></wf>
+    <wf id="w205" length="9" offset="1071" sent="14"><![CDATA[september]]></wf>
+    <wf id="w206" length="3" offset="1081" sent="14"><![CDATA[als]]></wf>
+    <wf id="w207" length="6" offset="1085" sent="14"><![CDATA[eerste]]></wf>
+    <wf id="w208" length="10" offset="1092" sent="14"><![CDATA[familielid]]></wf>
+    <wf id="w209" length="12" offset="1103" sent="14"><![CDATA[publiekelijk]]></wf>
+    <wf id="w210" length="2" offset="1116" sent="14"><![CDATA[op]]></wf>
+    <wf id="w211" length="3" offset="1119" sent="14"><![CDATA[het]]></wf>
+    <wf id="w212" length="10" offset="1123" sent="14"><![CDATA[overlijden]]></wf>
+    <wf id="w213" length="3" offset="1134" sent="14"><![CDATA[van]]></wf>
+    <wf id="w214" length="4" offset="1138" sent="14"><![CDATA[zijn]]></wf>
+    <wf id="w215" length="4" offset="1143" sent="14"><![CDATA[zoon]]></wf>
+    <wf id="w216" length="1" offset="1147" sent="14"><![CDATA[.]]></wf>
+    <wf id="w217" length="3" offset="1149" sent="15"><![CDATA[Hij]]></wf>
+    <wf id="w218" length="8" offset="1153" sent="15"><![CDATA[bedankte]]></wf>
+    <wf id="w219" length="2" offset="1162" sent="15"><![CDATA[de]]></wf>
+    <wf id="w220" length="4" offset="1165" sent="15"><![CDATA[vele]]></wf>
+    <wf id="w221" length="4" offset="1170" sent="15"><![CDATA[fans]]></wf>
+    <wf id="w222" length="3" offset="1175" sent="15"><![CDATA[van]]></wf>
+    <wf id="w223" length="5" offset="1179" sent="15"><![CDATA[Steve]]></wf>
+    <wf id="w224" length="4" offset="1185" sent="15"><![CDATA[voor]]></wf>
+    <wf id="w225" length="3" offset="1190" sent="15"><![CDATA[hun]]></wf>
+    <wf id="w226" length="4" offset="1194" sent="15"><![CDATA[vele]]></wf>
+    <wf id="w227" length="16" offset="1199" sent="15"><![CDATA[steunbetuigingen]]></wf>
+    <wf id="w228" length="2" offset="1216" sent="15"><![CDATA[en]]></wf>
+    <wf id="w229" length="2" offset="1219" sent="15"><![CDATA[de]]></wf>
+    <wf id="w230" length="10" offset="1222" sent="15"><![CDATA[bloemenzee]]></wf>
+    <wf id="w231" length="3" offset="1233" sent="15"><![CDATA[bij]]></wf>
+    <wf id="w232" length="2" offset="1237" sent="15"><![CDATA[de]]></wf>
+    <wf id="w233" length="6" offset="1240" sent="15"><![CDATA[ingang]]></wf>
+    <wf id="w234" length="3" offset="1247" sent="15"><![CDATA[van]]></wf>
+    <wf id="w235" length="9" offset="1251" sent="15"><![CDATA[Australia]]></wf>
+    <wf id="w236" length="3" offset="1261" sent="15"><![CDATA[Zoo]]></wf>
+    <wf id="w237" length="1" offset="1264" sent="15"><![CDATA[.]]></wf>
+    <wf id="w238" length="2" offset="1265" sent="15"><![CDATA[
+
+]]></wf>
+    <wf id="w239" length="5" offset="1267" sent="16"><![CDATA[Steve]]></wf>
+    <wf id="w240" length="5" offset="1273" sent="16"><![CDATA[Irwin]]></wf>
+    <wf id="w241" length="6" offset="1279" sent="16"><![CDATA[maakte]]></wf>
+    <wf id="w242" length="2" offset="1286" sent="16"><![CDATA[al]]></wf>
+    <wf id="w243" length="4" offset="1289" sent="16"><![CDATA[meer]]></wf>
+    <wf id="w244" length="3" offset="1294" sent="16"><![CDATA[dan]]></wf>
+    <wf id="w245" length="4" offset="1298" sent="16"><![CDATA[tien]]></wf>
+    <wf id="w246" length="4" offset="1303" sent="16"><![CDATA[jaar]]></wf>
+    <wf id="w247" length="15" offset="1308" sent="16"><![CDATA[natuurprogramma]]></wf>
+    <wf id="w248" length="2" offset="1323" sent="16"><![CDATA['s]]></wf>
+    <wf id="w249" length="2" offset="1326" sent="16"><![CDATA[en]]></wf>
+    <wf id="w250" length="4" offset="1329" sent="16"><![CDATA[werd]]></wf>
+    <wf id="w251" length="13" offset="1334" sent="16"><![CDATA[wereldberoemd]]></wf>
+    <wf id="w252" length="1" offset="1347" sent="16"><![CDATA[.]]></wf>
+    <wf id="w253" length="3" offset="1349" sent="17"><![CDATA[Hij]]></wf>
+    <wf id="w254" length="5" offset="1353" sent="17"><![CDATA[runde]]></wf>
+    <wf id="w255" length="3" offset="1359" sent="17"><![CDATA[ook]]></wf>
+    <wf id="w256" length="3" offset="1363" sent="17"><![CDATA[een]]></wf>
+    <wf id="w257" length="10" offset="1367" sent="17"><![CDATA[dierentuin]]></wf>
+    <wf id="w258" length="2" offset="1378" sent="17"><![CDATA[in]]></wf>
+    <wf id="w259" length="3" offset="1381" sent="17"><![CDATA[het]]></wf>
+    <wf id="w260" length="12" offset="1385" sent="17"><![CDATA[Australische]]></wf>
+    <wf id="w261" length="7" offset="1398" sent="17"><![CDATA[Beerwah]]></wf>
+    <wf id="w262" length="1" offset="1405" sent="17"><![CDATA[.]]></wf>
+    <wf id="w263" length="2" offset="1406" sent="17"><![CDATA[
+
+]]></wf>
+    <wf id="w264" length="1" offset="1408" sent="18"><![CDATA["]]></wf>
+    <wf id="w265" length="9" offset="1409" sent="18"><![CDATA[Crocodile]]></wf>
+    <wf id="w266" length="6" offset="1419" sent="18"><![CDATA[Hunter]]></wf>
+    <wf id="w267" length="1" offset="1425" sent="18"><![CDATA["]]></wf>
+    <wf id="w268" length="5" offset="1427" sent="18"><![CDATA[Steve]]></wf>
+    <wf id="w269" length="5" offset="1433" sent="18"><![CDATA[Irwin]]></wf>
+    <wf id="w270" length="4" offset="1439" sent="18"><![CDATA[laat]]></wf>
+    <wf id="w271" length="3" offset="1444" sent="18"><![CDATA[een]]></wf>
+    <wf id="w272" length="5" offset="1448" sent="18"><![CDATA[vrouw]]></wf>
+    <wf id="w273" length="2" offset="1454" sent="18"><![CDATA[en]]></wf>
+    <wf id="w274" length="4" offset="1457" sent="18"><![CDATA[twee]]></wf>
+    <wf id="w275" length="8" offset="1462" sent="18"><![CDATA[kinderen]]></wf>
+    <wf id="w276" length="6" offset="1471" sent="18"><![CDATA[achter]]></wf>
+    <wf id="w277" length="1" offset="1477" sent="18"><![CDATA[.]]></wf>
+  </text>
+  <terms>
+    <term id="t1" lemma="&quot;" pos="PUNCT" morphofeat="Punc|aanhaaldubb__PunctType=Quot">
+      <span>
+        <target id="w1"/>
+      </span>
+    </term>
+    <term id="t2" lemma="crocodile" pos="NOUN" morphofeat="N_N|eigen|ev|neut_eigen|ev|neut___">
+      <span>
+        <target id="w2"/>
+      </span>
+    </term>
+    <term id="t3" lemma="hunter" pos="PROPN" morphofeat="PROPN___">
+      <span>
+        <target id="w3"/>
+      </span>
+    </term>
+    <term id="t4" lemma="&quot;" pos="PUNCT" morphofeat="Punc|aanhaaldubb__PunctType=Quot">
+      <span>
+        <target id="w4"/>
+      </span>
+    </term>
+    <term id="t5" lemma="steve" pos="NOUN" morphofeat="N_N|eigen|ev|neut_eigen|ev|neut___">
+      <span>
+        <target id="w5"/>
+      </span>
+    </term>
+    <term id="t6" lemma="irwin" pos="PROPN" morphofeat="PROPN___">
+      <span>
+        <target id="w6"/>
+      </span>
+    </term>
+    <term id="t7" lemma="omkomen" pos="VERB" morphofeat="V|intrans|verldw|onverv__Subcat=Intr|Tense=Past|VerbForm=Part">
+      <span>
+        <target id="w7"/>
+      </span>
+    </term>
+    <term id="t8" lemma="in" pos="ADP" morphofeat="Prep|voor__AdpType=Prep">
+      <span>
+        <target id="w8"/>
+      </span>
+    </term>
+    <term id="t9" lemma="australië" pos="NOUN" morphofeat="N|eigen|ev|neut__Number=Sing">
+      <span>
+        <target id="w9"/>
+      </span>
+    </term>
+    <term id="t10" lemma="&#10;" pos="SPACE" morphofeat="_SP">
+      <span>
+        <target id="w10"/>
+      </span>
+    </term>
+    <term id="t11" lemma="4" pos="NUM" morphofeat="NUM__NumForm=Digit|NumType=Card">
+      <span>
+        <target id="w11"/>
+      </span>
+    </term>
+    <term id="t12" lemma="septemb" pos="NUM" morphofeat="NUM__Definite=Def|Number=Sing|NumType=Card">
+      <span>
+        <target id="w12"/>
+      </span>
+    </term>
+    <term id="t13" lemma="2006" pos="NUM" morphofeat="NUM__NumForm=Digit|NumType=Card">
+      <span>
+        <target id="w13"/>
+      </span>
+    </term>
+    <term id="t14" lemma="." pos="PUNCT" morphofeat="Punc|punt__PunctType=Peri">
+      <span>
+        <target id="w14"/>
+      </span>
+    </term>
+    <term id="t15" lemma="&#10;&#10;&#10;&#10;&#10;" pos="SPACE" morphofeat="_SP">
+      <span>
+        <target id="w15"/>
+      </span>
+    </term>
+    <term id="t16" lemma="&quot;" pos="PUNCT" morphofeat="Punc|aanhaaldubb__PunctType=Quot">
+      <span>
+        <target id="w16"/>
+      </span>
+    </term>
+    <term id="t17" lemma="crocodile" pos="NOUN" morphofeat="N_N|eigen|ev|neut_eigen|ev|neut___">
+      <span>
+        <target id="w17"/>
+      </span>
+    </term>
+    <term id="t18" lemma="hunter" pos="PROPN" morphofeat="PROPN___">
+      <span>
+        <target id="w18"/>
+      </span>
+    </term>
+    <term id="t19" lemma="&quot;" pos="PUNCT" morphofeat="Punc|aanhaaldubb__PunctType=Quot">
+      <span>
+        <target id="w19"/>
+      </span>
+    </term>
+    <term id="t20" lemma="," pos="PUNCT" morphofeat="Punc|komma__PunctType=Comm">
+      <span>
+        <target id="w20"/>
+      </span>
+    </term>
+    <term id="t21" lemma="steve" pos="NOUN" morphofeat="N_N|eigen|ev|neut_eigen|ev|neut___">
+      <span>
+        <target id="w21"/>
+      </span>
+    </term>
+    <term id="t22" lemma="irwin" pos="PROPN" morphofeat="PROPN___">
+      <span>
+        <target id="w22"/>
+      </span>
+    </term>
+    <term id="t23" lemma="," pos="PUNCT" morphofeat="Punc|komma__PunctType=Comm">
+      <span>
+        <target id="w23"/>
+      </span>
+    </term>
+    <term id="t24" lemma="die" pos="PRON" morphofeat="Pron|betr|neut|zelfst__PronType=Rel">
+      <span>
+        <target id="w24"/>
+      </span>
+    </term>
+    <term id="t25" lemma="beroemd" pos="ADJ" morphofeat="Adj|attr|stell|onverv__Degree=Pos">
+      <span>
+        <target id="w25"/>
+      </span>
+    </term>
+    <term id="t26" lemma="worden" pos="VERB" morphofeat="V|hulpofkopp|ovt|1of2of3|ev__Aspect=Imp|Mood=Ind|Number=Sing|Tense=Past|VerbForm=Fin">
+      <span>
+        <target id="w26"/>
+      </span>
+    </term>
+    <term id="t27" lemma="door" pos="ADP" morphofeat="Prep|voor__AdpType=Prep">
+      <span>
+        <target id="w27"/>
+      </span>
+    </term>
+    <term id="t28" lemma="zijn" pos="PRON" morphofeat="Pron|bez|3|ev|neut|attr__Number=Sing|Person=3|Poss=Yes|PronType=Prs">
+      <span>
+        <target id="w28"/>
+      </span>
+    </term>
+    <term id="t29" lemma="populair" pos="ADJ" morphofeat="Adj|attr|stell|vervneut__Case=Nom|Degree=Pos">
+      <span>
+        <target id="w29"/>
+      </span>
+    </term>
+    <term id="t30" lemma="tv" pos="NOUN" morphofeat="N|soort|ev|neut__Number=Sing">
+      <span>
+        <target id="w30"/>
+      </span>
+    </term>
+    <term id="t31" lemma="-" pos="PUNCT" morphofeat="Punc|liggstreep___">
+      <span>
+        <target id="w31"/>
+      </span>
+    </term>
+    <term id="t32" lemma="show" pos="NOUN" morphofeat="N|soort|mv|neut__Number=Plur">
+      <span>
+        <target id="w32"/>
+      </span>
+    </term>
+    <term id="t33" lemma="waarin" pos="ADV" morphofeat="Adv|pron|vrag__PronType=Int">
+      <span>
+        <target id="w33"/>
+      </span>
+    </term>
+    <term id="t34" lemma="hij" pos="PRON" morphofeat="Pron|per|3|ev|nom__Case=Nom|Number=Sing|Person=3|PronType=Prs">
+      <span>
+        <target id="w34"/>
+      </span>
+    </term>
+    <term id="t35" lemma="het" pos="DET" morphofeat="Art|bep|onzijd|neut__Definite=Def|Gender=Neut|PronType=Art">
+      <span>
+        <target id="w35"/>
+      </span>
+    </term>
+    <term id="t36" lemma="opnemen" pos="NOUN" morphofeat="N|soort|ev|neut__Number=Sing">
+      <span>
+        <target id="w36"/>
+      </span>
+    </term>
+    <term id="t37" lemma="tegen" pos="ADP" morphofeat="Prep|voor__AdpType=Prep">
+      <span>
+        <target id="w37"/>
+      </span>
+    </term>
+    <term id="t38" lemma="gevaarlijk" pos="ADJ" morphofeat="Adj|attr|stell|vervneut__Case=Nom|Degree=Pos">
+      <span>
+        <target id="w38"/>
+      </span>
+    </term>
+    <term id="t39" lemma="dier" pos="NOUN" morphofeat="N|soort|mv|neut__Number=Plur">
+      <span>
+        <target id="w39"/>
+      </span>
+    </term>
+    <term id="t40" lemma="zoals" pos="CONJ" morphofeat="Conj|onder|metfin___">
+      <span>
+        <target id="w40"/>
+      </span>
+    </term>
+    <term id="t41" lemma="krokodil" pos="NOUN" morphofeat="N|soort|mv|neut__Number=Plur">
+      <span>
+        <target id="w41"/>
+      </span>
+    </term>
+    <term id="t42" lemma="," pos="PUNCT" morphofeat="Punc|komma__PunctType=Comm">
+      <span>
+        <target id="w42"/>
+      </span>
+    </term>
+    <term id="t43" lemma="zijn" pos="VERB" morphofeat="V|hulpofkopp|ott|3|ev__Aspect=Imp|Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin">
+      <span>
+        <target id="w43"/>
+      </span>
+    </term>
+    <term id="t44" lemma="maandagochtend" pos="NOUN" morphofeat="N|soort|ev|neut__Number=Sing">
+      <span>
+        <target id="w44"/>
+      </span>
+    </term>
+    <term id="t45" lemma="op" pos="ADP" morphofeat="Prep|voor__AdpType=Prep">
+      <span>
+        <target id="w45"/>
+      </span>
+    </term>
+    <term id="t46" lemma="44-jarige" pos="ADJ" morphofeat="Adj|attr|stell|vervneut__Case=Nom|Degree=Pos">
+      <span>
+        <target id="w46"/>
+      </span>
+    </term>
+    <term id="t47" lemma="leeftijd" pos="NOUN" morphofeat="N|soort|ev|neut__Number=Sing">
+      <span>
+        <target id="w47"/>
+      </span>
+    </term>
+    <term id="t48" lemma="overlijden" pos="VERB" morphofeat="V|intrans|verldw|onverv__Subcat=Intr|Tense=Past|VerbForm=Part">
+      <span>
+        <target id="w48"/>
+      </span>
+    </term>
+    <term id="t49" lemma="." pos="PUNCT" morphofeat="Punc|punt__PunctType=Peri">
+      <span>
+        <target id="w49"/>
+      </span>
+    </term>
+    <term id="t50" lemma="&#10;&#10;" pos="SPACE" morphofeat="_SP">
+      <span>
+        <target id="w50"/>
+      </span>
+    </term>
+    <term id="t51" lemma="hij" pos="PRON" morphofeat="Pron|per|3|ev|nom__Case=Nom|Number=Sing|Person=3|PronType=Prs">
+      <span>
+        <target id="w51"/>
+      </span>
+    </term>
+    <term id="t52" lemma="komen" pos="VERB" morphofeat="V|intrans|ovt|1of2of3|ev__Aspect=Imp|Mood=Ind|Number=Sing|Subcat=Intr|Tense=Past|VerbForm=Fin">
+      <span>
+        <target id="w52"/>
+      </span>
+    </term>
+    <term id="t53" lemma="om" pos="CONJ" morphofeat="Conj|onder|metinf___">
+      <span>
+        <target id="w53"/>
+      </span>
+    </term>
+    <term id="t54" lemma="het" pos="X" morphofeat="X__Gender=Neut|Number=Sing">
+      <span>
+        <target id="w54"/>
+      </span>
+    </term>
+    <term id="t55" lemma="leven" pos="NOUN" morphofeat="N|soort|ev|neut__Number=Sing">
+      <span>
+        <target id="w55"/>
+      </span>
+    </term>
+    <term id="t56" lemma="toen" pos="CONJ" morphofeat="Conj|onder|metfin___">
+      <span>
+        <target id="w56"/>
+      </span>
+    </term>
+    <term id="t57" lemma="hij" pos="PRON" morphofeat="Pron|per|3|ev|nom__Case=Nom|Number=Sing|Person=3|PronType=Prs">
+      <span>
+        <target id="w57"/>
+      </span>
+    </term>
+    <term id="t58" lemma="worden" pos="VERB" morphofeat="V|hulpofkopp|ovt|1of2of3|ev__Aspect=Imp|Mood=Ind|Number=Sing|Tense=Past|VerbForm=Fin">
+      <span>
+        <target id="w58"/>
+      </span>
+    </term>
+    <term id="t59" lemma="steken" pos="VERB" morphofeat="V|trans|verldw|onverv__Subcat=Tran|Tense=Past|VerbForm=Part">
+      <span>
+        <target id="w59"/>
+      </span>
+    </term>
+    <term id="t60" lemma="door" pos="ADP" morphofeat="Prep|voor__AdpType=Prep">
+      <span>
+        <target id="w60"/>
+      </span>
+    </term>
+    <term id="t61" lemma="een" pos="DET" morphofeat="Art|onbep|zijdofonzijd|neut__Definite=Ind|Number=Sing|PronType=Art">
+      <span>
+        <target id="w61"/>
+      </span>
+    </term>
+    <term id="t62" lemma="pijlstaartrog" pos="NOUN" morphofeat="N|soort|ev|neut__Number=Sing">
+      <span>
+        <target id="w62"/>
+      </span>
+    </term>
+    <term id="t63" lemma="." pos="PUNCT" morphofeat="Punc|punt__PunctType=Peri">
+      <span>
+        <target id="w63"/>
+      </span>
+    </term>
+    <term id="t64" lemma="de" pos="DET" morphofeat="Art|bep|zijdofmv|neut__Definite=Def|PronType=Art">
+      <span>
+        <target id="w64"/>
+      </span>
+    </term>
+    <term id="t65" lemma="giftig" pos="ADJ" morphofeat="Adj|attr|stell|vervneut__Case=Nom|Degree=Pos">
+      <span>
+        <target id="w65"/>
+      </span>
+    </term>
+    <term id="t66" lemma="rog" pos="NOUN" morphofeat="N|soort|ev|neut__Number=Sing">
+      <span>
+        <target id="w66"/>
+      </span>
+    </term>
+    <term id="t67" lemma="steken" pos="VERB" morphofeat="V|trans|ovt|1of2of3|ev__Aspect=Imp|Mood=Ind|Number=Sing|Subcat=Tran|Tense=Past|VerbForm=Fin">
+      <span>
+        <target id="w67"/>
+      </span>
+    </term>
+    <term id="t68" lemma="hem" pos="PRON" morphofeat="Pron|per|3|ev|datofacc__Case=Acc,Dat|Number=Sing|Person=3|PronType=Prs">
+      <span>
+        <target id="w68"/>
+      </span>
+    </term>
+    <term id="t69" lemma="met" pos="ADP" morphofeat="Prep|voor__AdpType=Prep">
+      <span>
+        <target id="w69"/>
+      </span>
+    </term>
+    <term id="t70" lemma="zijn" pos="PRON" morphofeat="Pron|bez|3|ev|neut|attr__Number=Sing|Person=3|Poss=Yes|PronType=Prs">
+      <span>
+        <target id="w70"/>
+      </span>
+    </term>
+    <term id="t71" lemma="staart" pos="NOUN" morphofeat="N|soort|ev|neut__Number=Sing">
+      <span>
+        <target id="w71"/>
+      </span>
+    </term>
+    <term id="t72" lemma="in" pos="ADP" morphofeat="Prep|voor__AdpType=Prep">
+      <span>
+        <target id="w72"/>
+      </span>
+    </term>
+    <term id="t73" lemma="zijn" pos="PRON" morphofeat="Pron|bez|3|ev|neut|attr__Number=Sing|Person=3|Poss=Yes|PronType=Prs">
+      <span>
+        <target id="w73"/>
+      </span>
+    </term>
+    <term id="t74" lemma="hart" pos="NOUN" morphofeat="N|soort|ev|neut__Number=Sing">
+      <span>
+        <target id="w74"/>
+      </span>
+    </term>
+    <term id="t75" lemma="toen" pos="CONJ" morphofeat="Conj|onder|metfin___">
+      <span>
+        <target id="w75"/>
+      </span>
+    </term>
+    <term id="t76" lemma="hij" pos="PRON" morphofeat="Pron|per|3|ev|nom__Case=Nom|Number=Sing|Person=3|PronType=Prs">
+      <span>
+        <target id="w76"/>
+      </span>
+    </term>
+    <term id="t77" lemma="onderwateropname" pos="NOUN" morphofeat="N|soort|mv|neut__Number=Plur">
+      <span>
+        <target id="w77"/>
+      </span>
+    </term>
+    <term id="t78" lemma="aan" pos="ADP" morphofeat="Prep_Art|voor_bep|onzijd|neut__Gender=Neut">
+      <span>
+        <target id="w78"/>
+      </span>
+    </term>
+    <term id="t79" lemma="het" pos="X" morphofeat="X__Gender=Neut">
+      <span>
+        <target id="w79"/>
+      </span>
+    </term>
+    <term id="t80" lemma="maken" pos="VERB" morphofeat="V|trans|inf__Subcat=Tran|VerbForm=Inf">
+      <span>
+        <target id="w80"/>
+      </span>
+    </term>
+    <term id="t81" lemma="zijn" pos="VERB" morphofeat="V|hulpofkopp|ovt|1of2of3|ev__Aspect=Imp|Mood=Ind|Number=Sing|Tense=Past|VerbForm=Fin">
+      <span>
+        <target id="w81"/>
+      </span>
+    </term>
+    <term id="t82" lemma="op" pos="ADP" morphofeat="Prep|voor__AdpType=Prep">
+      <span>
+        <target id="w82"/>
+      </span>
+    </term>
+    <term id="t83" lemma="het" pos="DET" morphofeat="Art|bep|onzijd|neut__Definite=Def|Gender=Neut|PronType=Art">
+      <span>
+        <target id="w83"/>
+      </span>
+    </term>
+    <term id="t84" lemma="great" pos="NOUN" morphofeat="N_N_N___">
+      <span>
+        <target id="w84"/>
+      </span>
+    </term>
+    <term id="t85" lemma="barrier" pos="PROPN" morphofeat="PROPN___">
+      <span>
+        <target id="w85"/>
+      </span>
+    </term>
+    <term id="t86" lemma="rif" pos="NOUN" morphofeat="N|eigen|ev|neut__Number=Sing">
+      <span>
+        <target id="w86"/>
+      </span>
+    </term>
+    <term id="t87" lemma="voor" pos="ADP" morphofeat="Prep|voor__AdpType=Prep">
+      <span>
+        <target id="w87"/>
+      </span>
+    </term>
+    <term id="t88" lemma="de" pos="DET" morphofeat="Art|bep|zijdofmv|neut__Definite=Def|PronType=Art">
+      <span>
+        <target id="w88"/>
+      </span>
+    </term>
+    <term id="t89" lemma="kust" pos="NOUN" morphofeat="N|soort|ev|neut__Number=Sing">
+      <span>
+        <target id="w89"/>
+      </span>
+    </term>
+    <term id="t90" lemma="van" pos="ADP" morphofeat="Prep|voor__AdpType=Prep">
+      <span>
+        <target id="w90"/>
+      </span>
+    </term>
+    <term id="t91" lemma="queensland" pos="NOUN" morphofeat="N|eigen|ev|neut__Number=Sing">
+      <span>
+        <target id="w91"/>
+      </span>
+    </term>
+    <term id="t92" lemma="in" pos="ADP" morphofeat="Prep|voor__AdpType=Prep">
+      <span>
+        <target id="w92"/>
+      </span>
+    </term>
+    <term id="t93" lemma="australië" pos="NOUN" morphofeat="N|eigen|ev|neut__Number=Sing">
+      <span>
+        <target id="w93"/>
+      </span>
+    </term>
+    <term id="t94" lemma="." pos="PUNCT" morphofeat="Punc|punt__PunctType=Peri">
+      <span>
+        <target id="w94"/>
+      </span>
+    </term>
+    <term id="t95" lemma="medisch" pos="ADJ" morphofeat="Adj|attr|stell|vervneut__Case=Nom|Degree=Pos">
+      <span>
+        <target id="w95"/>
+      </span>
+    </term>
+    <term id="t96" lemma="hulp" pos="NOUN" morphofeat="N|soort|ev|neut__Number=Sing">
+      <span>
+        <target id="w96"/>
+      </span>
+    </term>
+    <term id="t97" lemma="komen" pos="VERB" morphofeat="V|intrans|ovt|1of2of3|ev__Aspect=Imp|Mood=Ind|Number=Sing|Subcat=Intr|Tense=Past|VerbForm=Fin">
+      <span>
+        <target id="w97"/>
+      </span>
+    </term>
+    <term id="t98" lemma="te" pos="ADV" morphofeat="Adv|gew|geenfunc|stell|onverv__Degree=Pos">
+      <span>
+        <target id="w98"/>
+      </span>
+    </term>
+    <term id="t99" lemma="laat" pos="ADJ" morphofeat="Adj|attr|stell|onverv__Degree=Pos">
+      <span>
+        <target id="w99"/>
+      </span>
+    </term>
+    <term id="t100" lemma="." pos="PUNCT" morphofeat="Punc|punt__PunctType=Peri">
+      <span>
+        <target id="w100"/>
+      </span>
+    </term>
+    <term id="t101" lemma="een" pos="DET" morphofeat="Art|onbep|zijdofonzijd|neut__Definite=Ind|Number=Sing|PronType=Art">
+      <span>
+        <target id="w101"/>
+      </span>
+    </term>
+    <term id="t102" lemma="traumahelikopter" pos="NOUN" morphofeat="N|soort|ev|neut__Number=Sing">
+      <span>
+        <target id="w102"/>
+      </span>
+    </term>
+    <term id="t103" lemma="worden" pos="VERB" morphofeat="V|hulpofkopp|ovt|1of2of3|ev__Aspect=Imp|Mood=Ind|Number=Sing|Tense=Past|VerbForm=Fin">
+      <span>
+        <target id="w103"/>
+      </span>
+    </term>
+    <term id="t104" lemma="tevergeefs" pos="ADV" morphofeat="Adv|gew|geenfunc|stell|onverv__Degree=Pos">
+      <span>
+        <target id="w104"/>
+      </span>
+    </term>
+    <term id="t105" lemma="inzetten" pos="VERB" morphofeat="V|trans|verldw|onverv__Subcat=Tran|Tense=Past|VerbForm=Part">
+      <span>
+        <target id="w105"/>
+      </span>
+    </term>
+    <term id="t106" lemma="." pos="PUNCT" morphofeat="Punc|punt__PunctType=Peri">
+      <span>
+        <target id="w106"/>
+      </span>
+    </term>
+    <term id="t107" lemma="hij" pos="PRON" morphofeat="Pron|per|3|ev|nom__Case=Nom|Number=Sing|Person=3|PronType=Prs">
+      <span>
+        <target id="w107"/>
+      </span>
+    </term>
+    <term id="t108" lemma="overlijden" pos="VERB" morphofeat="V|intrans|ovt|1of2of3|ev__Aspect=Imp|Mood=Ind|Number=Sing|Subcat=Intr|Tense=Past|VerbForm=Fin">
+      <span>
+        <target id="w108"/>
+      </span>
+    </term>
+    <term id="t109" lemma="te" pos="ADP" morphofeat="Prep|voor__AdpType=Prep">
+      <span>
+        <target id="w109"/>
+      </span>
+    </term>
+    <term id="t110" lemma="plaats" pos="NOUN" morphofeat="N|soort|ev|dat__Case=Dat|Number=Sing">
+      <span>
+        <target id="w110"/>
+      </span>
+    </term>
+    <term id="t111" lemma="." pos="PUNCT" morphofeat="Punc|punt__PunctType=Peri">
+      <span>
+        <target id="w111"/>
+      </span>
+    </term>
+    <term id="t112" lemma="&#10;&#10;" pos="SPACE" morphofeat="_SP">
+      <span>
+        <target id="w112"/>
+      </span>
+    </term>
+    <term id="t113" lemma="de" pos="DET" morphofeat="Art|bep|zijdofmv|neut__Definite=Def|PronType=Art">
+      <span>
+        <target id="w113"/>
+      </span>
+    </term>
+    <term id="t114" lemma="dood" pos="NOUN" morphofeat="N|soort|ev|neut__Number=Sing">
+      <span>
+        <target id="w114"/>
+      </span>
+    </term>
+    <term id="t115" lemma="van" pos="ADP" morphofeat="Prep|voor__AdpType=Prep">
+      <span>
+        <target id="w115"/>
+      </span>
+    </term>
+    <term id="t116" lemma="irwin" pos="NOUN" morphofeat="N|eigen|ev|neut__Number=Sing">
+      <span>
+        <target id="w116"/>
+      </span>
+    </term>
+    <term id="t117" lemma="worden" pos="VERB" morphofeat="V|hulpofkopp|ovt|1of2of3|ev__Aspect=Imp|Mood=Ind|Number=Sing|Tense=Past|VerbForm=Fin">
+      <span>
+        <target id="w117"/>
+      </span>
+    </term>
+    <term id="t118" lemma="vastleggen" pos="VERB" morphofeat="V|trans|verldw|onverv__Subcat=Tran|Tense=Past|VerbForm=Part">
+      <span>
+        <target id="w118"/>
+      </span>
+    </term>
+    <term id="t119" lemma="op" pos="ADP" morphofeat="Prep|voor__AdpType=Prep">
+      <span>
+        <target id="w119"/>
+      </span>
+    </term>
+    <term id="t120" lemma="video" pos="NOUN" morphofeat="N|soort|ev|neut__Number=Sing">
+      <span>
+        <target id="w120"/>
+      </span>
+    </term>
+    <term id="t121" lemma="." pos="PUNCT" morphofeat="Punc|punt__PunctType=Peri">
+      <span>
+        <target id="w121"/>
+      </span>
+    </term>
+    <term id="t122" lemma="de" pos="DET" morphofeat="Art|bep|zijdofmv|neut__Definite=Def|PronType=Art">
+      <span>
+        <target id="w122"/>
+      </span>
+    </term>
+    <term id="t123" lemma="beeld" pos="NOUN" morphofeat="N|soort|mv|neut__Number=Plur">
+      <span>
+        <target id="w123"/>
+      </span>
+    </term>
+    <term id="t124" lemma="zijn" pos="VERB" morphofeat="V|hulpofkopp|ott|1of2of3|mv__Aspect=Imp|Mood=Ind|Number=Plur|Tense=Pres|VerbForm=Fin">
+      <span>
+        <target id="w124"/>
+      </span>
+    </term>
+    <term id="t125" lemma="overdragen" pos="VERB" morphofeat="V|trans|verldw|onverv__Subcat=Tran|Tense=Past|VerbForm=Part">
+      <span>
+        <target id="w125"/>
+      </span>
+    </term>
+    <term id="t126" lemma="aan" pos="ADP" morphofeat="Prep|voor__AdpType=Prep">
+      <span>
+        <target id="w126"/>
+      </span>
+    </term>
+    <term id="t127" lemma="de" pos="DET" morphofeat="Art|bep|zijdofmv|neut__Definite=Def|PronType=Art">
+      <span>
+        <target id="w127"/>
+      </span>
+    </term>
+    <term id="t128" lemma="politie" pos="NOUN" morphofeat="N|soort|ev|neut__Number=Sing">
+      <span>
+        <target id="w128"/>
+      </span>
+    </term>
+    <term id="t129" lemma="." pos="PUNCT" morphofeat="Punc|punt__PunctType=Peri">
+      <span>
+        <target id="w129"/>
+      </span>
+    </term>
+    <term id="t130" lemma="&#10;&#10;" pos="SPACE" morphofeat="_SP">
+      <span>
+        <target id="w130"/>
+      </span>
+    </term>
+    <term id="t131" lemma="in" pos="ADP" morphofeat="Prep|voor__AdpType=Prep">
+      <span>
+        <target id="w131"/>
+      </span>
+    </term>
+    <term id="t132" lemma="heel" pos="ADV" morphofeat="Adv|gew|geenfunc|stell|onverv__Degree=Pos">
+      <span>
+        <target id="w132"/>
+      </span>
+    </term>
+    <term id="t133" lemma="australië" pos="NOUN" morphofeat="N|eigen|ev|neut__Number=Sing">
+      <span>
+        <target id="w133"/>
+      </span>
+    </term>
+    <term id="t134" lemma="en" pos="CONJ" morphofeat="Conj|neven___">
+      <span>
+        <target id="w134"/>
+      </span>
+    </term>
+    <term id="t135" lemma="ver" pos="ADJ" morphofeat="Adj|adv|stell|onverv__Degree=Pos|Variant=Short">
+      <span>
+        <target id="w135"/>
+      </span>
+    </term>
+    <term id="t136" lemma="daarbuiten" pos="ADV" morphofeat="Adv|pron|aanw__PronType=Dem">
+      <span>
+        <target id="w136"/>
+      </span>
+    </term>
+    <term id="t137" lemma="zijn" pos="VERB" morphofeat="V|hulpofkopp|ott|3|ev__Aspect=Imp|Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin">
+      <span>
+        <target id="w137"/>
+      </span>
+    </term>
+    <term id="t138" lemma="schokken" pos="VERB" morphofeat="V|trans|verldw|onverv__Subcat=Tran|Tense=Past|VerbForm=Part">
+      <span>
+        <target id="w138"/>
+      </span>
+    </term>
+    <term id="t139" lemma="reageren" pos="VERB" morphofeat="V|intrans|verldw|onverv__Subcat=Intr|Tense=Past|VerbForm=Part">
+      <span>
+        <target id="w139"/>
+      </span>
+    </term>
+    <term id="t140" lemma="op" pos="ADP" morphofeat="Prep|voor__AdpType=Prep">
+      <span>
+        <target id="w140"/>
+      </span>
+    </term>
+    <term id="t141" lemma="zijn" pos="PRON" morphofeat="Pron|bez|3|ev|neut|attr__Number=Sing|Person=3|Poss=Yes|PronType=Prs">
+      <span>
+        <target id="w141"/>
+      </span>
+    </term>
+    <term id="t142" lemma="overlijden" pos="VERB" morphofeat="V|intrans|inf|subst__Subcat=Intr|VerbForm=Inf">
+      <span>
+        <target id="w142"/>
+      </span>
+    </term>
+    <term id="t143" lemma="." pos="PUNCT" morphofeat="Punc|punt__PunctType=Peri">
+      <span>
+        <target id="w143"/>
+      </span>
+    </term>
+    <term id="t144" lemma="steve" pos="ADP" morphofeat="Prep|voor__AdpType=Prep">
+      <span>
+        <target id="w144"/>
+      </span>
+    </term>
+    <term id="t145" lemma="de" pos="DET" morphofeat="Art_N__Case=Gen|Definite=Def|Number=Sing">
+      <span>
+        <target id="w145"/>
+      </span>
+    </term>
+    <term id="t146" lemma="vrouw" pos="NOUN" morphofeat="N|soort|ev|neut__Number=Sing">
+      <span>
+        <target id="w146"/>
+      </span>
+    </term>
+    <term id="t147" lemma="," pos="PUNCT" morphofeat="Punc|komma__PunctType=Comm">
+      <span>
+        <target id="w147"/>
+      </span>
+    </term>
+    <term id="t148" lemma="terri" pos="NOUN" morphofeat="N|eigen|ev|neut__Number=Sing">
+      <span>
+        <target id="w148"/>
+      </span>
+    </term>
+    <term id="t149" lemma="," pos="PUNCT" morphofeat="Punc|komma__PunctType=Comm">
+      <span>
+        <target id="w149"/>
+      </span>
+    </term>
+    <term id="t150" lemma="en" pos="CONJ" morphofeat="Conj|neven___">
+      <span>
+        <target id="w150"/>
+      </span>
+    </term>
+    <term id="t151" lemma="haar" pos="PRON" morphofeat="Pron|bez|3|ev|neut|attr__Number=Sing|Person=3|Poss=Yes|PronType=Prs">
+      <span>
+        <target id="w151"/>
+      </span>
+    </term>
+    <term id="t152" lemma="kind" pos="NOUN" morphofeat="N|soort|mv|neut__Number=Plur">
+      <span>
+        <target id="w152"/>
+      </span>
+    </term>
+    <term id="t153" lemma="zijn" pos="VERB" morphofeat="V|hulpofkopp|ott|1of2of3|mv__Aspect=Imp|Mood=Ind|Number=Plur|Tense=Pres|VerbForm=Fin">
+      <span>
+        <target id="w153"/>
+      </span>
+    </term>
+    <term id="t154" lemma="inmiddels" pos="ADV" morphofeat="Adv|gew|geenfunc|stell|onverv__Degree=Pos">
+      <span>
+        <target id="w154"/>
+      </span>
+    </term>
+    <term id="t155" lemma="op" pos="ADP" morphofeat="Prep_Art_N__Number=Sing">
+      <span>
+        <target id="w155"/>
+      </span>
+    </term>
+    <term id="t156" lemma="de" pos="ADP" morphofeat="ADP__AdpType=Prep">
+      <span>
+        <target id="w156"/>
+      </span>
+    </term>
+    <term id="t157" lemma="hoogte" pos="X" morphofeat="X__Number=Sing">
+      <span>
+        <target id="w157"/>
+      </span>
+    </term>
+    <term id="t158" lemma="van" pos="ADP" morphofeat="Prep|voor__AdpType=Prep">
+      <span>
+        <target id="w158"/>
+      </span>
+    </term>
+    <term id="t159" lemma="zijn" pos="PRON" morphofeat="Pron|bez|3|ev|neut|attr__Number=Sing|Person=3|Poss=Yes|PronType=Prs">
+      <span>
+        <target id="w159"/>
+      </span>
+    </term>
+    <term id="t160" lemma="dood" pos="NOUN" morphofeat="N|soort|ev|neut__Number=Sing">
+      <span>
+        <target id="w160"/>
+      </span>
+    </term>
+    <term id="t161" lemma="." pos="PUNCT" morphofeat="Punc|punt__PunctType=Peri">
+      <span>
+        <target id="w161"/>
+      </span>
+    </term>
+    <term id="t162" lemma="zij" pos="PRON" morphofeat="Pron|per|3|evofmv|nom__Case=Nom|Number=Plur,Sing|Person=3|PronType=Prs">
+      <span>
+        <target id="w162"/>
+      </span>
+    </term>
+    <term id="t163" lemma="trekken" pos="VERB" morphofeat="V|intrans|ovt|1of2of3|mv__Aspect=Imp|Mood=Ind|Number=Plur|Subcat=Intr|Tense=Past|VerbForm=Fin">
+      <span>
+        <target id="w163"/>
+      </span>
+    </term>
+    <term id="t164" lemma="door" pos="ADP" morphofeat="Prep|voor__AdpType=Prep">
+      <span>
+        <target id="w164"/>
+      </span>
+    </term>
+    <term id="t165" lemma="de" pos="DET" morphofeat="Art|bep|zijdofmv|neut__Definite=Def|PronType=Art">
+      <span>
+        <target id="w165"/>
+      </span>
+    </term>
+    <term id="t166" lemma="berg" pos="NOUN" morphofeat="N|soort|mv|neut__Number=Plur">
+      <span>
+        <target id="w166"/>
+      </span>
+    </term>
+    <term id="t167" lemma="van" pos="ADP" morphofeat="Prep|voor__AdpType=Prep">
+      <span>
+        <target id="w167"/>
+      </span>
+    </term>
+    <term id="t168" lemma="tasmanië" pos="NOUN" morphofeat="N|eigen|ev|neut__Number=Sing">
+      <span>
+        <target id="w168"/>
+      </span>
+    </term>
+    <term id="t169" lemma="en" pos="CONJ" morphofeat="Conj|neven___">
+      <span>
+        <target id="w169"/>
+      </span>
+    </term>
+    <term id="t170" lemma="moeten" pos="VERB" morphofeat="V|hulp|ovt|1of2of3|mv__Aspect=Imp|Mood=Ind|Number=Plur|Tense=Past|VerbForm=Fin|VerbType=Mod">
+      <span>
+        <target id="w170"/>
+      </span>
+    </term>
+    <term id="t171" lemma="eerst" pos="ADV" morphofeat="Adv|gew|geenfunc|stell|onverv__Degree=Pos">
+      <span>
+        <target id="w171"/>
+      </span>
+    </term>
+    <term id="t172" lemma="worden" pos="VERB" morphofeat="V|hulpofkopp|inf__VerbForm=Inf">
+      <span>
+        <target id="w172"/>
+      </span>
+    </term>
+    <term id="t173" lemma="opsporen" pos="VERB" morphofeat="V|trans|verldw|onverv__Subcat=Tran|Tense=Past|VerbForm=Part">
+      <span>
+        <target id="w173"/>
+      </span>
+    </term>
+    <term id="t174" lemma="." pos="PUNCT" morphofeat="Punc|punt__PunctType=Peri">
+      <span>
+        <target id="w174"/>
+      </span>
+    </term>
+    <term id="t175" lemma="ook" pos="ADV" morphofeat="Adv|gew|geenfunc|stell|onverv__Degree=Pos">
+      <span>
+        <target id="w175"/>
+      </span>
+    </term>
+    <term id="t176" lemma="steve" pos="NOUN" morphofeat="N|eigen|ev|neut__Number=Sing">
+      <span>
+        <target id="w176"/>
+      </span>
+    </term>
+    <term id="t177" lemma="de" pos="DET" morphofeat="Art_N__Case=Gen|Definite=Def|Number=Sing">
+      <span>
+        <target id="w177"/>
+      </span>
+    </term>
+    <term id="t178" lemma="vader" pos="NOUN" morphofeat="N|soort|ev|neut__Number=Sing">
+      <span>
+        <target id="w178"/>
+      </span>
+    </term>
+    <term id="t179" lemma="bob" pos="NOUN" morphofeat="N|eigen|ev|neut__Number=Sing">
+      <span>
+        <target id="w179"/>
+      </span>
+    </term>
+    <term id="t180" lemma="zijn" pos="VERB" morphofeat="V|hulpofkopp|ott|3|ev__Aspect=Imp|Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin">
+      <span>
+        <target id="w180"/>
+      </span>
+    </term>
+    <term id="t181" lemma="op" pos="ADP" morphofeat="Prep_Art_N__Number=Sing">
+      <span>
+        <target id="w181"/>
+      </span>
+    </term>
+    <term id="t182" lemma="de" pos="ADP" morphofeat="ADP__AdpType=Prep">
+      <span>
+        <target id="w182"/>
+      </span>
+    </term>
+    <term id="t183" lemma="hoogte" pos="X" morphofeat="X__Number=Sing">
+      <span>
+        <target id="w183"/>
+      </span>
+    </term>
+    <term id="t184" lemma="," pos="PUNCT" morphofeat="Punc|komma__PunctType=Comm">
+      <span>
+        <target id="w184"/>
+      </span>
+    </term>
+    <term id="t185" lemma="hij" pos="PRON" morphofeat="Pron|per|3|ev|nom__Case=Nom|Number=Sing|Person=3|PronType=Prs">
+      <span>
+        <target id="w185"/>
+      </span>
+    </term>
+    <term id="t186" lemma="verliezen" pos="VERB" morphofeat="V|trans|ovt|1of2of3|ev__Aspect=Imp|Mood=Ind|Number=Sing|Subcat=Tran|Tense=Past|VerbForm=Fin">
+      <span>
+        <target id="w186"/>
+      </span>
+    </term>
+    <term id="t187" lemma="ook" pos="ADV" morphofeat="Adv|gew|geenfunc|stell|onverv__Degree=Pos">
+      <span>
+        <target id="w187"/>
+      </span>
+    </term>
+    <term id="t188" lemma="al" pos="CONJ" morphofeat="Conj|onder|metfin___">
+      <span>
+        <target id="w188"/>
+      </span>
+    </term>
+    <term id="t189" lemma="zijn" pos="PRON" morphofeat="Pron|bez|3|ev|neut|attr__Number=Sing|Person=3|Poss=Yes|PronType=Prs">
+      <span>
+        <target id="w189"/>
+      </span>
+    </term>
+    <term id="t190" lemma="vrouw" pos="NOUN" morphofeat="N|soort|ev|neut__Number=Sing">
+      <span>
+        <target id="w190"/>
+      </span>
+    </term>
+    <term id="t191" lemma="lyn" pos="NOUN" morphofeat="N|eigen|ev|neut__Number=Sing">
+      <span>
+        <target id="w191"/>
+      </span>
+    </term>
+    <term id="t192" lemma="in" pos="ADP" morphofeat="Prep|voor__AdpType=Prep">
+      <span>
+        <target id="w192"/>
+      </span>
+    </term>
+    <term id="t193" lemma="2000" pos="NUM" morphofeat="Num|hoofd|bep|zelfst|onverv__Definite=Def|NumType=Card">
+      <span>
+        <target id="w193"/>
+      </span>
+    </term>
+    <term id="t194" lemma="bij" pos="ADP" morphofeat="Prep|voor__AdpType=Prep">
+      <span>
+        <target id="w194"/>
+      </span>
+    </term>
+    <term id="t195" lemma="een" pos="DET" morphofeat="Art|onbep|zijdofonzijd|neut__Definite=Ind|Number=Sing|PronType=Art">
+      <span>
+        <target id="w195"/>
+      </span>
+    </term>
+    <term id="t196" lemma="auto" pos="NOUN" morphofeat="N|soort|ev|neut__Number=Sing">
+      <span>
+        <target id="w196"/>
+      </span>
+    </term>
+    <term id="t197" lemma="-" pos="PUNCT" morphofeat="Punc|liggstreep___">
+      <span>
+        <target id="w197"/>
+      </span>
+    </term>
+    <term id="t198" lemma="ongeluk" pos="NOUN" morphofeat="N|soort|ev|neut__Number=Sing">
+      <span>
+        <target id="w198"/>
+      </span>
+    </term>
+    <term id="t199" lemma="." pos="PUNCT" morphofeat="Punc|punt__PunctType=Peri">
+      <span>
+        <target id="w199"/>
+      </span>
+    </term>
+    <term id="t200" lemma="bob" pos="NOUN" morphofeat="N_N|eigen|ev|neut_eigen|ev|neut___">
+      <span>
+        <target id="w200"/>
+      </span>
+    </term>
+    <term id="t201" lemma="irwin" pos="PROPN" morphofeat="PROPN___">
+      <span>
+        <target id="w201"/>
+      </span>
+    </term>
+    <term id="t202" lemma="reageren" pos="VERB" morphofeat="V|intrans|ovt|1of2of3|ev__Aspect=Imp|Mood=Ind|Number=Sing|Subcat=Intr|Tense=Past|VerbForm=Fin">
+      <span>
+        <target id="w202"/>
+      </span>
+    </term>
+    <term id="t203" lemma="woensdag" pos="NOUN" morphofeat="N_Num_N___">
+      <span>
+        <target id="w203"/>
+      </span>
+    </term>
+    <term id="t204" lemma="6" pos="NUM" morphofeat="NUM__NumForm=Digit|NumType=Card">
+      <span>
+        <target id="w204"/>
+      </span>
+    </term>
+    <term id="t205" lemma="september" pos="PROPN" morphofeat="PROPN___">
+      <span>
+        <target id="w205"/>
+      </span>
+    </term>
+    <term id="t206" lemma="als" pos="CONJ" morphofeat="Conj|onder|metfin___">
+      <span>
+        <target id="w206"/>
+      </span>
+    </term>
+    <term id="t207" lemma="eer" pos="NUM" morphofeat="Num|rang|bep|attr|onverv__Definite=Def|NumType=Ord">
+      <span>
+        <target id="w207"/>
+      </span>
+    </term>
+    <term id="t208" lemma="familielid" pos="NOUN" morphofeat="N|soort|ev|neut__Number=Sing">
+      <span>
+        <target id="w208"/>
+      </span>
+    </term>
+    <term id="t209" lemma="publiekelijk" pos="ADJ" morphofeat="Adj|adv|stell|onverv__Degree=Pos|Variant=Short">
+      <span>
+        <target id="w209"/>
+      </span>
+    </term>
+    <term id="t210" lemma="op" pos="ADP" morphofeat="Prep|voor__AdpType=Prep">
+      <span>
+        <target id="w210"/>
+      </span>
+    </term>
+    <term id="t211" lemma="het" pos="DET" morphofeat="Art|bep|onzijd|neut__Definite=Def|Gender=Neut|PronType=Art">
+      <span>
+        <target id="w211"/>
+      </span>
+    </term>
+    <term id="t212" lemma="overlijden" pos="VERB" morphofeat="V|intrans|inf|subst__Subcat=Intr|VerbForm=Inf">
+      <span>
+        <target id="w212"/>
+      </span>
+    </term>
+    <term id="t213" lemma="van" pos="ADP" morphofeat="Prep|voor__AdpType=Prep">
+      <span>
+        <target id="w213"/>
+      </span>
+    </term>
+    <term id="t214" lemma="zijn" pos="PRON" morphofeat="Pron|bez|3|ev|neut|attr__Number=Sing|Person=3|Poss=Yes|PronType=Prs">
+      <span>
+        <target id="w214"/>
+      </span>
+    </term>
+    <term id="t215" lemma="zoon" pos="NOUN" morphofeat="N|soort|ev|neut__Number=Sing">
+      <span>
+        <target id="w215"/>
+      </span>
+    </term>
+    <term id="t216" lemma="." pos="PUNCT" morphofeat="Punc|punt__PunctType=Peri">
+      <span>
+        <target id="w216"/>
+      </span>
+    </term>
+    <term id="t217" lemma="hij" pos="PRON" morphofeat="Pron|per|3|ev|nom__Case=Nom|Number=Sing|Person=3|PronType=Prs">
+      <span>
+        <target id="w217"/>
+      </span>
+    </term>
+    <term id="t218" lemma="bedanken" pos="VERB" morphofeat="V|trans|ovt|1of2of3|ev__Aspect=Imp|Mood=Ind|Number=Sing|Subcat=Tran|Tense=Past|VerbForm=Fin">
+      <span>
+        <target id="w218"/>
+      </span>
+    </term>
+    <term id="t219" lemma="de" pos="DET" morphofeat="Art|bep|zijdofmv|neut__Definite=Def|PronType=Art">
+      <span>
+        <target id="w219"/>
+      </span>
+    </term>
+    <term id="t220" lemma="vele" pos="NUM" morphofeat="Num__Case=Nom|Degree=Pos|NumType=Card|PronType=Ind">
+      <span>
+        <target id="w220"/>
+      </span>
+    </term>
+    <term id="t221" lemma="fan" pos="NOUN" morphofeat="N|soort|mv|neut__Number=Plur">
+      <span>
+        <target id="w221"/>
+      </span>
+    </term>
+    <term id="t222" lemma="van" pos="ADP" morphofeat="Prep|voor__AdpType=Prep">
+      <span>
+        <target id="w222"/>
+      </span>
+    </term>
+    <term id="t223" lemma="steve" pos="NOUN" morphofeat="N|eigen|ev|neut__Number=Sing">
+      <span>
+        <target id="w223"/>
+      </span>
+    </term>
+    <term id="t224" lemma="voor" pos="ADP" morphofeat="Prep|voor__AdpType=Prep">
+      <span>
+        <target id="w224"/>
+      </span>
+    </term>
+    <term id="t225" lemma="hun" pos="PRON" morphofeat="Pron|bez|3|mv|neut|attr__Number=Plur|Person=3|Poss=Yes|PronType=Prs">
+      <span>
+        <target id="w225"/>
+      </span>
+    </term>
+    <term id="t226" lemma="vele" pos="NUM" morphofeat="Num__Case=Nom|Degree=Pos|NumType=Card|PronType=Ind">
+      <span>
+        <target id="w226"/>
+      </span>
+    </term>
+    <term id="t227" lemma="steunbetuiging" pos="NOUN" morphofeat="N|soort|mv|neut__Number=Plur">
+      <span>
+        <target id="w227"/>
+      </span>
+    </term>
+    <term id="t228" lemma="en" pos="CONJ" morphofeat="Conj|neven___">
+      <span>
+        <target id="w228"/>
+      </span>
+    </term>
+    <term id="t229" lemma="de" pos="DET" morphofeat="Art|bep|zijdofmv|neut__Definite=Def|PronType=Art">
+      <span>
+        <target id="w229"/>
+      </span>
+    </term>
+    <term id="t230" lemma="bloemenzee" pos="NOUN" morphofeat="N|soort|ev|neut__Number=Sing">
+      <span>
+        <target id="w230"/>
+      </span>
+    </term>
+    <term id="t231" lemma="bij" pos="ADP" morphofeat="Prep|voor__AdpType=Prep">
+      <span>
+        <target id="w231"/>
+      </span>
+    </term>
+    <term id="t232" lemma="de" pos="DET" morphofeat="Art|bep|zijdofmv|neut__Definite=Def|PronType=Art">
+      <span>
+        <target id="w232"/>
+      </span>
+    </term>
+    <term id="t233" lemma="ingang" pos="NOUN" morphofeat="N|soort|ev|neut__Number=Sing">
+      <span>
+        <target id="w233"/>
+      </span>
+    </term>
+    <term id="t234" lemma="van" pos="ADP" morphofeat="Prep|voor__AdpType=Prep">
+      <span>
+        <target id="w234"/>
+      </span>
+    </term>
+    <term id="t235" lemma="australia" pos="NOUN" morphofeat="N_N|eigen|ev|neut_eigen|ev|neut___">
+      <span>
+        <target id="w235"/>
+      </span>
+    </term>
+    <term id="t236" lemma="zoo" pos="PROPN" morphofeat="PROPN___">
+      <span>
+        <target id="w236"/>
+      </span>
+    </term>
+    <term id="t237" lemma="." pos="PUNCT" morphofeat="Punc|punt__PunctType=Peri">
+      <span>
+        <target id="w237"/>
+      </span>
+    </term>
+    <term id="t238" lemma="&#10;&#10;" pos="SPACE" morphofeat="_SP">
+      <span>
+        <target id="w238"/>
+      </span>
+    </term>
+    <term id="t239" lemma="steve" pos="NOUN" morphofeat="N_N|eigen|ev|neut_eigen|ev|neut___">
+      <span>
+        <target id="w239"/>
+      </span>
+    </term>
+    <term id="t240" lemma="irwin" pos="PROPN" morphofeat="PROPN___">
+      <span>
+        <target id="w240"/>
+      </span>
+    </term>
+    <term id="t241" lemma="maken" pos="VERB" morphofeat="V|trans|ovt|1of2of3|ev__Aspect=Imp|Mood=Ind|Number=Sing|Subcat=Tran|Tense=Past|VerbForm=Fin">
+      <span>
+        <target id="w241"/>
+      </span>
+    </term>
+    <term id="t242" lemma="al" pos="ADV" morphofeat="Adv|gew|geenfunc|stell|onverv__Degree=Pos">
+      <span>
+        <target id="w242"/>
+      </span>
+    </term>
+    <term id="t243" lemma="me" pos="NUM" morphofeat="Num|hoofd|onbep|attr|vergr|onverv__Degree=Cmp|NumType=Card|PronType=Ind">
+      <span>
+        <target id="w243"/>
+      </span>
+    </term>
+    <term id="t244" lemma="dan" pos="CONJ" morphofeat="Conj|onder|metfin___">
+      <span>
+        <target id="w244"/>
+      </span>
+    </term>
+    <term id="t245" lemma="ti" pos="NUM" morphofeat="Num|hoofd|bep|attr|onverv__Definite=Def|NumType=Card">
+      <span>
+        <target id="w245"/>
+      </span>
+    </term>
+    <term id="t246" lemma="jaar" pos="NOUN" morphofeat="N|soort|ev|neut__Number=Sing">
+      <span>
+        <target id="w246"/>
+      </span>
+    </term>
+    <term id="t247" lemma="natuurprogramma" pos="NOUN" morphofeat="N|soort|ev|neut__Number=Sing">
+      <span>
+        <target id="w247"/>
+      </span>
+    </term>
+    <term id="t248" lemma="de" pos="DET" morphofeat="Art_N__Case=Gen|Definite=Def|Number=Sing">
+      <span>
+        <target id="w248"/>
+      </span>
+    </term>
+    <term id="t249" lemma="en" pos="CONJ" morphofeat="Conj|neven___">
+      <span>
+        <target id="w249"/>
+      </span>
+    </term>
+    <term id="t250" lemma="worden" pos="VERB" morphofeat="V|hulpofkopp|ovt|1of2of3|ev__Aspect=Imp|Mood=Ind|Number=Sing|Tense=Past|VerbForm=Fin">
+      <span>
+        <target id="w250"/>
+      </span>
+    </term>
+    <term id="t251" lemma="wereldberoemd" pos="VERB" morphofeat="V|trans|verldw|onverv__Subcat=Tran|Tense=Past|VerbForm=Part">
+      <span>
+        <target id="w251"/>
+      </span>
+    </term>
+    <term id="t252" lemma="." pos="PUNCT" morphofeat="Punc|punt__PunctType=Peri">
+      <span>
+        <target id="w252"/>
+      </span>
+    </term>
+    <term id="t253" lemma="hij" pos="PRON" morphofeat="Pron|per|3|ev|nom__Case=Nom|Number=Sing|Person=3|PronType=Prs">
+      <span>
+        <target id="w253"/>
+      </span>
+    </term>
+    <term id="t254" lemma="runnen" pos="VERB" morphofeat="V|intrans|ovt|1of2of3|ev__Aspect=Imp|Mood=Ind|Number=Sing|Subcat=Intr|Tense=Past|VerbForm=Fin">
+      <span>
+        <target id="w254"/>
+      </span>
+    </term>
+    <term id="t255" lemma="ook" pos="ADV" morphofeat="Adv|gew|geenfunc|stell|onverv__Degree=Pos">
+      <span>
+        <target id="w255"/>
+      </span>
+    </term>
+    <term id="t256" lemma="een" pos="DET" morphofeat="Art|onbep|zijdofonzijd|neut__Definite=Ind|Number=Sing|PronType=Art">
+      <span>
+        <target id="w256"/>
+      </span>
+    </term>
+    <term id="t257" lemma="dierentuin" pos="NOUN" morphofeat="N|soort|ev|neut__Number=Sing">
+      <span>
+        <target id="w257"/>
+      </span>
+    </term>
+    <term id="t258" lemma="in" pos="ADP" morphofeat="Prep|voor__AdpType=Prep">
+      <span>
+        <target id="w258"/>
+      </span>
+    </term>
+    <term id="t259" lemma="het" pos="DET" morphofeat="Art|bep|onzijd|neut__Definite=Def|Gender=Neut|PronType=Art">
+      <span>
+        <target id="w259"/>
+      </span>
+    </term>
+    <term id="t260" lemma="australische" pos="NOUN" morphofeat="N_N|eigen|ev|neut_eigen|ev|neut___">
+      <span>
+        <target id="w260"/>
+      </span>
+    </term>
+    <term id="t261" lemma="beerwah" pos="PROPN" morphofeat="PROPN___">
+      <span>
+        <target id="w261"/>
+      </span>
+    </term>
+    <term id="t262" lemma="." pos="PUNCT" morphofeat="Punc|punt__PunctType=Peri">
+      <span>
+        <target id="w262"/>
+      </span>
+    </term>
+    <term id="t263" lemma="&#10;&#10;" pos="SPACE" morphofeat="_SP">
+      <span>
+        <target id="w263"/>
+      </span>
+    </term>
+    <term id="t264" lemma="&quot;" pos="PUNCT" morphofeat="Punc|aanhaaldubb__PunctType=Quot">
+      <span>
+        <target id="w264"/>
+      </span>
+    </term>
+    <term id="t265" lemma="crocodile" pos="NOUN" morphofeat="N_N|eigen|ev|neut_eigen|ev|neut___">
+      <span>
+        <target id="w265"/>
+      </span>
+    </term>
+    <term id="t266" lemma="hunter" pos="PROPN" morphofeat="PROPN___">
+      <span>
+        <target id="w266"/>
+      </span>
+    </term>
+    <term id="t267" lemma="&quot;" pos="PUNCT" morphofeat="Punc|aanhaaldubb__PunctType=Quot">
+      <span>
+        <target id="w267"/>
+      </span>
+    </term>
+    <term id="t268" lemma="steve" pos="NOUN" morphofeat="N_N|eigen|ev|neut_eigen|ev|neut___">
+      <span>
+        <target id="w268"/>
+      </span>
+    </term>
+    <term id="t269" lemma="irwin" pos="PROPN" morphofeat="PROPN___">
+      <span>
+        <target id="w269"/>
+      </span>
+    </term>
+    <term id="t270" lemma="laten" pos="VERB" morphofeat="V|hulp|ott|3|ev__Aspect=Imp|Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin|VerbType=Mod">
+      <span>
+        <target id="w270"/>
+      </span>
+    </term>
+    <term id="t271" lemma="een" pos="DET" morphofeat="Art|onbep|zijdofonzijd|neut__Definite=Ind|Number=Sing|PronType=Art">
+      <span>
+        <target id="w271"/>
+      </span>
+    </term>
+    <term id="t272" lemma="vrouw" pos="NOUN" morphofeat="N|soort|ev|neut__Number=Sing">
+      <span>
+        <target id="w272"/>
+      </span>
+    </term>
+    <term id="t273" lemma="en" pos="CONJ" morphofeat="Conj|neven___">
+      <span>
+        <target id="w273"/>
+      </span>
+    </term>
+    <term id="t274" lemma="twee" pos="NUM" morphofeat="Num|hoofd|bep|attr|onverv__Definite=Def|NumType=Card">
+      <span>
+        <target id="w274"/>
+      </span>
+    </term>
+    <term id="t275" lemma="kind" pos="NOUN" morphofeat="N|soort|mv|neut__Number=Plur">
+      <span>
+        <target id="w275"/>
+      </span>
+    </term>
+    <term id="t276" lemma="achter" pos="ADV" morphofeat="Adv|deelv__PartType=Vbp">
+      <span>
+        <target id="w276"/>
+      </span>
+    </term>
+    <term id="t277" lemma="." pos="PUNCT" morphofeat="Punc|punt__PunctType=Peri">
+      <span>
+        <target id="w277"/>
+      </span>
+    </term>
+  </terms>
+  <entities>
+    <entity id="e1" type="PER">
+      <references>
+        <span>
+          <target id="t2"/>
+          <target id="t3"/>
+        </span>
+      </references>
+    </entity>
+    <entity id="e2" type="PER">
+      <references>
+        <span>
+          <target id="t5"/>
+          <target id="t6"/>
+        </span>
+      </references>
+    </entity>
+    <entity id="e3" type="LOC">
+      <references>
+        <span>
+          <target id="t9"/>
+        </span>
+      </references>
+    </entity>
+    <entity id="e4" type="PER">
+      <references>
+        <span>
+          <target id="t17"/>
+          <target id="t18"/>
+        </span>
+      </references>
+    </entity>
+    <entity id="e5" type="PER">
+      <references>
+        <span>
+          <target id="t21"/>
+          <target id="t22"/>
+        </span>
+      </references>
+    </entity>
+    <entity id="e6" type="LOC">
+      <references>
+        <span>
+          <target id="t84"/>
+          <target id="t85"/>
+          <target id="t86"/>
+        </span>
+      </references>
+    </entity>
+    <entity id="e7" type="LOC">
+      <references>
+        <span>
+          <target id="t91"/>
+        </span>
+      </references>
+    </entity>
+    <entity id="e8" type="LOC">
+      <references>
+        <span>
+          <target id="t93"/>
+        </span>
+      </references>
+    </entity>
+    <entity id="e9" type="LOC">
+      <references>
+        <span>
+          <target id="t95"/>
+        </span>
+      </references>
+    </entity>
+    <entity id="e10" type="PER">
+      <references>
+        <span>
+          <target id="t116"/>
+        </span>
+      </references>
+    </entity>
+    <entity id="e11" type="LOC">
+      <references>
+        <span>
+          <target id="t133"/>
+        </span>
+      </references>
+    </entity>
+    <entity id="e12" type="PER">
+      <references>
+        <span>
+          <target id="t144"/>
+        </span>
+      </references>
+    </entity>
+    <entity id="e13" type="PER">
+      <references>
+        <span>
+          <target id="t148"/>
+        </span>
+      </references>
+    </entity>
+    <entity id="e14" type="LOC">
+      <references>
+        <span>
+          <target id="t168"/>
+        </span>
+      </references>
+    </entity>
+    <entity id="e15" type="PER">
+      <references>
+        <span>
+          <target id="t176"/>
+        </span>
+      </references>
+    </entity>
+    <entity id="e16" type="PER">
+      <references>
+        <span>
+          <target id="t179"/>
+        </span>
+      </references>
+    </entity>
+    <entity id="e17" type="PER">
+      <references>
+        <span>
+          <target id="t191"/>
+        </span>
+      </references>
+    </entity>
+    <entity id="e18" type="PER">
+      <references>
+        <span>
+          <target id="t200"/>
+          <target id="t201"/>
+        </span>
+      </references>
+    </entity>
+    <entity id="e19" type="PER">
+      <references>
+        <span>
+          <target id="t223"/>
+        </span>
+      </references>
+    </entity>
+    <entity id="e20" type="PER">
+      <references>
+        <span>
+          <target id="t235"/>
+          <target id="t236"/>
+        </span>
+      </references>
+    </entity>
+    <entity id="e21" type="PER">
+      <references>
+        <span>
+          <target id="t239"/>
+          <target id="t240"/>
+        </span>
+      </references>
+    </entity>
+    <entity id="e22" type="LOC">
+      <references>
+        <span>
+          <target id="t260"/>
+        </span>
+      </references>
+    </entity>
+    <entity id="e23" type="LOC">
+      <references>
+        <span>
+          <target id="t261"/>
+        </span>
+      </references>
+    </entity>
+    <entity id="e24" type="PER">
+      <references>
+        <span>
+          <target id="t265"/>
+          <target id="t266"/>
+        </span>
+      </references>
+    </entity>
+    <entity id="e25" type="PER">
+      <references>
+        <span>
+          <target id="t268"/>
+          <target id="t269"/>
+        </span>
+      </references>
+    </entity>
+  </entities>
+</NAF>

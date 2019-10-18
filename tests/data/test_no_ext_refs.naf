@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<NAF version="v3" xml:lang="nl">
+  <nafHeader>
+    <fileDesc creationtime="2019-09-13T11:32:38+0200"/>
+    <public uri="http://www.newsreader-project.eu/example-news.html"/>
+    <linguisticProcessors layer="terms">
+      <lp beginTimestamp="2019-09-13T11:32:41CEST" endTimestamp="2019-09-13T11:32:41CEST" hostname="packer-Ubuntu-18" name="Morphosyntactic parser based on Alpino" timestamp="2019-09-13T11:32:41CEST" version="0.3_2017-03-18"/>
+    </linguisticProcessors>
+    <linguisticProcessors layer="entities">
+      <lp beginTimestamp="2019-09-13T11:32:41+0200" endTimestamp="2019-09-13T11:32:45+0200" hostname="packer-Ubuntu-18" name="ixa-pipe-nerc-nl-6-class-clusters-sonar" version="1.6.1-1cdc3c3924b49b3d86fc2243b40becb7818120fb"/>
+    </linguisticProcessors>
+    <linguisticProcessors layer="raw">
+      <lp beginTimestamp="2019-09-13T11:32:38+0200" endTimestamp="2019-09-13T11:32:38+0200" hostname="packer-Ubuntu-18" name="vua-naf2text" timestamp="2019-09-13T11:32:38+0200" version="1.0"/>
+    </linguisticProcessors>
+    <linguisticProcessors layer="deps">
+      <lp beginTimestamp="2019-09-13T11:32:41CEST" endTimestamp="2019-09-13T11:32:41CEST" hostname="packer-Ubuntu-18" name="Morphosyntactic parser based on Alpino" timestamp="2019-09-13T11:32:41CEST" version="0.3_2017-03-18"/>
+    </linguisticProcessors>
+    <linguisticProcessors layer="text">
+      <lp beginTimestamp="2019-09-13T11:32:38+0200" endTimestamp="2019-09-13T11:32:38+0200" hostname="packer-Ubuntu-18" name="ixa-pipe-tok-nl" version="1.8.5-22046489b892163a5d42a388d09019c481f2ca58"/>
+    </linguisticProcessors>
+    <linguisticProcessors layer="constituents">
+      <lp beginTimestamp="2019-09-13T11:32:41CEST" endTimestamp="2019-09-13T11:32:41CEST" hostname="packer-Ubuntu-18" name="Morphosyntactic parser based on Alpino" timestamp="2019-09-13T11:32:41CEST" version="0.3_2017-03-18"/>
+    </linguisticProcessors>
+    <linguisticProcessors layer="timex">
+      <lp beginTimestamp="2019-09-13T11:32:46+0200" endTimestamp="2019-09-13T11:32:47+0200" hostname="packer-Ubuntu-18" name="vua-heideltime-wrapper" timestamp="2019-09-13T11:32:46+0200" version="1.0"/>
+    </linguisticProcessors>
+  </nafHeader>
+  <raw>onderkoopman Willem Adriaan Palm is in afwachting van werk naar Semarang gestuurd.</raw>
+  <text>
+    <wf id="w1" length="12" offset="0" para="1" sent="1">onderkoopman</wf>
+    <wf id="w2" length="6" offset="13" para="1" sent="1">Willem</wf>
+    <wf id="w3" length="7" offset="20" para="1" sent="1">Adriaan</wf>
+    <wf id="w4" length="4" offset="28" para="1" sent="1">Palm</wf>
+    <wf id="w5" length="2" offset="33" para="1" sent="1">is</wf>
+    <wf id="w6" length="2" offset="36" para="1" sent="1">in</wf>
+    <wf id="w7" length="10" offset="39" para="1" sent="1">afwachting</wf>
+    <wf id="w8" length="3" offset="50" para="1" sent="1">van</wf>
+    <wf id="w9" length="4" offset="54" para="1" sent="1">werk</wf>
+    <wf id="w10" length="4" offset="59" para="1" sent="1">naar</wf>
+    <wf id="w11" length="8" offset="64" para="1" sent="1">Semarang</wf>
+    <wf id="w12" length="8" offset="73" para="1" sent="1">gestuurd</wf>
+    <wf id="w13" length="1" offset="81" para="1" sent="1">.</wf>
+  </text>
+  <terms>
+    <term id="t_0" lemma="onder_koopman" morphofeat="N(soort,ev,basis,zijd,stan)" pos="noun" type="open">
+      <span>
+        <!--onderkoopman-->
+        <target id="w1"/>
+      </span>
+    </term>
+    <term id="t_1" lemma="Willem" morphofeat="SPEC(deeleigen)" pos="name" type="open">
+      <span>
+        <!--Willem-->
+        <target id="w2"/>
+      </span>
+    </term>
+    <term id="t_2" lemma="Adriaan" morphofeat="SPEC(deeleigen)" pos="name" type="open">
+      <span>
+        <!--Adriaan-->
+        <target id="w3"/>
+      </span>
+    </term>
+    <term id="t_3" lemma="Palm" morphofeat="SPEC(deeleigen)" pos="name" type="open">
+      <span>
+        <!--Palm-->
+        <target id="w4"/>
+      </span>
+    </term>
+    <term id="t_4" lemma="zijn" morphofeat="WW(pv,tgw,ev)" pos="verb" type="open">
+      <span>
+        <!--is-->
+        <target id="w5"/>
+      </span>
+    </term>
+    <term id="t_5" lemma="in" morphofeat="VZ(init)" pos="prep" type="close">
+      <span>
+        <!--in-->
+        <target id="w6"/>
+      </span>
+    </term>
+    <term id="t_6" lemma="afwachting" morphofeat="N(soort,ev,basis,zijd,stan)" pos="noun" type="open">
+      <span>
+        <!--afwachting-->
+        <target id="w7"/>
+      </span>
+    </term>
+    <term id="t_7" lemma="van" morphofeat="VZ(init)" pos="prep" type="close">
+      <span>
+        <!--van-->
+        <target id="w8"/>
+      </span>
+    </term>
+    <term id="t_8" lemma="werk" morphofeat="N(soort,ev,basis,onz,stan)" pos="noun" type="open">
+      <span>
+        <!--werk-->
+        <target id="w9"/>
+      </span>
+    </term>
+    <term id="t_9" lemma="naar" morphofeat="VZ(init)" pos="prep" type="close">
+      <span>
+        <!--naar-->
+        <target id="w10"/>
+      </span>
+    </term>
+    <term id="t_10" lemma="Semarang" morphofeat="N(eigen,ev,basis,onz,stan)" pos="name" type="open">
+      <span>
+        <!--Semarang-->
+        <target id="w11"/>
+      </span>
+    </term>
+    <term id="t_11" lemma="sturen" morphofeat="WW(vd,vrij,zonder)" pos="verb" type="open">
+      <span>
+        <!--gestuurd-->
+        <target id="w12"/>
+      </span>
+    </term>
+    <term id="t_12" lemma="." morphofeat="LET()" pos="punct" type="open">
+      <span>
+        <!--.-->
+        <target id="w13"/>
+      </span>
+    </term>
+  </terms>
+  <deps>
+    <!--hd/su(is,onderkoopman)-->
+    <dep from="t_4" rfunc="hd/su" to="t_0"/>
+    <!--hd/app(onderkoopman,Willem)-->
+    <dep from="t_0" rfunc="hd/app" to="t_1"/>
+    <!--mwp/mwp(Willem,Adriaan)-->
+    <dep from="t_1" rfunc="mwp/mwp" to="t_2"/>
+    <!--mwp/mwp(Willem,Palm)-->
+    <dep from="t_1" rfunc="mwp/mwp" to="t_3"/>
+    <!--hd/vc(is,gestuurd)-->
+    <dep from="t_4" rfunc="hd/vc" to="t_11"/>
+    <!--hd/obj1(gestuurd,onderkoopman)-->
+    <dep from="t_11" rfunc="hd/obj1" to="t_0"/>
+    <!--hd/mod(gestuurd,in)-->
+    <dep from="t_11" rfunc="hd/mod" to="t_5"/>
+    <!--hd/obj1(in,afwachting)-->
+    <dep from="t_5" rfunc="hd/obj1" to="t_6"/>
+    <!--hd/mod(afwachting,van)-->
+    <dep from="t_6" rfunc="hd/mod" to="t_7"/>
+    <!--hd/obj1(van,werk)-->
+    <dep from="t_7" rfunc="hd/obj1" to="t_8"/>
+    <!--hd/ld(gestuurd,naar)-->
+    <dep from="t_11" rfunc="hd/ld" to="t_9"/>
+    <!--hd/obj1(naar,Semarang)-->
+    <dep from="t_9" rfunc="hd/obj1" to="t_10"/>
+    <!--- - / - -(is,.)-->
+    <dep from="t_4" rfunc="-- / --" to="t_12"/>
+  </deps>
+  <entities>
+    <entity id="e1" type="PER">
+      <references>
+        <span>
+          <!--Willem Adriaan Palm-->
+          <target id="t_1"/>
+          <target id="t_2"/>
+          <target id="t_3"/>
+        </span>
+      </references>
+    </entity>
+    <entity id="e2" type="LOC">
+      <references>
+        <span>
+          <!--Semarang-->
+          <target id="t_10"/>
+        </span>
+      </references>
+    </entity>
+  </entities>
+  <constituency>
+    <tree>
+      <t id="ter0">
+        <!--onderkoopman-->
+        <span>
+          <target id="t_0"/>
+        </span>
+      </t>
+      <t id="ter1">
+        <!--Willem-->
+        <span>
+          <target id="t_1"/>
+        </span>
+      </t>
+      <t id="ter2">
+        <!--Adriaan-->
+        <span>
+          <target id="t_2"/>
+        </span>
+      </t>
+      <t id="ter3">
+        <!--Palm-->
+        <span>
+          <target id="t_3"/>
+        </span>
+      </t>
+      <t id="ter4">
+        <!--is-->
+        <span>
+          <target id="t_4"/>
+        </span>
+      </t>
+      <t id="ter5">
+        <!--in-->
+        <span>
+          <target id="t_5"/>
+        </span>
+      </t>
+      <t id="ter6">
+        <!--afwachting-->
+        <span>
+          <target id="t_6"/>
+        </span>
+      </t>
+      <t id="ter7">
+        <!--van-->
+        <span>
+          <target id="t_7"/>
+        </span>
+      </t>
+      <t id="ter8">
+        <!--werk-->
+        <span>
+          <target id="t_8"/>
+        </span>
+      </t>
+      <t id="ter9">
+        <!--naar-->
+        <span>
+          <target id="t_9"/>
+        </span>
+      </t>
+      <t id="ter10">
+        <!--Semarang-->
+        <span>
+          <target id="t_10"/>
+        </span>
+      </t>
+      <t id="ter11">
+        <!--gestuurd-->
+        <span>
+          <target id="t_11"/>
+        </span>
+      </t>
+      <t id="ter12">
+        <!--.-->
+        <span>
+          <target id="t_12"/>
+        </span>
+      </t>
+      <nt id="nter0" label="top"/>
+      <nt id="nter1" label="smain"/>
+      <nt id="nter2" label="np"/>
+      <nt id="nter3" label="noun"/>
+      <nt id="nter4" label="mwu"/>
+      <nt id="nter5" label="name"/>
+      <nt id="nter6" label="name"/>
+      <nt id="nter7" label="name"/>
+      <nt id="nter8" label="verb"/>
+      <nt id="nter9" label="ppart"/>
+      <nt id="nter10" label="pp"/>
+      <nt id="nter11" label="prep"/>
+      <nt id="nter12" label="np"/>
+      <nt id="nter13" label="noun"/>
+      <nt id="nter14" label="pp"/>
+      <nt id="nter15" label="prep"/>
+      <nt id="nter16" label="noun"/>
+      <nt id="nter17" label="pp"/>
+      <nt id="nter18" label="prep"/>
+      <nt id="nter19" label="name"/>
+      <nt id="nter20" label="verb"/>
+      <nt id="nter21" label="punct"/>
+      <edge from="nter1" id="tre0" to="nter0"/>
+      <edge from="nter2" id="tre1" to="nter1"/>
+      <edge from="nter3" head="yes" id="tre2" to="nter2"/>
+      <edge from="ter0" id="tre3" to="nter3"/>
+      <edge from="nter4" id="tre4" to="nter2"/>
+      <edge from="nter5" id="tre5" to="nter4"/>
+      <edge from="ter1" id="tre6" to="nter5"/>
+      <edge from="nter6" id="tre7" to="nter4"/>
+      <edge from="ter2" id="tre8" to="nter6"/>
+      <edge from="nter7" id="tre9" to="nter4"/>
+      <edge from="ter3" id="tre10" to="nter7"/>
+      <edge from="nter8" head="yes" id="tre11" to="nter1"/>
+      <edge from="ter4" id="tre12" to="nter8"/>
+      <edge from="nter9" id="tre13" to="nter1"/>
+      <edge from="nter10" id="tre14" to="nter9"/>
+      <edge from="nter11" head="yes" id="tre15" to="nter10"/>
+      <edge from="ter5" id="tre16" to="nter11"/>
+      <edge from="nter12" id="tre17" to="nter10"/>
+      <edge from="nter13" head="yes" id="tre18" to="nter12"/>
+      <edge from="ter6" id="tre19" to="nter13"/>
+      <edge from="nter14" id="tre20" to="nter12"/>
+      <edge from="nter15" head="yes" id="tre21" to="nter14"/>
+      <edge from="ter7" id="tre22" to="nter15"/>
+      <edge from="nter16" id="tre23" to="nter14"/>
+      <edge from="ter8" id="tre24" to="nter16"/>
+      <edge from="nter17" id="tre25" to="nter9"/>
+      <edge from="nter18" head="yes" id="tre26" to="nter17"/>
+      <edge from="ter9" id="tre27" to="nter18"/>
+      <edge from="nter19" id="tre28" to="nter17"/>
+      <edge from="ter10" id="tre29" to="nter19"/>
+      <edge from="nter20" head="yes" id="tre30" to="nter9"/>
+      <edge from="ter11" id="tre31" to="nter20"/>
+      <edge from="nter21" id="tre32" to="nter0"/>
+      <edge from="ter12" id="tre33" to="nter21"/>
+    </tree>
+  </constituency>
+  <timeExpressions>
+    <timex3 functionInDocument="CREATION_TIME" id="tx1" type="DATE" value="2019-09-13"/>
+  </timeExpressions>
+</NAF>

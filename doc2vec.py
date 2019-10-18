@@ -53,10 +53,10 @@ def get_doc2vec_model(model_dir, input_dir, force=False, size=1000):
 
     Forces retraining if force == True"""
     if os.path.isfile(model_dir + "/doc2vec.model") and not force:
-        print("loading model from {}".format(model_dir))
+        print("loading Doc2vec model from {}".format(model_dir))
         return Doc2Vec.load(model_dir + "/doc2vec.model")
     else:
-        print("training model")
+        print("training Doc2vec model")
         docs = load_docs_for_training(model_dir, input_dir)
         return run_doc2vec(docs, model_dir, size=size)
 

@@ -1,6 +1,15 @@
+import pathlib
+from sys import path
+
 from KafNafParserPy import KafNafParser
 from classes import NewsItem, EntityMention
 import re
+from KafNafParserPy.header_data import CHeader, CfileDesc, Clp
+from KafNafParserPy.external_references_data import CexternalReference
+import time
+import nl_core_news_sm
+
+processor_name = "Entity detection for historical Dutch"
 
 
 def get_header_attributes_naf(naf):
@@ -50,13 +59,16 @@ def create_entity_mention(e, naf):
 def create_news_item_naf(naf_file):
     naf = KafNafParser(naf_file)
     dct, title, collection, identifier = get_header_attributes_naf(naf)
+    entities = []
+    if naf.entity_layer is not None:
+        entities = [create_entity_mention(e, naf) for e in naf.entity_layer]
     return NewsItem(
         dct=dct,
         title=title,
         collection=collection,
         identifier=identifier,
         content=naf.raw,
-        sys_entity_mentions=[create_entity_mention(e, naf) for e in naf.entity_layer],
+        sys_entity_mentions=entities,
         gold_entity_mentions=[]
     )
 
@@ -75,3 +87,100 @@ def get_sentences(naf_file):
             s = [wf.get_text()]
     sentences.append(" ".join(s))
     return sentences
+
+
+def create_header(news_item):
+    header = CHeader(type="NAF")
+    file_desc = CfileDesc()
+    if news_item.dct is None:
+        news_item.dct = time.strftime('%Y-%m-%dT%H:%M:%S%Z')
+    file_desc.set_creationtime(news_item.dct)
+    if news_item.title:
+        file_desc.set_title(news_item.title)
+    header.set_fileDesc(file_desc)
+    header.set_uri("http://www.{}.nl/{}".format(news_item.collection, news_item.identifier))
+    return header
+
+
+def create_naf_from_item(news_item):
+    naf = KafNafParser(type="NAF")
+    naf.set_version("3.0")
+    naf.set_language("nl")
+    naf.set_header(create_header(news_item))
+    naf.add_linguistic_processor('raw', create_linguistic_processor())
+    naf.set_raw(news_item.content)
+    return naf
+
+
+def write_naf(naf, file_out):
+    naf.dump(file_out)
+
+
+def inject_spacy(naf, doc):
+    naf.add_linguistic_processor('text', create_linguistic_processor())
+    naf.add_linguistic_processor('terms', create_linguistic_processor())
+    naf.add_linguistic_processor('entities', create_linguistic_processor())
+    # word forms
+    term_at = {}
+    ending_at = {}
+    for s_i, sentence in enumerate(doc.sents, 1):
+        for wf in sentence:
+            token = naf.create_wf(wf.text, str(s_i), wf.idx)
+            # terms
+            term = naf.create_term(wf.lemma_, wf.pos_, wf.tag_, [token])
+            term_at[wf.idx] = term.get_id()
+            ending_at[wf.idx + len(wf.text)] = term.get_id()
+
+    # entities; mapping to terms
+    term_pfx = re.search(r"\D+", list(term_at.values())[0]).group()
+    for ent in doc.ents:
+        term_ids = get_term_ids(term_at[ent.start_char], ending_at[ent.end_char], term_pfx)
+        naf.create_entity(ent.label_, term_ids)
+    return naf
+
+
+def get_term_ids(start_term, end_term, pfx):
+    start_id = get_index(start_term)
+    end_id = get_index(end_term) + 1
+    return ["{}{}".format(pfx, i) for i in range(start_id, end_id)]
+
+
+def get_index(term_id):
+    return int(re.search(r"\d+", term_id).group())
+
+
+def create_linguistic_processor():
+    lp = Clp()
+    lp.set_name(processor_name)
+    lp.set_version("1.0")
+    lp.set_timestamp()
+    return lp
+
+
+def run_spacy_and_write_to_naf(news_items, naf_dir):
+    spacy_nl = nl_core_news_sm.load()
+    for item in news_items:
+        naf = create_naf_from_item(item)
+        # item.content may be Literal (from nif corpus creation)
+        naf = inject_spacy(naf, spacy_nl(str(item.content)))
+        write_naf(naf, f_name(naf_dir, item))
+
+
+def load_naf(naf_dir, item):
+    return KafNafParser(f_name(naf_dir, item))
+
+
+def f_name(naf_dir, item):
+    return "{}/{}.naf".format(naf_dir, item.identifier)
+
+
+def add_ext_references(refined_news_items, naf_dir0, naf_dir1):
+    pathlib.Path(naf_dir1).mkdir(parents=True, exist_ok=True)
+    for item in refined_news_items:
+        naf = load_naf(naf_dir0, item)
+        for e_naf, e_ref in zip(naf.entity_layer, item.sys_entity_mentions):
+            external_ref = CexternalReference()
+            external_ref.set_reference(e_ref.identity)
+            external_ref.set_source('iteration1')
+            e_naf.add_external_reference(external_ref)
+        write_naf(naf, f_name(naf_dir1, item))

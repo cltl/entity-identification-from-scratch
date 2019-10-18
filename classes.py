@@ -46,3 +46,10 @@ class NewsItem:
         self.title = title
         self.sys_entity_mentions = sys_entity_mentions  # set of instances of EntityMention class
         self.gold_entity_mentions = gold_entity_mentions  # set of instances of EntityMention class
+
+    def has_same_header_and_content(self, other):
+        return self.identifier == other.identifier \
+               and self.title == other.title \
+               and self.collection == other.collection \
+               and self.dct == other.dct \
+               and self.content == other.content

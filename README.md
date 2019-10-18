@@ -45,11 +45,15 @@ We compare our identity clustering algorithm against 5 baselines:
 
 * All data is stored in the folder `data`.
 
-### Install
+### Preparation to run the script: Install and download
 
 To prepare your environment with the right packages, run `bash install.sh`.
 
-TODO: Update this
+Then download the corpora you would like to work with, and store it in: `data/{corpus_name}/input_data`. To reuse the config files found in `cfg` and run wikinews or dbpedia abstracts, you can do the following.
+1. `for wikinews`, download `nlwikinews-latest-pages-articles.xml`, for example from [here](https://archive.org/details/incr-nlwikinews-20190902). Then store it in `data/wikinews/input_data` (make sure you unpack it).
+2. for `dbpedia_abstracts`, you can download .ttl files from [this link](http://downloads.dbpedia.org/2015-04/ext/nlp/abstracts/nl/). Each .ttl contains many abstracts, so it is advisable to start with 1 file to understand what is going on. Download and unpack the file, then store it in `data/dbpedia_abstracts/input_data`
+
+Then you should be able to run `make_wiki_corpus.py` and `make_nif_corpus.py` to load the corpora; and you should be able to run directly `main.py` in order to process the corpora with our tool. Make sure that you use the right config file in these scripts (e.g., `wikinews50.cfg` will let you process 50 files from Wikinews).
 
 ### Authors
 
