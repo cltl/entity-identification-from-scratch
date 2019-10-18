@@ -80,7 +80,7 @@ def map_bert_embeddings_to_tokens(berts, entities, word_embeddings, sent_id, doc
                     fits = True
                     raw_tids = []
                     for i, t in enumerate(ev):
-                        if t != norm_bert[bert_i + i]: # if the token is different, or if you are over the length of the current sentence.
+                        if t != norm_bert[bert_i + i]: # if the token is different, then this sequence is not right.
                             fits = False
                             break
                         else:

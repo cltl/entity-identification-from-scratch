@@ -115,7 +115,7 @@ def run_embeddings_system(data, embeddings, iteration, naf_folder, nl_nlp, graph
 
 if __name__ == "__main__":
 
-    cfg = config.create('cfg/wikinews1000.yml')
+    cfg = config.create('cfg/wikinews.yml')
 
     print('Directories refreshed.')
 
