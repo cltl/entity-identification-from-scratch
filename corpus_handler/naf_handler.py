@@ -159,6 +159,8 @@ def create_linguistic_processor():
 
 def run_spacy_and_write_to_naf(news_items, naf_dir):
     spacy_nl = nl_core_news_sm.load()
+    pathlib.Path(naf_dir).mkdir(parents=True, exist_ok=True)
+
     for item in news_items:
         naf = create_naf_from_item(item)
         # item.content may be Literal (from nif corpus creation)
