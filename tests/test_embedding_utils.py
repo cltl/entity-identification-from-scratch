@@ -31,3 +31,18 @@ def test_get_entity_and_sentence_embeddings():
 
     assert len(full_embeddings[doc1].keys()) == 2
     assert full_embeddings[doc1]['e1'].shape[0] == enty_embs + sent_embs + doc_embs
+
+def test_map_bert_embeddings_to_tokens():
+    # TODO implement this, after we have the new mapping function
+    cfg = Config('')
+
+def test_new_mapping(sentence, verbose=True):
+    model = BertModel.from_pretrained(cfg.bert_model)
+    tokenizer = BertTokenizer.from_pretrained(cfg.bert_model,
+                                              do_lower_case=False)
+    word_embeddings, sentence_embeddings, bert_tokens = get_bert_word_and_sentence_embeddings(model, sentence, tokenizer, verbose)
+    console.log(word_embeddings.shape)
+
+
+sentence="After 5 months and 48 games , the match was abandoned in controversial circumstances with Karpov leading five wins to three ( with 40 draws ) , and replayed in the World Chess Championship 1985 ."
+test_new_mapping(sentence)
