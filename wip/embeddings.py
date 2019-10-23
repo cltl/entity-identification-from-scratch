@@ -2,7 +2,7 @@ from collections import defaultdict
 import glob
 import embeddings_utils as embu
 import numpy as np
-from corpus_handler import naf_handler as naf
+from wip import naf_handler as naf
 from pytorch_pretrained_bert import BertTokenizer, BertModel
 import doc2vec
 

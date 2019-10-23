@@ -1,7 +1,7 @@
+import pathlib
 import shutil
 import copy
 import nl_core_news_sm
-import sys
 from path import Path
 import os.path
 
@@ -10,6 +10,7 @@ import analysis_utils as analysis
 import algorithm_utils as algorithm
 import naf_utils as naf
 import config
+import wip.naf_handler as nafh
 
 
 def run_baseline(factor_combo, news_items_with_entities, naf_folder, el_file, graphs_file, prefix):
@@ -27,17 +28,17 @@ def run_baseline(factor_combo, news_items_with_entities, naf_folder, el_file, gr
     # ANALYZE IDENTITIES
     ids = analysis.inspect_data(data, graphs_file)
 
-    naf.add_ext_references_to_naf(data,
-                                  f'iteration{iteration}',
-                                  naf_folder / str(iteration - 1),
-                                  naf_folder / str(iteration))
-
+    #naf.add_ext_references_to_naf(data,
+    #                              f'iteration{iteration}',
+    #                              naf_folder / str(iteration - 1),
+    #                              naf_folder / str(iteration))
+    nafh.add_ext_references(data, f'{naf_folder}/0', f'{naf_folder}/1')
     return data, ids
 
 
 if __name__ == "__main__":
 
-    cfg = config.Config('data/abstracts_nif35.yml')
+    cfg = config.create('cfg/abstracts_nif35.yml')
     # LOAD CONFIG DATA
     all_factors = cfg.factors  # all factors that we will use to distinguish identity in our baseline graphs
     prefix = cfg.uri_prefix
@@ -75,17 +76,20 @@ if __name__ == "__main__":
 
         if os.path.exists(naf_dir):
             shutil.rmtree(str(naf_dir))
-        naf_dir.mkdir()
+        pathlib.Path(naf_dir).mkdir(parents=True, exist_ok=True)
+        #naf_dir.mkdir()
 
         naf_empty = naf_dir / 'empty'
         naf.create_nafs(naf_empty, news_items_with_entities, nl_nlp, ner_system)
 
         naf0 = naf_dir / '0'  # NAF folder before iteration 1
         if ner_system == 'gold':
-            naf.add_ext_references_to_naf(news_items_with_entities,
-                                          'gold',
-                                          naf_empty,
-                                          naf0)
+            #naf.add_ext_references_to_naf(news_items_with_entities,
+            #                              'gold',
+            #                              'entities',
+            #                              naf_empty,
+            #                              naf0)
+            nafh.add_ext_references_gold(news_items_with_entities, naf_empty, naf0)
             print('Gold links added')
 
         # ------ Pick identity assumption (Step 3) --------------------

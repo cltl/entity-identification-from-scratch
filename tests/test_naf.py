@@ -1,4 +1,4 @@
-from corpus_handler.naf_handler import inject_spacy, create_news_item_naf, write_naf, create_naf_from_item
+from wip.naf_handler import inject_spacy, create_news_item_naf, write_naf, create_naf_from_item
 import nl_core_news_sm
 
 

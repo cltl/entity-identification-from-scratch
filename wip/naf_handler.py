@@ -186,3 +186,15 @@ def add_ext_references(refined_news_items, naf_dir0, naf_dir1):
             external_ref.set_source('iteration1')
             e_naf.add_external_reference(external_ref)
         write_naf(naf, f_name(naf_dir1, item))
+
+
+def add_ext_references_gold(refined_news_items, naf_dir0, naf_dir1):
+    pathlib.Path(naf_dir1).mkdir(parents=True, exist_ok=True)
+    for item in refined_news_items:
+        naf = load_naf(naf_dir0, item)
+        for e_naf, e_ref in zip(naf.entity_layer, item.gold_entity_mentions):
+            external_ref = CexternalReference()
+            external_ref.set_reference(e_ref.identity)
+            external_ref.set_source('gold')
+            e_naf.add_external_reference(external_ref)
+        write_naf(naf, f_name(naf_dir1, item))
