@@ -94,7 +94,7 @@ def run_embeddings_system(refined_news_items, embeddings, graph_filename, sys_na
 
 if __name__ == "__main__":
 
-    cfg = config.create('cfg/abstracts_nif35.yml')
+    cfg = config.create('cfg/abstracts50.yml')
 
     # ------ Generate NAFs and fill classes with entity mentions (Steps 1 and 2) --------------------
 

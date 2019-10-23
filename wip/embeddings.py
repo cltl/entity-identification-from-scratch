@@ -21,7 +21,6 @@ def load_models(cfg):
     print('Doc2Vec model loaded')
     return tokenizer, model, d2v
 
-
 def get_entity_and_sentence_embeddings(naf_dir, model, tokenizer, doc2vec_model):
     """
     Obtain entity and sentence embeddings using BERT for an entire NAF collection.
@@ -47,12 +46,17 @@ def get_entity_and_sentence_embeddings(naf_dir, model, tokenizer, doc2vec_model)
 
         offset = 0
         # Sentence per sentence: run BERT, extract sentence embeddings, extract entity embeddings, and concatenate
-        for index, sentence in enumerate(s):
-            verbose = doc_index % mark == 0 and index == 0
+        for index, sentence in enumerate(s, start=1):
+            verbose = doc_index % mark == 0 and index == 1
 
-            entity_embeddings, sentence_embeddings, new_offset = get_sentence_level_embeddings(entities, index, model,
-                                                                                               offset, sentence,
-                                                                                               tokenizer, verbose)
+            word_embeddings, sentence_embeddings, bert_tokens = get_bert_word_and_sentence_embeddings(model, sentence, tokenizer, verbose)
+
+            entity_embeddings, new_offset = embu.map_bert_embeddings_to_tokens(bert_tokens,
+                                                                               entities,
+                                                                               word_embeddings,
+                                                                               index,
+                                                                               offset,
+                                                                               verbose)
             offset += new_offset
 
             # concat_emb maps documents to entities and
@@ -72,7 +76,8 @@ def get_entity_and_sentence_embeddings(naf_dir, model, tokenizer, doc2vec_model)
     return full_embeddings, news_items
 
 
-def get_sentence_level_embeddings(entities, index, model, offset, sentence, tokenizer, verbose):
+def get_bert_word_and_sentence_embeddings(model, sentence, tokenizer, verbose=False):
+    """Obtain word and sentence embeddings from BERT."""
     tokenized_text, encoded_layers = embu.get_bert_embeddings(sentence, model, tokenizer)
     # Get sentence embeddings
     sentence_embeddings = embu.get_bert_sentence_embeddings(encoded_layers)
@@ -83,10 +88,4 @@ def get_sentence_level_embeddings(entities, index, model, offset, sentence, toke
     if verbose:
         print('Word embeddings shape', len(word_embeddings), len(word_embeddings[0]))
     verbose = False
-    entity_embeddings, new_offset = embu.map_bert_embeddings_to_tokens(tokenized_text,
-                                                                       entities,
-                                                                       word_embeddings,
-                                                                       index + 1,
-                                                                       offset,
-                                                                       verbose)
-    return entity_embeddings, sentence_embeddings, new_offset
+    return word_embeddings, sentence_embeddings, tokenized_text
