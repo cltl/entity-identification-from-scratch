@@ -21,16 +21,16 @@ Steve Irwin maakte al meer dan tien jaar natuurprogramma's en werd wereldberoemd
     <public uri="http://www.wikinews2.nl/wiki_1"/>
     <fileDesc creationtime="2019-10-15T16:46:30UTC" title="&quot;Crocodile Hunter&quot; Steve Irwin omgekomen in Australië"/>
     <linguisticProcessors layer="raw">
-      <lp name="Entity detection for historical Dutch" version="1.0" timestamp="2019-10-19T01:12:42CEST" beginTimestamp="2019-10-19T01:12:42CEST" endTimestamp="2019-10-19T01:12:42CEST" hostname="MacBook-Pro-3.local"/>
+      <lp name="Entity detection for historical Dutch" version="1.0" timestamp="2019-10-23T15:24:49CEST" beginTimestamp="2019-10-23T15:24:49CEST" endTimestamp="2019-10-23T15:24:49CEST" hostname="fii800"/>
     </linguisticProcessors>
     <linguisticProcessors layer="text">
-      <lp name="Entity detection for historical Dutch" version="1.0" timestamp="2019-10-19T01:12:42CEST" beginTimestamp="2019-10-19T01:12:42CEST" endTimestamp="2019-10-19T01:12:42CEST" hostname="MacBook-Pro-3.local"/>
+      <lp name="Entity detection for historical Dutch" version="1.0" timestamp="2019-10-23T15:24:49CEST" beginTimestamp="2019-10-23T15:24:49CEST" endTimestamp="2019-10-23T15:24:49CEST" hostname="fii800"/>
     </linguisticProcessors>
     <linguisticProcessors layer="terms">
-      <lp name="Entity detection for historical Dutch" version="1.0" timestamp="2019-10-19T01:12:42CEST" beginTimestamp="2019-10-19T01:12:42CEST" endTimestamp="2019-10-19T01:12:42CEST" hostname="MacBook-Pro-3.local"/>
+      <lp name="Entity detection for historical Dutch" version="1.0" timestamp="2019-10-23T15:24:49CEST" beginTimestamp="2019-10-23T15:24:49CEST" endTimestamp="2019-10-23T15:24:49CEST" hostname="fii800"/>
     </linguisticProcessors>
     <linguisticProcessors layer="entities">
-      <lp name="Entity detection for historical Dutch" version="1.0" timestamp="2019-10-19T01:12:42CEST" beginTimestamp="2019-10-19T01:12:42CEST" endTimestamp="2019-10-19T01:12:42CEST" hostname="MacBook-Pro-3.local"/>
+      <lp name="Entity detection for historical Dutch" version="1.0" timestamp="2019-10-23T15:24:49CEST" beginTimestamp="2019-10-23T15:24:49CEST" endTimestamp="2019-10-23T15:24:49CEST" hostname="fii800"/>
     </linguisticProcessors>
   </nafHeader>
   <text>
