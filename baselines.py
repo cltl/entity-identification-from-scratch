@@ -67,9 +67,9 @@ if __name__ == "__main__":
         pathlib.Path(naf_dir).mkdir(parents=True, exist_ok=True)
 
         # 2. runs spacy and produces new NAF
-        nafh.run_spacy_and_write_to_naf(news_items, naf_dir)
+        nafh.run_spacy_and_write_to_naf(news_items, "{}/0".format(naf_dir))
 
-        news_items_with_ner=nafh.load_news_items_with_entities(naf_dir)
+        news_items_with_ner = nafh.load_news_items_with_entities("{}/0".format(naf_dir))
 
         # ------ Pick identity assumption (Step 3) --------------------
 

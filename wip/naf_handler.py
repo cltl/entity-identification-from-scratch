@@ -13,6 +13,7 @@ from classes import NewsItem, EntityMention
 
 processor_name = "Entity detection for historical Dutch"
 
+
 def load_news_items_with_entities(naf_dir):
     """Load news items from NAF."""
     news_items = []
@@ -22,6 +23,7 @@ def load_news_items_with_entities(naf_dir):
         news_item = create_news_item_naf(f)
         news_items.append(news_item)
     return news_items 
+
 
 def get_header_attributes_naf(naf):
     """returns: doc creation time, title, collection, doc id"""
@@ -193,21 +195,23 @@ def add_ext_references(refined_news_items, naf_dir0, naf_dir1):
     pathlib.Path(naf_dir1).mkdir(parents=True, exist_ok=True)
     for item in refined_news_items:
         naf = load_naf(naf_dir0, item)
-        for e_naf, e_ref in zip(naf.entity_layer, item.sys_entity_mentions):
-            external_ref = CexternalReference()
-            external_ref.set_reference(e_ref.identity)
-            external_ref.set_source('iteration1')
-            e_naf.add_external_reference(external_ref)
-        write_naf(naf, f_name(naf_dir1, item))
+        if item.sys_entity_mentions and naf.entity_layer is not None:
+            for e_naf, e_ref in zip(naf.entity_layer, item.sys_entity_mentions):
+                external_ref = CexternalReference()
+                external_ref.set_reference(e_ref.identity)
+                external_ref.set_source('iteration1')
+                e_naf.add_external_reference(external_ref)
+            write_naf(naf, f_name(naf_dir1, item))
 
 
 def add_ext_references_gold(refined_news_items, naf_dir0, naf_dir1):
     pathlib.Path(naf_dir1).mkdir(parents=True, exist_ok=True)
     for item in refined_news_items:
         naf = load_naf(naf_dir0, item)
-        for e_naf, e_ref in zip(naf.entity_layer, item.gold_entity_mentions):
-            external_ref = CexternalReference()
-            external_ref.set_reference(e_ref.identity)
-            external_ref.set_source('gold')
-            e_naf.add_external_reference(external_ref)
-        write_naf(naf, f_name(naf_dir1, item))
+        if item.sys_entity_mentions and naf.entity_layer is not None:
+            for e_naf, e_ref in zip(naf.entity_layer, item.gold_entity_mentions):
+                external_ref = CexternalReference()
+                external_ref.set_reference(e_ref.identity)
+                external_ref.set_source('gold')
+                e_naf.add_external_reference(external_ref)
+            write_naf(naf, f_name(naf_dir1, item))
