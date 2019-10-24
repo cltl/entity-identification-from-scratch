@@ -21,6 +21,18 @@ def load_models(cfg):
     print('Doc2Vec model loaded')
     return tokenizer, model, d2v
 
+def load_news_items_with_entities(naf_dir):
+    """
+    Load news items with entities from a collection of NAF documents.
+    """
+    news_items = []
+    # load NAF files from the previous iteration
+    file_names = glob.glob("{}/*.naf".format(naf_dir))
+    for doc_index, f in enumerate(file_names):
+        news_item = naf.create_news_item_naf(f)
+        news_items.append(news_item)
+    return news_items
+
 def get_entity_and_sentence_embeddings(naf_dir, model, tokenizer, doc2vec_model):
     """
     Obtain entity and sentence embeddings using BERT for an entire NAF collection.

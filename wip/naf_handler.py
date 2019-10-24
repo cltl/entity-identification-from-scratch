@@ -169,7 +169,9 @@ def run_spacy_and_write_to_naf(news_items, naf_dir):
 
 
 def load_naf(naf_dir, item):
-    return KafNafParser(f_name(naf_dir, item))
+    filename=f_name(naf_dir, item)
+    print(filename)
+    return KafNafParser(filename)
 
 
 def f_name(naf_dir, item):

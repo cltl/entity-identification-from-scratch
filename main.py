@@ -8,7 +8,7 @@ import algorithm_utils as algorithm
 import wip.embeddings as emb_utils
 import config
 
-import corpus_handler.naf_handler as nafh
+import wip.naf_handler as nafh
 
 
 ################## Run iteration 1 or 2 or more #########################

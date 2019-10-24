@@ -1,7 +1,7 @@
+import pathlib
 import shutil
 import copy
 import nl_core_news_sm
-import sys
 from path import Path
 import os.path
 
@@ -10,6 +10,8 @@ import analysis_utils as analysis
 import algorithm_utils as algorithm
 import naf_utils as naf
 import config
+import wip.naf_handler as nafh
+import wip.embeddings as emb_utils
 
 
 def run_baseline(factor_combo, news_items_with_entities, naf_folder, el_file, graphs_file, prefix):
@@ -27,17 +29,17 @@ def run_baseline(factor_combo, news_items_with_entities, naf_folder, el_file, gr
     # ANALYZE IDENTITIES
     ids = analysis.inspect_data(data, graphs_file)
 
-    naf.add_ext_references_to_naf(data,
-                                  f'iteration{iteration}',
-                                  naf_folder / str(iteration - 1),
-                                  naf_folder / str(iteration))
-
+    #naf.add_ext_references_to_naf(data,
+    #                              f'iteration{iteration}',
+    #                              naf_folder / str(iteration - 1),
+    #                              naf_folder / str(iteration))
+    nafh.add_ext_references(data, f'{naf_folder}/0', f'{naf_folder}/1')
     return data, ids
 
 
 if __name__ == "__main__":
 
-    cfg = config.Config('data/abstracts_nif35.yml')
+    cfg = config.create('cfg/abstracts50.yml')
     # LOAD CONFIG DATA
     all_factors = cfg.factors  # all factors that we will use to distinguish identity in our baseline graphs
     prefix = cfg.uri_prefix
@@ -51,20 +53,12 @@ if __name__ == "__main__":
     if not os.path.exists(data_dir):
         data_dir.mkdir()
 
-    nl_nlp = nl_core_news_sm.load()
-
     # ------ Generate NAFs and fill classes with entity mentions (Steps 1 and 2) --------------------
 
-    # TODO: COMBINE NAFs with classes processing to run spacy only once!
-    news_data = pkl.get_docs_with_entities(str(data_dir),
-                                           str(input_dir),
-                                           nl_nlp,
-                                           ner_system)
+    news_items = pkl.load_news_items('%s.pkl' % cfg.input_dir)
 
     for factor_combo in algorithm.get_variable_len_combinations(all_factors):
         # Generate baseline graphs
-
-        news_items_with_entities = copy.deepcopy(news_data)
 
         baseline_name_parts = ['baseline'] + list(factor_combo)
         baseline_name = '_'.join(baseline_name_parts)
@@ -75,27 +69,21 @@ if __name__ == "__main__":
 
         if os.path.exists(naf_dir):
             shutil.rmtree(str(naf_dir))
-        naf_dir.mkdir()
+        pathlib.Path(naf_dir).mkdir(parents=True, exist_ok=True)
 
-        naf_empty = naf_dir / 'empty'
-        naf.create_nafs(naf_empty, news_items_with_entities, nl_nlp, ner_system)
+        # 2. runs spacy and produces new NAF
+        nafh.run_spacy_and_write_to_naf(news_items, naf_dir)
 
-        naf0 = naf_dir / '0'  # NAF folder before iteration 1
-        if ner_system == 'gold':
-            naf.add_ext_references_to_naf(news_items_with_entities,
-                                          'gold',
-                                          naf_empty,
-                                          naf0)
-            print('Gold links added')
+        news_items_with_ner=emb_utils.load_news_items_with_entities(naf_dir)
 
         # ------ Pick identity assumption (Step 3) --------------------
 
         print('Assuming identity factors:', factor_combo)
 
         data, ids = run_baseline(factor_combo,
-                                 news_items_with_entities,
+                                 news_items_with_ner,
                                  naf_dir,
                                  el_file,
                                  graphs_file,
                                  prefix)
-        print('Iteration 1 finished for baseline', baseline_name)
+        print('Processing finished for baseline', baseline_name)
