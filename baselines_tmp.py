@@ -4,7 +4,6 @@ import copy
 import nl_core_news_sm
 from path import Path
 import os.path
-
 import pickle_utils as pkl
 import analysis_utils as analysis
 import algorithm_utils as algorithm
@@ -28,15 +27,12 @@ def run_baseline(factor_combo, news_items_with_entities, naf_folder, el_file, gr
     # ANALYZE IDENTITIES
     ids = analysis.inspect_data(data, graphs_file)
 
-    #naf.add_ext_references_to_naf(data,
-    #                              f'iteration{iteration}',
-    #                              naf_folder / str(iteration - 1),
-    #                              naf_folder / str(iteration))
     nafh.add_ext_references(data, f'{naf_folder}/0', f'{naf_folder}/1')
     return data, ids
 
 
 if __name__ == "__main__":
+
 
     cfg = config.create('cfg/abstracts_nif35.yml')
     # LOAD CONFIG DATA
@@ -77,18 +73,12 @@ if __name__ == "__main__":
         if os.path.exists(naf_dir):
             shutil.rmtree(str(naf_dir))
         pathlib.Path(naf_dir).mkdir(parents=True, exist_ok=True)
-        #naf_dir.mkdir()
 
         naf_empty = naf_dir / 'empty'
         naf.create_nafs(naf_empty, news_items_with_entities, nl_nlp, ner_system)
 
         naf0 = naf_dir / '0'  # NAF folder before iteration 1
         if ner_system == 'gold':
-            #naf.add_ext_references_to_naf(news_items_with_entities,
-            #                              'gold',
-            #                              'entities',
-            #                              naf_empty,
-            #                              naf0)
             nafh.add_ext_references_gold(news_items_with_entities, naf_empty, naf0)
             print('Gold links added')
 
