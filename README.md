@@ -37,7 +37,7 @@ We compare our identity clustering algorithm against 5 baselines:
 
 * Evaluation functions are stored in the file `evaluation.py`.
 
-* Baselines are run by running the file `baselines.py`.
+* Baselines are run by running the file `baselines.py` (with no arguments).
 
 * The classes we work with are defined in the file `classes.py`.
 
