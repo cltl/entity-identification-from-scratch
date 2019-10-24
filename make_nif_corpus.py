@@ -28,13 +28,7 @@ def load_article_from_nif_file(nif_file, corpus_name, limit=1000000):
     LIMIT %d""" % limit)
     for article in articles:
         doc_id = article['articleid'].replace('http://nl.dbpedia.org/resource/', '').split('/')[0]
-        news_item_obj = classes.NewsItem(
-            content=article['string'],
-            identifier=doc_id,  # "http://yovisto.com/resource/dataset/iswc2015/doc/281#char=0,4239",
-            dct=article['date'],
-            collection=corpus_name,
-            title=''
-        )
+        print(article['articleid'])
         query = """ SELECT ?id ?mention ?start ?end ?gold
         WHERE {
                 ?id nif:anchorOf ?mention ;
@@ -44,10 +38,13 @@ def load_article_from_nif_file(nif_file, corpus_name, limit=1000000):
                 OPTIONAL { ?id itsrdf:taIdentRef ?gold . }
         } ORDER BY ?start""" % str(article['articleid'])
         qres_entities = g.query(query)
+        print(query)
+        all_entities=[]
         for eid, entity in enumerate(qres_entities):
             gold_link = str(entity['gold'])  # utils.getLinkRedirect(utils.normalizeURL(str(entity['gold'])))
             if gold_link.startswith('http://aksw.org/notInWiki'):
                 gold_link = '--NME--'
+            print(entity['start'], entity['end'], entity['mention'])
             entity_obj = classes.EntityMention(
                 begin_offset=int(entity['start']),
                 end_offset=int(entity['end']),
@@ -55,12 +52,23 @@ def load_article_from_nif_file(nif_file, corpus_name, limit=1000000):
                 identity=gold_link,
                 eid=f'e{eid}'
             )
-            news_item_obj.gold_entity_mentions.append(entity_obj)
+            all_entities.append(entity_obj)
+        news_item_obj = classes.NewsItem(
+            content=article['string'],
+            identifier=doc_id,  # "http://yovisto.com/resource/dataset/iswc2015/doc/281#char=0,4239",
+            dct=article['date'],
+            collection=corpus_name,
+            title='',
+            gold_entity_mentions=all_entities
+        )
+
+
+        print(len(news_item_obj.gold_entity_mentions))
         news_items.add(news_item_obj)
     return news_items
 
 # Specify your config file here:
-cfg = Config('cfg/abstracts50.yml')
+cfg = Config('cfg/abstracts_nif35.yml')
 cfg.setup_input()
 
 # Load configuration variables
