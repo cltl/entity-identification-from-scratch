@@ -7,3 +7,5 @@ misc.txt
 __pycache__/
 input_data/
 data/
+tests/data/test_ext_refs2.naf
+tests/data/test_ext_refs3.naf

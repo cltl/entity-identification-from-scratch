@@ -3,7 +3,7 @@ import pickle
 from gensim.models import Doc2Vec
 from gensim.models.doc2vec import TaggedDocument
 import statistics
-
+from path import Path
 import pickle_utils as load
 
 # ------ Processing news items -------------------
@@ -18,22 +18,22 @@ def load_docs_for_evaluation(bindir, docid, ids=None):
         docs.append(TaggedDocument(clean_wiki(doc.content), [ids.index(doc.identifier)]))
     return docs
 
-def load_docs_for_training(embdir, datadir):
+
+def load_docs_for_training(cfg):
     """Cleans wiki news items and formats them as TaggedDocument for Doc2Vec"""
 
     ids = []
     docs = []
-    pkl_docs='%s.pkl' % datadir
-    for i, doc in enumerate(load.load_news_items(pkl_docs)):
+    for i, doc in enumerate(load.load_news_items(cfg.news_items_file())):
         ids.append(doc.identifier)
         docs.append(TaggedDocument(doc.content, [i]))
-    with open(embdir + "/doc2vec.ids", 'wb') as w:
+    with open(cfg.doc2vec_ids_path(), 'wb') as w:
         pickle.dump(ids, w)
     return docs
 
 # ------- Loading / training doc2vec model ----------
 
-def run_doc2vec(docs, model_dir, size=1000):
+def run_doc2vec(docs, model_file, size=1000):
     """Trains doc2vec model
 
     code source: https://rare-technologies.com/doc2vec-tutorial/
@@ -44,21 +44,21 @@ def run_doc2vec(docs, model_dir, size=1000):
         model.train(docs, total_examples=model.corpus_count, epochs=model.epochs)
         model.alpha -= 0.002  # decrease the learning rate
         model.min_alpha = model.alpha  # fix the learning rate, no decay
-    model.save(model_dir + "/doc2vec.model")
+    model.save(model_file)
     return model
 
 
-def get_doc2vec_model(model_dir, input_dir, force=False, size=1000):
+def get_doc2vec_model(cfg, force=False, size=1000):
     """Loads or trains model
 
     Forces retraining if force == True"""
-    if os.path.isfile(model_dir + "/doc2vec.model") and not force:
-        print("loading Doc2vec model from {}".format(model_dir))
-        return Doc2Vec.load(model_dir + "/doc2vec.model")
+    if os.path.isfile(Path(cfg.doc2vec_model_path())) and not force:
+        print("loading Doc2vec model: {}".format(cfg.doc2vec_model_path()))
+        return Doc2Vec.load(cfg.doc2vec_model_path())
     else:
         print("training Doc2vec model")
-        docs = load_docs_for_training(model_dir, input_dir)
-        return run_doc2vec(docs, model_dir, size=size)
+        docs = load_docs_for_training(cfg)
+        return run_doc2vec(docs, cfg.doc2vec_model_path(), size=size)
 
 
 # --------- model evaluation --------------------

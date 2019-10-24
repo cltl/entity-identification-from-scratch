@@ -3,12 +3,12 @@ max_documents: 50
 min_text_length: 100              # minimum length of the text in characters
 
 # note: the raw input should not be located in the experiment directory
-raw_input: data/raw_data/nlwikinews-latest-pages-articles.xml
+raw_input: data/raw_data/abstracts_nl0.ttl
 
-# the experiment directory is created by make_wiki_corpus.py
-# running make_wiki_corpus.py will fail if this directory already exists
-experiment_dir: data/wikinews2
-corpus_name: wikinews   # for uri in NAF files, does not need to carry the same name as experiment_dir
+# the experiment directory is created by make_nif_corpus.py
+# running make_nif_corpus.py will fail if this directory already exists
+experiment_dir: data/dbpedia_abstracts
+corpus_name: dbpedia_abstracts   # for uri in NAF files, does not need to carry the same name as experiment_dir
 
 # switch for creating NAF files in naf0 (input naf dir)
 # switching to False to avoid running Spacy again
@@ -23,7 +23,7 @@ bert_model: bert-base-multilingual-cased
 sys_name: embeddings
 modify_entities: False
 # ----- Other settings -----
-ner: spacy
+ner: gold
 uri_prefix: http://cltl.nl/entity#
 naf_entity_layer: entities
 

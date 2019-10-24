@@ -6,11 +6,14 @@ import glob
 import wiki_utils as utils
 import pickle_utils as pkl
 import classes
-from config import Config
+from config import Config, create_dir
 
 # Specify your config file here:
-cfg = Config('cfg/wikinews1000.yml')
+cfg = Config('cfg/wikinews.yml')
 cfg.setup_input()
+
+input_dir = "{}/input_docs".format(cfg.experiment_dir)
+create_dir(input_dir)
 
 # ------------------------------------------------------
 
@@ -30,7 +33,7 @@ skip_contains=['Nieuwsbrief Wikimedia Nederland']
 # Prepare variables and clean directories
 news_items = set()
 
-for f in glob.glob('%s/*.json' % cfg.input_dir):
+for f in glob.glob('%s/*.json' % input_dir):
     os.remove(f)
 
 counter = 1
@@ -73,7 +76,7 @@ for x in root.findall(page_marker):
     # Save it to JSON
     j = {'title': clean_title,
          'body': clean_text}
-    with open('%s/%s.json' % (cfg.input_dir, docid), 'w') as outfile:
+    with open('%s/%s.json' % (input_dir, docid), 'w') as outfile:
         json.dump(j, outfile)
 
     if max_docs and counter >= max_docs:
@@ -82,4 +85,4 @@ for x in root.findall(page_marker):
     counter += 1
 
 # Save the classes as pickle
-pkl.save_news_items('%s/documents.pkl' % cfg.data_dir, news_items)
+pkl.save_news_items(cfg.news_items_file(), news_items)

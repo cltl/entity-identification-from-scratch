@@ -66,7 +66,7 @@ def pregroup_clusters(news_items_with_entities):
     return cands
 
 
-def run_embeddings_system(refined_news_items, embeddings, graph_filename, sys_name):
+def run_embeddings_system(refined_news_items, embeddings, graph_filename, sys_name, cfg):
     """
     Run the embeddings system.
     """
@@ -87,8 +87,8 @@ def run_embeddings_system(refined_news_items, embeddings, graph_filename, sys_na
                                                max_d=58)
     refined_news_items = algorithm.replace_identities(refined_news_items,
                                                       new_ids)
-    algorithm.generate_graph(refined_news_items, graph_filename)
-    ids = analysis.inspect_data(refined_news_items, graph_filename)
+    algorithm.generate_graph(refined_news_items, cfg.graphs_file_path())
+    ids = analysis.inspect_data(refined_news_items, cfg.graphs_file_path())
 
     return refined_news_items, new_ids
 
@@ -98,16 +98,17 @@ if __name__ == "__main__":
     if len(sys.argv) < 2:
         print("Missing config file argument. Now exiting.")
         exit(1)
-    cfg = config.create(sys.argv[1])
+    cfg = config.load(sys.argv[1])
+    cfg.create_sysdirs()
 
     # ------ Generate NAFs and fill classes with entity mentions (Steps 1 and 2) --------------------
 
-    # 1. news items loaded from pickle file; TODO ... or directly from NAF...
-    news_items = pkl.load_news_items('%s.pkl' % cfg.input_dir)
+    # 1. news items loaded from pickle file;
+    news_items = pkl.load_news_items(cfg.news_items_file())
 
     # 2. runs spacy and produces new NAF
-    naf0 = '{}/0'.format(cfg.naf_dir)
-    nafh.run_spacy_and_write_to_naf(news_items, naf0)
+    if cfg.create_input_nafs:
+        nafh.run_spacy_and_write_to_naf(news_items, cfg.this_naf_indir())
 
     # ------- Run embeddings system -----------------
 
@@ -115,7 +116,7 @@ if __name__ == "__main__":
     iteration = 1
     tokenizer, model, d2v = emb_utils.load_models(cfg)
     full_embeddings, news_items_with_entities = emb_utils.get_entity_and_sentence_embeddings(
-        naf0,
+        cfg.this_naf_indir(),
         model,
         tokenizer,
         d2v)
@@ -124,6 +125,6 @@ if __name__ == "__main__":
 
     # 4. clustering
     news_items_with_refs, ids = run_embeddings_system(news_items_with_entities, full_embeddings, cfg.graphs_file,
-                                                        cfg.sys_name)
+                                                        cfg.sys_name, cfg)
     # 5. writes to naf
-    nafh.add_ext_references(news_items_with_refs, naf0, "{}/1".format(cfg.naf_dir))
+    nafh.add_ext_references(news_items_with_refs, cfg.this_naf_indir(), cfg.this_naf_outdir())

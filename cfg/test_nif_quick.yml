@@ -1,13 +1,14 @@
 # ----- Data settings -----
-max_documents: 2
+max_documents: 10
 min_text_length: 100              # minimum length of the text in characters
 
-raw_input: some_wrong_path/abstracts_nl35.ttl
+raw_input: data/raw_data/abstracts_nl35.ttl
 
-experiment_dir: tests/data/nif35_2
-corpus_name: nif35
+experiment_dir: data/test_nif_quick
+corpus_name: nif35 # for uri
+
+# switching to False will rely on previous files in naf0
 create_input_nafs: True
-# corpus_name: nif35
 
 # ----- Baselines settings -----
 factors:
@@ -23,7 +24,7 @@ uri_prefix: http://cltl.nl/entity#
 
 # ----- Paths and File names --------
 # (conventional names, you probably will not need to change them)
-models_dir: emb
+models_dir: emb_models
 naf_indir: naf0
 naf_outdir: naf1
 news_items_file: documents.pkl

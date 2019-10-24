@@ -4,7 +4,7 @@ import nl_core_news_sm
 
 def test_load_naf_no_ext_refs():
     """reads a naf file and creates a news item"""
-    naf_file = 'data/test_no_ext_refs.naf'
+    naf_file = 'tests/data/test_no_ext_refs.naf'
 
     news_item = create_news_item_naf(naf_file)
     assert news_item.identifier == 'example-news.html'
@@ -30,7 +30,7 @@ def test_load_naf_no_ext_refs():
 
 def test_load_naf_ext_refs():
     """reads a naf file and creates a news item"""
-    naf_file = 'data/test_ext_refs.naf'
+    naf_file = 'tests/data/test_ext_refs.naf'
 
     news_item = create_news_item_naf(naf_file)
     assert news_item.identifier == 'wiki_1'
@@ -53,7 +53,7 @@ def test_load_naf_ext_refs():
 
 
 def test_load_naf_empty_ext_refs():
-    naf_file = 'data/test_empty_ext_ref.naf'
+    naf_file = 'tests/data/test_empty_ext_ref.naf'
 
     news_item = create_news_item_naf(naf_file)
     entity = news_item.sys_entity_mentions[0]
@@ -68,7 +68,7 @@ def is_same_entity(e_spacy, e_mention):
 
 
 def test_spacy_entities():
-    naf_file = 'data/test_ext_refs.naf'
+    naf_file = 'tests/data/test_ext_refs.naf'
     news_item = create_news_item_naf(naf_file)
     nl_nlp = nl_core_news_sm.load()
     spacy_doc = nl_nlp(news_item.content)
@@ -77,7 +77,7 @@ def test_spacy_entities():
 
     naf = create_naf_from_item(news_item)
     naf = inject_spacy(naf, spacy_doc)
-    naf_out = 'data/test_ext_refs3.naf'
+    naf_out = 'tests/data/test_ext_refs3.naf'
     write_naf(naf, naf_out)
     news_item2 = create_news_item_naf(naf_out)
 
@@ -86,9 +86,9 @@ def test_spacy_entities():
 
 
 def test_naf2items2naf():
-    naf_file = 'data/test_ext_refs.naf'
+    naf_file = 'tests/data/test_ext_refs.naf'
     news_item = create_news_item_naf(naf_file)
-    out_naf = 'data/test_ext_refs2.naf'
+    out_naf = 'tests/data/test_ext_refs2.naf'
     write_naf(create_naf_from_item(news_item), out_naf)
     news_item2 = create_news_item_naf(out_naf)
     assert news_item.has_same_header_and_content(news_item2)

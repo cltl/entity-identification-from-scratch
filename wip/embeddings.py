@@ -16,10 +16,11 @@ def load_models(cfg):
     model = BertModel.from_pretrained(cfg.bert_model)
     print('BERT model loaded')
 
-    d2v = doc2vec.get_doc2vec_model(cfg.emb_dir, cfg.input_dir, force=False)
+    d2v = doc2vec.get_doc2vec_model(cfg, force=False)
     print(d2v.docvecs[0].shape)
     print('Doc2Vec model loaded')
     return tokenizer, model, d2v
+
 
 def get_entity_and_sentence_embeddings(naf_dir, model, tokenizer, doc2vec_model):
     """
@@ -87,5 +88,4 @@ def get_bert_word_and_sentence_embeddings(model, sentence, tokenizer, verbose=Fa
     word_embeddings = embu.get_bert_word_embeddings(tokenized_text, encoded_layers)
     if verbose:
         print('Word embeddings shape', len(word_embeddings), len(word_embeddings[0]))
-    verbose = False
     return word_embeddings, sentence_embeddings, tokenized_text

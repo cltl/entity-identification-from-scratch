@@ -63,21 +63,19 @@ def load_article_from_nif_file(nif_file, corpus_name, limit=1000000):
     return news_items
 
 # Specify your config file here:
-#config_file='cfg/abstracts_nif35.yml'
 config_file='cfg/abstracts50.yml'
 
 cfg = Config(config_file)
 cfg.setup_input()
 
 # Load configuration variables
-max_docs = cfg.max_documents
-min_length=cfg.min_text_length
-
+# min_length = cfg.min_text_length
 
 # Load a number of news items from a NIF file
 news_items = load_article_from_nif_file(cfg.raw_input,
-                                       cfg.corpus_name,
-                                       limit=max_docs or 1000000)
+                                        cfg.corpus_name,
+                                        limit=cfg.max_documents or 1000000)
 
 # Save the news articles to pickle
-pkl.save_news_items('%s/documents.pkl' % cfg.data_dir, news_items)
+print(cfg.news_items_file())
+pkl.save_news_items(cfg.news_items_file(), news_items)

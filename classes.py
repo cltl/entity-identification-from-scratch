@@ -25,6 +25,13 @@ class EntityMention:
         self.identity = identity  # gold link if existing
         self.tokens = tokens  # list of token ids
 
+    def __str__(self):
+        mention_type = "{} - {}".format(self.mention, self.the_type)
+        indices1 = "id {}; sent {}".format(self.sentence, self.eid)
+        indices2 = "tokens {} ({}-{}); offsets {} to {}".format(" ".join(self.tokens), self.begin_index,
+                                                                    self.end_index, self.begin_offset, self.end_offset)
+        return "{}\n{}\n{}; {}".format(mention_type, self.identity, indices1, indices2)
+
 
 class NewsItem:
     """

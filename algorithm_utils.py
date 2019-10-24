@@ -1,5 +1,4 @@
 import networkx as nx
-from pprint import pprint
 import pickle
 import sys
 import itertools
@@ -187,7 +186,7 @@ def generate_graph(data, filename):
     print('Identities in the graph', G.number_of_nodes())
     print('Relations in the graph', G.number_of_edges())
     
-    nx.write_gpickle(G, filename.replace('.pkl', '.graph'))
+    nx.write_gpickle(G, filename)
 
 def get_variable_len_combinations(arr):
     """Get combinations of factors with length 0 to len(arr)"""

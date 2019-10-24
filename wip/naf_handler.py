@@ -1,5 +1,4 @@
 import pathlib
-from sys import path
 import glob
 from KafNafParserPy import KafNafParser
 import re
@@ -7,7 +6,6 @@ from KafNafParserPy.header_data import CHeader, CfileDesc, Clp
 from KafNafParserPy.external_references_data import CexternalReference
 import time
 import nl_core_news_sm
-
 from classes import NewsItem, EntityMention
 
 
@@ -172,7 +170,6 @@ def create_linguistic_processor():
 
 def run_spacy_and_write_to_naf(news_items, naf_dir):
     spacy_nl = nl_core_news_sm.load()
-    pathlib.Path(naf_dir).mkdir(parents=True, exist_ok=True)
 
     for item in news_items:
         naf = create_naf_from_item(item)
@@ -182,8 +179,8 @@ def run_spacy_and_write_to_naf(news_items, naf_dir):
 
 
 def load_naf(naf_dir, item):
-    filename=f_name(naf_dir, item)
-    print(filename)
+    filename = f_name(naf_dir, item)
+    # print(filename)
     return KafNafParser(filename)
 
 
@@ -192,7 +189,6 @@ def f_name(naf_dir, item):
 
 
 def add_ext_references(refined_news_items, naf_dir0, naf_dir1):
-    pathlib.Path(naf_dir1).mkdir(parents=True, exist_ok=True)
     for item in refined_news_items:
         naf = load_naf(naf_dir0, item)
         if item.sys_entity_mentions and naf.entity_layer is not None:
@@ -205,10 +201,9 @@ def add_ext_references(refined_news_items, naf_dir0, naf_dir1):
 
 
 def add_ext_references_gold(refined_news_items, naf_dir0, naf_dir1):
-    pathlib.Path(naf_dir1).mkdir(parents=True, exist_ok=True)
     for item in refined_news_items:
         naf = load_naf(naf_dir0, item)
-        if item.sys_entity_mentions and naf.entity_layer is not None:
+        if item.gold_entity_mentions and naf.entity_layer is not None:
             for e_naf, e_ref in zip(naf.entity_layer, item.gold_entity_mentions):
                 external_ref = CexternalReference()
                 external_ref.set_reference(e_ref.identity)

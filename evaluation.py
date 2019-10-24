@@ -19,6 +19,7 @@ def compute_rand_score(g, s):
 
 
 def evaluate_naf_collection(naf_dir, iteration, entity_layer_str):
+    """TODO load with KafNafParser"""
     sys_source = f'iteration{iteration}'
     gold_links = []
     sys_links = []
@@ -57,9 +58,9 @@ def evaluate_naf_collection(naf_dir, iteration, entity_layer_str):
 # clusters=convert_str_to_int_list(l)
 # print(clusters)
 
-cfg = config.Config('cfg/dbpedia_abstracts100.yml')
+cfg = config.load('cfg/dbpedia_abstracts100.yml')
 iteration = 1
-for s in glob.glob('%s/*' % cfg.sys_dir):
+for s in glob.glob('%s/*' % cfg.experiment_dir):
     print(f'NOW EVALUATING {s}')
     naf_dir = '%s/naf' % s
     evaluation_score = evaluate_naf_collection(f'{naf_dir}/{iteration}', iteration, cfg.naf_entity_layer)
