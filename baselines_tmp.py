@@ -4,7 +4,6 @@ import copy
 import nl_core_news_sm
 from path import Path
 import os.path
-
 import pickle_utils as pkl
 import analysis_utils as analysis
 import algorithm_utils as algorithm
@@ -29,10 +28,6 @@ def run_baseline(factor_combo, news_items_with_entities, naf_folder, el_file, gr
     # ANALYZE IDENTITIES
     ids = analysis.inspect_data(data, graphs_file)
 
-    #naf.add_ext_references_to_naf(data,
-    #                              f'iteration{iteration}',
-    #                              naf_folder / str(iteration - 1),
-    #                              naf_folder / str(iteration))
     nafh.add_ext_references(data, f'{naf_folder}/0', f'{naf_folder}/1')
     return data, ids
 
@@ -74,7 +69,7 @@ if __name__ == "__main__":
         # 2. runs spacy and produces new NAF
         nafh.run_spacy_and_write_to_naf(news_items, naf_dir)
 
-        news_items_with_ner=emb_utils.load_news_items_with_entities(naf_dir)
+        news_items_with_ner=nafh.load_news_items_with_entities(naf_dir)
 
         # ------ Pick identity assumption (Step 3) --------------------
 

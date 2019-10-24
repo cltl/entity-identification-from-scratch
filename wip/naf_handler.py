@@ -1,16 +1,27 @@
 import pathlib
 from sys import path
-
+import glob
 from KafNafParserPy import KafNafParser
-from classes import NewsItem, EntityMention
 import re
 from KafNafParserPy.header_data import CHeader, CfileDesc, Clp
 from KafNafParserPy.external_references_data import CexternalReference
 import time
 import nl_core_news_sm
 
+from classes import NewsItem, EntityMention
+
+
 processor_name = "Entity detection for historical Dutch"
 
+def load_news_items_with_entities(naf_dir):
+    """Load news items from NAF."""
+    news_items = []
+    # load NAF files from the previous iteration
+    file_names = glob.glob("{}/*.naf".format(naf_dir))
+    for doc_index, f in enumerate(file_names):
+        news_item = create_news_item_naf(f)
+        news_items.append(news_item)
+    return news_items 
 
 def get_header_attributes_naf(naf):
     """returns: doc creation time, title, collection, doc id"""
