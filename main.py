@@ -1,3 +1,4 @@
+import sys
 
 from path import Path
 
@@ -94,7 +95,10 @@ def run_embeddings_system(refined_news_items, embeddings, graph_filename, sys_na
 
 if __name__ == "__main__":
 
-    cfg = config.create('cfg/abstracts50.yml')
+    if len(sys.argv) < 2:
+        print("Missing config file argument. Now exiting.")
+        exit(1)
+    cfg = config.create(sys.argv[1])
 
     # ------ Generate NAFs and fill classes with entity mentions (Steps 1 and 2) --------------------
 

@@ -1,6 +1,8 @@
 import pathlib
 import shutil
 import copy
+import sys
+
 import nl_core_news_sm
 from path import Path
 import os.path
@@ -34,7 +36,10 @@ def run_baseline(factor_combo, news_items_with_entities, naf_folder, el_file, gr
 
 if __name__ == "__main__":
 
-    cfg = config.create('cfg/abstracts50.yml')
+    if len(sys.argv) < 2:
+        print("Missing config file argument. Now exiting.")
+        exit(1)
+    cfg = config.create(sys.argv[1])
     # LOAD CONFIG DATA
     all_factors = cfg.factors  # all factors that we will use to distinguish identity in our baseline graphs
     prefix = cfg.uri_prefix
