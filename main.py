@@ -96,7 +96,8 @@ def run_embeddings_system(refined_news_items, embeddings, graph_filename, sys_na
 if __name__ == "__main__":
 
     if len(sys.argv) < 2:
-        print("Missing config file argument. Now exiting.")
+        print("Missing config file argument. Now exiting. Usage:")
+        print("python main.py {config_file}")
         exit(1)
     cfg = config.load(sys.argv[1])
     cfg.create_sysdirs()

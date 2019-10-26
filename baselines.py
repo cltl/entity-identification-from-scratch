@@ -37,7 +37,8 @@ def run_baseline(factor_combo, news_items_with_entities, cfg):
 if __name__ == "__main__":
 
     if len(sys.argv) < 2:
-        print("Missing config file argument. Now exiting.")
+        print("Missing config file argument. Now exiting. Usage:")
+        print("python baselines.py {config_file}")
         exit(1)
     cfg = config.load(sys.argv[1])
     ner_system = cfg.ner
