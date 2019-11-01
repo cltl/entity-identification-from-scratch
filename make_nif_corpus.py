@@ -1,6 +1,7 @@
 from rdflib import Graph, URIRef
-
+import sys
 import pickle_utils as pkl
+
 from config import Config
 import classes
 
@@ -63,9 +64,11 @@ def load_article_from_nif_file(nif_file, corpus_name, limit=1000000):
     return news_items
 
 # Specify your config file here:
-config_file='cfg/test_nif_quick.yml'
-
-cfg = Config(config_file)
+if len(sys.argv) < 2:
+    print("Missing config file argument. Now exiting. Usage:")
+    print("python make_nif_corpus.py {config_file}")
+    exit(1)
+cfg = Config(sys.argv[1])
 cfg.setup_input()
 
 # Load configuration variables

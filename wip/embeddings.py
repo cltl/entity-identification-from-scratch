@@ -78,7 +78,7 @@ def get_entity_and_sentence_embeddings(naf_dir, model, tokenizer, doc2vec_model)
     entity_count = 0
     for v in concat_emb.values():
         entity_count += len(v)
-    print('Collected {} entity embeddings over {} documents'.format(entity_count, doc_index))
+    print('Collected {} entity embeddings over {} documents'.format(entity_count, doc_index+1))
     return full_embeddings, news_items
 
 
