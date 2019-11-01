@@ -46,7 +46,8 @@ def get_entity_and_sentence_embeddings(naf_dir, model, tokenizer, doc2vec_model)
         doc_id = news_item.identifier
         entities = news_item.sys_entity_mentions
 
-        print(sentences)
+
+        offset=1 # offset for sentences after the first one. Starts at 1 because the token IDs start at 1 and not 0.
 
         # Sentence per sentence: run BERT, extract sentence embeddings, extract entity embeddings, and concatenate
         for index, sentence in enumerate(sentences, start=1):
@@ -56,12 +57,14 @@ def get_entity_and_sentence_embeddings(naf_dir, model, tokenizer, doc2vec_model)
 
             our_tokens=sentence_tokens[index-1]
 
-            entity_embeddings, new_offset = align.map_bert_embeddings_to_tokens(bert_tokens,
-                                                                                our_tokens,
-                                                                                entities,
-                                                                                word_embeddings,
-                                                                                verbose)
-            exit(1)
+            entity_embeddings = align.map_bert_embeddings_to_tokens(bert_tokens,
+                                                                    our_tokens,
+                                                                    entities,
+                                                                    word_embeddings,
+                                                                    index,
+                                                                    offset,
+                                                                    verbose)
+            offset+=len(our_tokens)
             # concat_emb maps documents to entities and
             # associates each entity with its embedding and the embedding of the sentence
             for e_id, emb in entity_embeddings.items():

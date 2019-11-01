@@ -1,3 +1,4 @@
+import numpy as np
 from spacy.gold import align
 from collections import defaultdict
 
@@ -28,8 +29,6 @@ def align_bert_to_spacy(bert_tokens, spacy_tokens):
         else:
             bert2spacy[bert_index].append(b2s_multi[bert_index])
             spacy2bert[b2s_multi[bert_index]].append(bert_index)
-    print(bert2spacy)       
-    print(spacy2bert)
     return bert2spacy, spacy2bert
 
 
@@ -37,9 +36,27 @@ def map_bert_embeddings_to_tokens(bert_tokens,
                                     our_tokens,
                                     entities,
                                     bert_embeddings,
+                                    sent_id,
+                                    offset,
                                     verbose):
     print(bert_tokens, our_tokens)
+    bert2our, our2bert=align_bert_to_spacy(bert_tokens, our_tokens)
+    print(bert2our, our2bert)
     entity_embs={}
+    for entity in entities:
+        if entity.sentence != sent_id:
+            continue
+        entity_bert_tokens=[]
+        for our_token in entity.tokens:
+            numeric_id=int(our_token.strip('t')) - offset
+            bert_tokens=our2bert[numeric_id]
+            entity_bert_tokens+=bert_tokens
+
+        print(entity_bert_tokens)
+        embs = np.zeros(len(bert_embeddings[0]))
+        for tid in entity_bert_tokens:
+            embs += np.array(bert_embeddings[tid])
+        entity_embs[entity.eid] = embs
     return entity_embs
 
 if __name__=="__main__":
