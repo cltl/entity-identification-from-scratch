@@ -32,6 +32,17 @@ def align_bert_to_spacy(bert_tokens, spacy_tokens):
     print(spacy2bert)
     return bert2spacy, spacy2bert
 
-bert_tokens=['[CLS]', 'after', '5', 'months', 'and', '48', 'games', ',', 'the', 'match', 'was', 'abandoned', 'in', 'controversial', 'circumstances', 'with', 'ka', '##rp', '##ov', 'leading', 'five', 'wins', 'to', 'three', '(', 'with', '40', 'draws', ')', ',', 'and', 'replay', '##ed', 'in', 'the', 'world', 'chess', 'championship', '1985', '.', '[SEP]']
-spacy_tokens=['after', '5', 'months', 'and', '48', 'games', ',', 'the', 'match', 'was', 'abandoned', 'in', 'controversial', 'circumstances', 'with', 'karpov', 'leading', 'five', 'wins', 'to', 'three', '(', 'with', '40', 'draws', ')', ',', 'and', 'replayed', 'in', 'the', 'world', 'chess', 'championship', '1985', '.']
-results=align_bert_to_spacy(bert_tokens, spacy_tokens)
+
+def map_bert_embeddings_to_tokens(bert_tokens,
+                                    our_tokens,
+                                    entities,
+                                    bert_embeddings,
+                                    verbose):
+    print(bert_tokens, our_tokens)
+    entity_embs={}
+    return entity_embs
+
+if __name__=="__main__":
+    bert_tokens=['[CLS]', 'after', '5', 'months', 'and', '48', 'games', ',', 'the', 'match', 'was', 'abandoned', 'in', 'controversial', 'circumstances', 'with', 'ka', '##rp', '##ov', 'leading', 'five', 'wins', 'to', 'three', '(', 'with', '40', 'draws', ')', ',', 'and', 'replay', '##ed', 'in', 'the', 'world', 'chess', 'championship', '1985', '.', '[SEP]']
+    spacy_tokens=['after', '5', 'months', 'and', '48', 'games', ',', 'the', 'match', 'was', 'abandoned', 'in', 'controversial', 'circumstances', 'with', 'karpov', 'leading', 'five', 'wins', 'to', 'three', '(', 'with', '40', 'draws', ')', ',', 'and', 'replayed', 'in', 'the', 'world', 'chess', 'championship', '1985', '.']
+    results=align_bert_to_spacy(bert_tokens, spacy_tokens)

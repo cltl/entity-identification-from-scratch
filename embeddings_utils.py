@@ -120,7 +120,6 @@ def get_token_embeddings(tokenized_text, encoded_layers):
 
     # For each token in the sentence...
     for token_i in range(len(tokenized_text)):
-
         # Holds 12 layers of hidden states for each token 
         hidden_layers = []
 
@@ -156,13 +155,14 @@ def get_bert_word_embeddings(tokenized_text, encoded_layers):
     return token_vecs_cat
 
 
-def get_bert_embeddings(tokens, model, tokenizer):
+def get_bert_embeddings(text, model, tokenizer):
     """
     Obtain BERT embeddings for a text.
     """
-    text = ' '.join(tokens)
+    print(text)
     marked_text = "[CLS] " + text + " [SEP]"
     tokenized_text = tokenizer.tokenize(marked_text)
+    print(tokenized_text)
 
     indexed_tokens = tokenizer.convert_tokens_to_ids(tokenized_text)
     segments_ids = [1] * len(tokenized_text)

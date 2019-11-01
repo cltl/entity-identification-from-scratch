@@ -88,17 +88,19 @@ def get_sentences(naf_file):
     naf = KafNafParser(naf_file)
     i = 1
     sentences = []
+    sentence_tokens=[]
     s = []
     for wf in naf.text_layer:
         if int(wf.get_sent()) == i:
             s.append(wf.get_text())
         else:
             sentences.append(" ".join(s))
+            sentence_tokens.append(s)
             i += 1
             s = [wf.get_text()]
     sentences.append(" ".join(s))
-    return sentences
-
+    sentence_tokens.append(s)
+    return sentences, sentence_tokens
 
 def create_header(news_item):
     header = CHeader(type="NAF")

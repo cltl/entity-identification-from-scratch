@@ -23,43 +23,6 @@ def patch_classes_with_entities(news_items, naf_dir, entity_layer):
 
     return news_items
 
-
-def load_sentences(naf_dir, iteration, modify_entities=False):
-    """Load sentences from NAF files into a list of lists."""
-    all_sent = []
-    for f in glob.glob('%s/*.naf' % naf_dir):
-        parser = etree.XMLParser(remove_blank_text=True)
-        doc = etree.parse(f, parser)
-
-        root = doc.getroot()
-        s = load_sentences_from_naf(iteration, root, modify_entities)
-        all_sent += s
-    return all_sent
-
-def map_mentions_to_identity(root, naf_entity_layer):
-    """Create a mapping between entity IDs and their identity."""
-    to_replace = {}
-
-    ent_layer = root.find(naf_entity_layer)
-    for e in ent_layer.findall('entity'):
-        # get identity
-        ext_refs = e.find('externalReferences')
-        the_id = ''
-        for er in ext_refs.findall('externalRef'):
-            if er.get('source') == 'iteration%d' % iteration:
-                the_id = er.get('reference')
-
-        # get spans
-        refs = e.find('references')
-        span = refs.find('span')
-        for target in span.findall('target'):
-            t = target.get('id')
-            if target != span.findall('target')[-1]:
-                to_replace[t] = ''
-            else:
-                to_replace[t] = the_id
-    return to_replace
-
 def load_sentences_from_naf(iteration, root, naf_entity_layer, modify_entities):
     """Load sentences from a single NAF file (already loaded). Potentially replace entity mentions with their identity."""
 
@@ -85,6 +48,43 @@ def load_sentences_from_naf(iteration, root, naf_entity_layer, modify_entities):
         old_sent = sent
     sentences.append(current_sentence)
     return sentences
+
+def load_sentences(naf_dir, iteration, modify_entities=False):
+    """Load sentences from NAF files into a list of lists."""
+    all_sent = []
+    for f in glob.glob('%s/*.naf' % naf_dir):
+        parser = etree.XMLParser(remove_blank_text=True)
+        doc = etree.parse(f, parser)
+
+        root = doc.getroot()
+        s = load_sentences_from_naf(iteration, root, modify_entities)
+        all_sent += s
+    print(all_sent)
+    return all_sent
+
+def map_mentions_to_identity(root, naf_entity_layer):
+    """Create a mapping between entity IDs and their identity."""
+    to_replace = {}
+
+    ent_layer = root.find(naf_entity_layer)
+    for e in ent_layer.findall('entity'):
+        # get identity
+        ext_refs = e.find('externalReferences')
+        the_id = ''
+        for er in ext_refs.findall('externalRef'):
+            if er.get('source') == 'iteration%d' % iteration:
+                the_id = er.get('reference')
+
+        # get spans
+        refs = e.find('references')
+        span = refs.find('span')
+        for target in span.findall('target'):
+            t = target.get('id')
+            if target != span.findall('target')[-1]:
+                to_replace[t] = ''
+            else:
+                to_replace[t] = the_id
+    return to_replace
 
 def obtain_entity_data(naf_file, entities_layer_id):
     """Obtain entity data from a NAF file."""
