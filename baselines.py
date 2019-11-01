@@ -12,7 +12,6 @@ import algorithm_utils as algorithm
 import naf_utils as naf
 import config
 import wip.naf_handler as nafh
-import wip.embeddings as emb_utils
 
 
 def run_baseline(factor_combo, news_items_with_entities, cfg):

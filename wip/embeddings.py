@@ -1,7 +1,6 @@
 from collections import defaultdict
 import glob
-import embeddings_utils as embu
-import wip.align_tokens as align
+import bert_utils as embu
 import numpy as np
 from wip import naf_handler as naf
 from pytorch_pretrained_bert import BertTokenizer, BertModel
@@ -57,7 +56,7 @@ def get_entity_and_sentence_embeddings(naf_dir, model, tokenizer, doc2vec_model)
 
             our_tokens=sentence_tokens[index-1]
 
-            entity_embeddings = align.map_bert_embeddings_to_tokens(bert_tokens,
+            entity_embeddings = embu.map_bert_embeddings_to_tokens(bert_tokens,
                                                                     our_tokens,
                                                                     entities,
                                                                     word_embeddings,
