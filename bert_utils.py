@@ -5,8 +5,11 @@ import numpy as np
 import pickle
 from collections import defaultdict
 from spacy.gold import align
+import spacy
 
 import pickle_utils as pkl
+
+#spacy.gold.USE_NEW_ALIGN = True
 
 # ---------- Alignment functions ------- #
 def remove_bertie_stuff(tokens):

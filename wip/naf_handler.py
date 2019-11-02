@@ -176,7 +176,10 @@ def run_spacy_and_write_to_naf(news_items, naf_dir):
     for item in news_items:
         naf = create_naf_from_item(item)
         # item.content may be Literal (from nif corpus creation)
-        naf = inject_spacy(naf, spacy_nl(str(item.content)))
+        str_content=str(item.content)
+        print(str_content)
+        doc_nl=spacy_nl(str_content)
+        naf = inject_spacy(naf, doc_nl)
         write_naf(naf, f_name(naf_dir, item))
 
 
