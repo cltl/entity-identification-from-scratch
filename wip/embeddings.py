@@ -84,7 +84,6 @@ def get_entity_and_sentence_embeddings(naf_dir, model, tokenizer, doc2vec_model)
 def get_bert_word_and_sentence_embeddings(model, sentence, tokenizer, verbose=False):
     """Obtain word and sentence embeddings from BERT."""
     tokenized_text, encoded_layers = embu.get_bert_embeddings(sentence, model, tokenizer)
-    print(tokenized_text)
     # Get sentence embeddings
     sentence_embeddings = embu.get_bert_sentence_embeddings(encoded_layers)
     if verbose:
