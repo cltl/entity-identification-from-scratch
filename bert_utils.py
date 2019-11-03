@@ -9,7 +9,7 @@ import spacy
 
 import pickle_utils as pkl
 
-#spacy.gold.USE_NEW_ALIGN = True
+spacy.gold.USE_NEW_ALIGN = True
 
 # ---------- Alignment functions ------- #
 def remove_bertie_stuff(tokens):
