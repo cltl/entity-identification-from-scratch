@@ -22,28 +22,29 @@ def remove_bertie_stuff(tokens):
 
 def align_bert_to_spacy(bert_tokens, spacy_tokens):
     other_tokens=remove_bertie_stuff(bert_tokens)
-#    print(other_tokens)
-#    other_tokens=bert_tokens
-    cost, b2s, s2b, b2s_multi, s2b_multi = align(other_tokens, spacy_tokens)
-    #print("Misaligned tokens:", cost)  # 2
-    #print("One-to-one mappings bert -> spacy", b2s)  # array([0, 1, 2, 3, -1, -1, 5, 6])
-    #print("One-to-one mappings spacy -> bert", s2b)  # array([0, 1, 2, 3, 5, 6, 7])
-    #print("Many-to-one mappings bert -> spacy", b2s_multi)  # {4: 4, 5: 4}
-    #print("Many-to-one mappings spacy -> bert", s2b_multi)  # {}
-
     bert2spacy=defaultdict(list)
     spacy2bert=defaultdict(list)
-    for bert_index, spacy_index  in enumerate(b2s):
-        #print(bert_index, spacy_index)
-        if spacy_index!=-1:
-            bert2spacy[bert_index].append(spacy_index)
-            spacy2bert[spacy_index].append(bert_index)
-        elif bert_index in b2s_multi.keys():
-            bert2spacy[bert_index].append(b2s_multi[bert_index])
-            spacy2bert[b2s_multi[bert_index]].append(bert_index)
-        else:
-            bert2spacy[bert_index].append(-1)
-            spacy2bert[-1].append(bert_index)
+    try:
+        cost, b2s, s2b, b2s_multi, s2b_multi = align(other_tokens, spacy_tokens)
+        #print("Misaligned tokens:", cost)  # 2
+        #print("One-to-one mappings bert -> spacy", b2s)  # array([0, 1, 2, 3, -1, -1, 5, 6])
+        #print("One-to-one mappings spacy -> bert", s2b)  # array([0, 1, 2, 3, 5, 6, 7])
+        #print("Many-to-one mappings bert -> spacy", b2s_multi)  # {4: 4, 5: 4}
+        #print("Many-to-one mappings spacy -> bert", s2b_multi)  # {}
+
+        for bert_index, spacy_index  in enumerate(b2s):
+            #print(bert_index, spacy_index)
+            if spacy_index!=-1:
+                bert2spacy[bert_index].append(spacy_index)
+                spacy2bert[spacy_index].append(bert_index)
+            elif bert_index in b2s_multi.keys():
+                bert2spacy[bert_index].append(b2s_multi[bert_index])
+                spacy2bert[b2s_multi[bert_index]].append(bert_index)
+            else:
+                bert2spacy[bert_index].append(-1)
+                spacy2bert[-1].append(bert_index)
+    except:
+        pass
     return bert2spacy, spacy2bert
 
 def map_bert_embeddings_to_tokens(bert_tokens,
