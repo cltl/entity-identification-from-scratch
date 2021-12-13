@@ -1,5 +1,5 @@
 rdflib==4.2.2
-lxml==4.6.2
+lxml==4.6.5
 networkx==2.2
 numpy==1.16.2
 gensim==3.4.0
