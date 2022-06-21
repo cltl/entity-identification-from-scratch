@@ -1,7 +1,7 @@
 rdflib==4.2.2
 lxml==4.6.2
 networkx==2.2
-numpy==1.16.2
+numpy==1.22.0
 gensim==3.4.0
 pytorch_pretrained_bert==0.6.2
 spacy==2.2.2
