@@ -9,7 +9,7 @@ matplotlib==3.0.3
 Deprecated==1.2.6
 wikitextparser==0.26.1
 pytest==4.3.1
-scipy==1.1.0
+scipy==1.10.0
 KafNafParserPy==1.896
 python_Levenshtein==0.12.0
 forked_path==0.2.3
